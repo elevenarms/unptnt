@@ -1,0 +1,46 @@
+<div id="header-middle-dashboard" class="container">
+	<div id="profile-bar" class="column span-9 prepend-3">
+	
+		<h1><strong>edit your profile</strong></h1>
+
+	</div>
+
+</div>
+<div id="user-image" class="column span-2">	
+	<% unless @user.user_image_file_name.nil?  then %>
+	  <p><%= image_tag @user.user_image.url,:width=>'50' %></p>
+	<% else%>
+	  <p><img></p>
+	<% end %>
+</div>
+<% @user.password = @user.password_confirmation = nil %>
+
+<%= error_messages_for :user %>
+<% form_for current_user, :html => { :multipart => true }  do |f| -%>
+<p><%= label_tag 'login' %><br/>
+<%= @user.login%></p>
+
+<p><%= label_tag 'full_name' %><br/>
+<%= f.text_field :name %></p>
+
+<p><%= label_tag 'email' %><br/>
+<%= f.text_field :email %></p>
+
+<p><%= label_tag 'password' %><br/>
+<%= f.password_field :password %></p>
+
+<p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
+<%= f.password_field :password_confirmation %></p>
+
+<p>
+   <%= f.label :user_image %><br />
+   <%= f.file_field :user_image %><br />
+   <em>Note: new image replaces old - can only have one.</em>
+</p> 
+
+<p><%= submit_tag 'Save changes' %></p>
+<% end -%>
+
+
+
+

@@ -1,0 +1,26 @@
+<h1>Edit license</h1>
+
+<% form_for(@license, :html => { :multipart => true })  do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+    <%= f.label :license_url %><br />
+    <%= f.text_field :url %>
+  </p> 
+  
+  <p>
+     <%= f.label :license_image %><br />
+     <%= f.file_field :license_image %>
+  </p    
+  
+  <p>
+    <%= f.submit "Update" %>
+  </p>
+<% end %>
+
+<%= link_to 'Back', licenses_path %>

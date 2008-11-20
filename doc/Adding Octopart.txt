@@ -1,0 +1,13 @@
+To DO:
+
+- Add column to Items table for the search string that the user entered.    We should allow search strings that are just items separated by spaces.  The Octopart API wants search items joined by plus-sign (+) so we need to convert.
+- Add part type in Items table.  Values are: electronics, mechanical, unptnt project, tool, code, and custom part.
+- Make the Octopart part objects in-memory Ruby objects, not tied to any database table.
+- Add ability for user to enter search string and get results.
+- Add abiliity for user to chose an Octopart result to associate with this item. 
+- Create Octopart table with all the same info that includes  columns for item_type and the three fields: manufacturer, manufacturer_part_id, and the part_info_url, which is a link to an Octopart page (not the manufacturer).  NOTE we only store selected octo_parts - not all the results.  NOTE also that these octo_part entries are unique to an Item and are not re-used.
+- add colunmn to octo_parts table for keyword string. 
+- Create the octo_part keyword string from the multiple keyword objects that are returned.  Format is key:value; key:value, etc.
+- Item has_one :octo_part and Octo_part :belongs to Item.
+- Add ability for Show and Edit Item that allows for display of current octo_part and selection of a different octo_part.
+- Need to decide how many Octopart results to ask for (default is 10) and whether we want to allow the user to do a "next", i.e. ask for more results for the same search.

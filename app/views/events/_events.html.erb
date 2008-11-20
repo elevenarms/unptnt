@@ -1,0 +1,11 @@
+<ul class="events">
+<% @events.group_by{|e| e.created_at.strftime("%A %B %d") }.each do |day, events_group| -%>
+ 
+    <p class="date"><%= day -%></p>
+    <div class="event_instances">
+      <%= render :partial => events_group -%>
+    </div>
+	
+  
+<% end -%>
+</ul>

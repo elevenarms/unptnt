@@ -1,0 +1,28 @@
+<h1>Listing licenses</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>URL</th>
+    <th></th>
+  </tr>
+
+<% for license in @licenses %>
+  <tr>
+    <td><%=h license.name %></td>
+    <td><%=h license.url %></td>
+    <td><%=h license.license_image %></td>
+    <td><%= link_to 'Show', license %></td>
+    <td>
+      <% if logged_in? %>
+        <%= link_to 'Edit', edit_license_path(license) %>
+      <% end %>
+    </td>
+    <td><%= link_to 'Destroy', license, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New license', new_license_path %>

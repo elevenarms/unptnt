@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title><% unless @project.nil? then%><%= @project.name%><%else%>Unptnt - Make Something! <%end%></title>
+  <%= stylesheet_link_tag "home" -%>    
+  <%= stylesheet_link_tag "blueprint/screen" -%>
+  <%= javascript_include_tag "prototype" %>
+  <%= javascript_include_tiny_mce_if_used %> 
+  <%= tiny_mce if using_tiny_mce? %>
+  <%= javascript_include_tag "scriptaculous" %> 
+  <%= javascript_include_tag "effects" %> 
+  <%= javascript_include_tag "controls" %>
+  <%= javascript_include_tag :defaults %>
+</head>
+<body>
+
+  <div id="content" class="container">
+          <%=@content_for_layout%>
+
+		
+		<script type="text/javascript">
+		var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+		document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+		</script>
+		<script type="text/javascript">
+		var pageTracker = _gat._getTracker("UA-5835310-1");
+		pageTracker._trackPageview();
+		</script>
+  </div>  
+</body>
+</html>

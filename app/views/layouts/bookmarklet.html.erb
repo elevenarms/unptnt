@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>UnPtnt - Make Something!</title>
+  <%= stylesheet_link_tag "base" -%>    
+  <%= stylesheet_link_tag "blueprint/screen" -%>
+  <%= javascript_include_tag "prototype" %>
+  <%= javascript_include_tiny_mce_if_used %> 
+  <%= tiny_mce if using_tiny_mce? %>
+  <%= javascript_include_tag "scriptaculous" %> 
+  <%= javascript_include_tag "effects" %> 
+  <%= javascript_include_tag "controls" %>
+
+</head>
+<body>
+<h2>UnPtnt bill of materials magic window</h2>
+      <%=@content_for_layout%>
+
+</body>
+</html>

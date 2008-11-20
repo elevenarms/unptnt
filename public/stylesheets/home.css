@@ -1,0 +1,121 @@
+body{
+background: #6091d7;
+}
+a{
+	color:white;
+	text-decoration: none;
+	
+}
+/* LOGIN */
+#loginbox{
+	margin-top:120px;
+	width:550px;
+	height:400px;
+	background:transparent url('/images/loginbulb.png') no-repeat;
+}
+#loginbox h1{
+	color:white;
+}
+#loginform{
+	position: relative;
+	left:50px;
+	top:85px;
+}
+#loginform input{
+	font-size:2em;
+	
+	
+}
+#bottom{
+	color:white;
+}
+#bottom h3{
+	color:white;
+}
+#bottom a{
+	color:white;
+}
+#title h1{
+	color:white;
+}
+
+#searchcontainer{
+	margin-top:1.5em;
+}
+#search{
+	color:white;
+}
+h2 a{
+	color:white;
+	text-decoration: none;
+}
+#text{
+	margin-top: 3px;
+	font-size:2em;
+	width:550px;
+}
+#searchbutton{
+	padding-left:10px;
+	position: absolute;
+	margin-top: 0px;
+}
+#or{
+	color:white;
+	height:70px;
+	font-size:2em;
+	margin-top:35px;
+	padding-top:15px;
+	padding-left:22px;
+	background:transparent url('/images/choosehome.png') no-repeat;
+	
+}
+#or a{
+	color:white;
+}
+#logo{
+	margin-top:2em;
+}
+#topmenu{
+	margin-top:2em;
+	color:white;
+}
+#topmenu li{
+	margin-right:25px;
+	float:left;
+	height:28px;
+	list-style-type:none;
+	display: inline;
+  	margin-right: 20px;
+}
+#topmenu a{
+color:white;
+text-decoration: none;
+}
+#topmenu a:hover {
+border-bottom: 1px dashed white;
+text-decoration: none;
+}
+#footer{
+
+}
+#footermenu{
+	background: #4d4d4d;
+	margin-top:2em;
+	color:white;
+}
+#footermenu li{
+	margin-right:25px;
+	float:left;
+	height:28px;
+	list-style-type:none;
+	display: inline;
+  	margin-right: 20px;
+}
+#footermenu a{
+color:white;
+text-decoration: none;
+}
+#footermenu a:hover {
+border-bottom: 1px dashed white;
+text-decoration: none;
+}

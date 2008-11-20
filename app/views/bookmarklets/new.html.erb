@@ -1,0 +1,41 @@
+<% unless flash[:error].nil?  then %>
+  <h3>ERROR:<br /> <%= flash[:error] %></h3>
+<% end %>
+<p>Select your project to which the item will be added:</p>
+
+
+<% form_for @item, :url => {:action => 'create' }, :method => "POST" do |f| %>
+  <%= f.error_messages %>
+
+  <%=select_tag "project_id", options_for_select([["-- Select a Project --", ""]] + @projects.collect {|p| [p.name, p.id]}) %> 
+
+  <p>
+    <%= f.label :item_type %><br />
+    <%= f.select :item_type, @item_types %>
+  </p> 
+  
+  <p>
+    <%= f.label :quantity %><br />
+    <%= f.text_field :quantity %>
+  </p>  
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+    <%= f.label :info_url %><br />
+    <%= f.text_field :info_url %>
+  </p>
+  
+
+  <%= hidden_field_tag(:s, @s) %>
+  <%= hidden_field_tag(:t, @t) %>
+  <%= hidden_field_tag(:u, @u) %>
+  <%= hidden_field_tag(:v, @v) %>  
+  
+  <p>
+    <%= f.submit "Add item" %>
+  </p>
+<% end %>

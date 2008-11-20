@@ -1,0 +1,13 @@
+<%  if logged_in? && current_user.relationship(project) == "none" then %>
+    <em><span id="follow_project"><%= link_to_remote "Follow this project", 
+            :url => {:action=>"follow_project", :controller=>"people", :id => project } %></span> </em>
+  <% elsif logged_in? && current_user.relationship(project) == "follower" then %>
+    <em><span id="stop_following_project">You are following this project: <%= link_to_remote " stop" ,
+           :url => {:action=>"stop_following_project", :controller=>"people", :id => project } %></span> </em>
+  <% elsif logged_in? && current_user.relationship(project) == "collaborator" then %>
+    <em><span id="stop_following_project">You are collaborating on this project: <%= link_to_remote " stop",
+            :url => {:action=>"stop_following_project", :controller=>"people", :id => project } %></span> </em>   
+  <% elsif logged_in? and current_user.relationship(project) == "owner" %>
+    <em>You are project owner: <%= link_to " add collaborator", :controller => "people", :action => 'add_collaborator', :id => project.id  %> </em> 
+  <% end %>
+  

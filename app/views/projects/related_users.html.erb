@@ -1,0 +1,62 @@
+<div id="header-bottom" class="span-24">
+	<ul id="context-menu">
+		<% if !logged_in? || ( logged_in? && current_user.relationship(@project) == "none" ) then  %>
+	    <li><h4><strong><%= link_to "Follow this project", follow_project_path(@project)  %></strong></h4></li> 
+	  <% end %>
+	  <% if logged_in? && current_user.relationship(@project) == "follower" then %>
+	    <li><h4><strong>You are following this project: <%= link_to " stop", stop_following_project_path(@project) %></strong></h4></li> 
+	  <% elsif logged_in? && current_user.relationship(@project) == "collaborator" then %>
+	    <li><h4><strong>You are collaborating on this project: <%= link_to " stop", stop_following_project_path(@project) %></strong></h4></li>  
+	  <% elsif logged_in? and current_user.relationship(@project) == "owner" %>
+	    <li><h4><strong>You are project owner: <%= link_to " add collaborator", add_collaborator_project_path(@project)  %></strong></h4></li> 
+	  <% end %>
+
+	</ul>	
+</div>
+<div class="container">
+<div id="people-owner" class="column span-2">
+	<h4>owner</h4>
+	</div>
+<div class="column span-1">
+  	
+	
+  <% unless @related_users[:owner].user_image_file_name.nil?  then %>
+    <%= link_to(image_tag(@related_users[:owner].user_image.url(:thumb), :size => "40x40"), @related_users[:owner]) %>
+  <% else %>
+  <%= link_to(image_tag("/images/nouserimg.png", :size => "40x40"), @related_users[:owner]) %>
+  <% end %>
+  <%=h @related_users[:owner].name %> (<%= link_to @related_users[:owner].login, @related_users[:owner] %>)
+</div>
+
+<div id="people-collab" class="column span-3">
+	<h4>collaborators</h4>
+	</div>
+	<% @related_users[:collaborators].each do |c| %>
+  <div class="column span-1">
+    <% unless c.user_image_file_name.nil?  then %>
+      <%= link_to(image_tag(c.user_image.url(:thumb), :size => "40x40"), c) %>
+    <% else %>
+    <%= link_to(image_tag("/images/nouserimg.png", :size => "40x40"), c) %>
+    <% end %>
+    <%=h c.name %> (<%= link_to c.login, c %>)
+  <% if logged_in? && @related_users[:owner].id == current_user.id then %>
+     <%= link_to "remove", :action => 'remove_collaborator', :id => @project.id, :userid => c.id %>
+  <% end %>
+  </div>
+<% end %>
+
+<div id="people-followers" class="column span-2">
+	<h4>followers</h4>
+	</div>
+	<% @related_users[:followers].each do |f| %>
+  <div class="column span-1">
+    <% unless f.user_image_file_name.nil?  then %>
+      <%= link_to(image_tag(f.user_image.url(:thumb), :size => "40x40"), f) %>
+    <% else %>
+    <%= link_to(image_tag("/images/nouserimg.png", :size => "40x40"), f) %>
+    <% end %>
+    <%=h f.name %> (<%= link_to f.login, f %>)
+  </div>
+<% end %>
+</div>
+<%= link_to "Back to project page",  @project %>

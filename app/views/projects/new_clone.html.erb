@@ -1,0 +1,35 @@
+
+<h1>New clone of <%= @parent_project.name %>  </h1>
+
+<% form_for(@project, :html => { :multipart => true }) do |f| %>
+  <%= f.error_messages %>
+
+
+    <%= f.hidden_field :project_type, :value => @parent_project.project_type %>
+  <p>
+    <%= f.label :name %><br />
+    <% namestring = "Clone of " + @parent_project.name %>
+    <%= f.text_field :name, :value => namestring %>
+  </p>
+    <%= f.hidden_field :description, :value => @parent_project.description %>
+
+     <%= f.hidden_field :status, :value => "" %>
+
+
+    <%= f.hidden_field :license_id, :value => @parent_project.license_id %>
+
+
+<% fields_for :tags do |t| %>
+       <%= t.hidden_field :keywords_list, :value => @parent_project.keyword_list %>
+  
+  <% end %>
+  
+  <p>
+    <%= f.submit "Confirm create clone" %>
+  </p>
+  <%= hidden_field_tag :parent_projectid, @parent_project.id %>
+<% end %>
+
+<%= link_to 'Back', projects_path %>
+
+

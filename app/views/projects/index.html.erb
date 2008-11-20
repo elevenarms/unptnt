@@ -1,0 +1,39 @@
+<div id="header-middle" class="span-24">
+	<div id="tab-bar" class="column prepend-4">
+
+	</div>
+</div>
+<div id="header-bottom" class="span-24">
+<div class="column span-4"><h3><strong>projects<strong></h3></div>
+	<% if logged_in?%>
+	<div id="new-project-button" class="prepend-16 column">
+	<%= link_to image_tag('newprojectbutton.png'), new_project_path %>
+	</div>
+	<%end%>
+</div>
+
+<div id="projects-show" class="column span-16 prepend-3">
+<p>
+<table>
+<% for project in @projects %>
+  <tr>
+    <td>
+	<% unless project.project_image_file_name.nil?  then %>
+		
+		<p><%= link_to(image_tag(project.project_image.url, :width => "75"), project) %></p>
+	
+	<% else%>
+		<p><%= link_to(image_tag("/images/noimgprojectlarge.png", :width => "45"), project) %></p>	
+	<% end %>
+	<h3><%= link_to( project.name.slice(0,30) , project)%></h3>
+	<%= project.owner%>
+	<%=h strip_tags(project.description).slice(0,50) unless project.description.nil? %> 
+	</td>
+
+
+  </tr>
+<% end %>
+</table>
+</div>
+<%= will_paginate @projects , :class=>"apple_pagination span-24" %>
+

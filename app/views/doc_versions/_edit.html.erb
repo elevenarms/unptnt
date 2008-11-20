@@ -1,0 +1,18 @@
+
+<% remote_form_for(doc_version) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :title %>
+  </p>
+
+    <%= f.label :content %><br />
+    <%= f.text_area :content, :size => "700x40" %>
+
+    <%= hidden_field_tag :itemidnum, item_id %>
+    <%= hidden_field_tag :projectidnum, project_id %>
+    <%= hidden_field_tag :home_page, home_page %>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>

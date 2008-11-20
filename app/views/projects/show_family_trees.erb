@@ -1,0 +1,16 @@
+<h3>Show family trees for project: <%= @project.name %></h3>
+<% @family_trees.each do |members| %>
+  <% space = "" %>
+  <% last_rt = members[0].rt %>
+  <% last_lft = members[0].lft %>
+  <% members.each do |m|  %>
+    <% unless m.lft == (last_rt + 1 ) || m.relationship_type == 'root' then %>
+      <% space = space + "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" if m.lft == last_lft + 1 %>
+      <% space.slice!("&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;") if m.lft >  last_rt %>
+
+    <% end %>
+    <%= space %>Project: <%= link_to m.project.name, m.project %><br />
+    <% last_rt = m.rt %>
+    <% last_lft = m.lft %>    
+  <% end %>
+<% end %>

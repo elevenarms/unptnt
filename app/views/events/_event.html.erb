@@ -1,0 +1,26 @@
+<% action, body, category = action_and_body_for_event(event) %>
+<li class="event_instance">
+ <p class="event_category <%= category -%>"><%= category.humanize -%></p>
+  	
+
+
+  
+
+ 
+<div class="event_meta">
+    <div class="event_user">
+	<% unless event.user.user_image_file_name.nil?  then %>
+	  <%= image_tag event.user.user_image.url,:height=>'45',:width=>'45' %>
+	<% else%>
+	  <%= image_tag ('avatar.gif'),:height=>'45',:width=>'45' %>
+	<% end %>
+	</div>
+	<div class="event_action">
+    <% unless action.empty? %>
+      <%= link_to event.user.name %> 
+      <%= action %> 
+    <% end %>
+
+  </div>  
+  </div>
+</li>

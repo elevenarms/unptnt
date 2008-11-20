@@ -1,0 +1,6 @@
+---
+  :address: smtp.gmail.com
+  :port: 587
+  :user_name: robot@unptnt.com 
+  :password: 54uybce9*
+  :authentication: :plain

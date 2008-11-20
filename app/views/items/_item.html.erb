@@ -1,0 +1,18 @@
+<div class="bom_item">
+  
+  <tr>
+    <% span_for item do  %>
+      <td><%=h item.quantity %></td>
+      <td><%=h item.item_type %></td
+      <td><%=h item.name %></td>
+      <td><%= auto_link(item.info_url) %></td>
+    <% end %>  
+    <td><em><%= link_to_remote 'show', :url => bom_item_path(@bom, i), :method => :get, 
+            :update => dom_id(item) %></em></td>
+    <% if logged_in? && current_user.is_editor?(@bom.project) then %>
+      <td><em><%= link_to 'edit', edit_bom_item_path(@bom, item) %></em></td> 
+      <td><em><%= link_to 'delete', [@bom, item], :confirm => 'Are you sure?  This action is FINAL and cannot be undone.', :method => :delete %></em></td>
+    <% end %> 
+  <% end %>
+</tr>  
+</div>

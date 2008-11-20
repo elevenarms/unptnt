@@ -1,0 +1,24 @@
+<h3>Search Results</h3>
+<p>Number of results: <%= @search.response[:total] %></p>
+
+<% @search.results.each do |r|  %>
+  <% if r.class.to_s == 'Project' then %>
+    Project: <%= r.name %>
+    <em><%= link_to 'show', :controller => 'projects', :action =>'show', :id => r.id %></em>
+    <br />
+
+  <% elsif r.class.to_s == 'Item' then %>
+    Item: <%= r.name %>
+    <em><%= link_to 'show', :controller => 'items', :action =>'show', :id => r.id, :bom_id => r.bom_id %></em>
+    <br />
+    
+    <% elsif r.class.to_s == 'DocVersion' then %>
+    Document(Version): <%= r.name %> (<%= r.version %>)
+    <em><%= link_to 'show', project_doc_version_path([r.project_id, r.id]) %></em>
+    <br />
+    
+  <% else %> 
+      <%= r.class %>:   <%= r.name %><br />
+  <% end %>
+
+<% end %>

@@ -1,0 +1,11 @@
+Name:<br />
+<%=  @license.name %><br /><br />
+URL: <br />
+<%=  @license.url %><br /><br />
+
+  
+	<% unless @license.license_image_file_name.nil?  then %>
+	  <p><%= image_tag @license.license_image.url,:width=>'150' %></p>
+	<% else%>
+	  <p><img></p>
+	<% end %>

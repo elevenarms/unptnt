@@ -1,0 +1,35 @@
+
+
+<table>
+  <tr>
+    <th>Title</th>
+    <th>Version Num</th>
+    <th>Editor</th>
+    <th>Last Edited At</th>
+    <th>Num Edits</th>
+  </tr>
+  <% for doc_version in @doc_versions %>
+    <tr>
+      <td><%=h doc_version.title %></td>
+      <td><%=h doc_version.version_num %></td>
+      <td><%=h User.find(doc_version.editor_id).name %></td>
+      <td><%=h doc_version.last_edited_at %></td>
+      <td><%=h doc_version.num_edits %></td>
+      <td><%= link_to "Show", doc_version %></td>
+      <td><%= link_to "Edit", edit_doc_version_path(doc_version) %></td>
+      <td><%= link_to "Destroy", project_doc_version_path(@project, doc_version), :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<% if @domain == "item" %>
+<br />
+<%= link_to "Back to item: #{@item.name }", @item unless @item.nil? %><br />
+<p><%= link_to "Create new Document", new_item_doc_version_path(@item), :domain => @domain %></p> <br />
+<% end %>
+
+<% if @domain == "project" %>
+<br />
+<%= link_to "Back to project: #{@project.name }", @project %><br />
+<p><%= link_to "Create new document for this project", new_project_doc_version_path(@project), :domain => @domain %></p> <br />
+<% end %>

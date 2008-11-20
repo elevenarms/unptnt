@@ -1,0 +1,75 @@
+
+<h1>Editing project</h1>
+
+<% form_for(@project, :html => { :multipart => true }) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  
+    <p>
+    <%= f.label :description %><br />
+    <%= f.text_field :description %>
+  </p>
+  
+   <p>
+     <%= f.label :status %><br />
+     <%= f.text_field :status %>
+  </p> 
+  
+  <p>
+     <%= f.label :proj_types %><br />
+     <%= f.select :project_type, @project_types %>
+  </p> 
+
+  <p>
+    <%= f.label :license %><br />
+    <%= f.select :license_id, [["-- Select a License --", ""]] + @licenses.collect {|el| [el.name, el.id]} %>
+  </p>    
+  
+  <p>
+     <%= f.label :project_image %><br />
+     <%= f.file_field :project_image %><br />
+     <em>Note: new image replaces old - can only have one.</em>
+  </p> 
+
+  <h3>Tags</h3>
+  <p><em>Enter multiple tags, separated by commmas</em></p>
+  <p><% fields_for :tags do |t| %>
+
+    <p>
+       <%= t.label :keywords %><br />
+       <%= t.text_field :keyword_list %>
+    </p>    
+  <% end %></p> 
+  
+   <% fields_for :doc_version do |dv| %>  
+    <p>
+      <%= dv.label :title %><br />
+      <%= dv.text_field :title %>
+    </p>
+
+      <%= dv.label :content %><br />
+      <%= dv.text_area :content, :size => "700x40", :class => "mceEditor" %>
+  <% end %><br />  
+  <%= hidden_field_tag :itemidnum, 0 %>
+  <%= hidden_field_tag :home_page, true %> 
+
+  <p>
+    <%= f.submit "Update", :class => 'button positive' %>
+  </p>
+<% end %>
+<em><%= link_to 'Cancel edit', projects_path %><br /></em>
+
+<% unless @project.project_image_file_name.nil?  %>
+  <h3>Image:</h3>
+  <p><%= image_tag @project.project_image.url %></p>
+<% end %>
+
+<% if @project.bom.nil? then %>
+    <%= link_to 'Create BOM', new_project_bom_path(@project) -%> |
+<% else %>
+    <%= link_to 'Show BOM', @project.bom -%> |
+<% end %>

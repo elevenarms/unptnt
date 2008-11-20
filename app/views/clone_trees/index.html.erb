@@ -1,0 +1,23 @@
+<% title "Clone Trees" %>
+
+<table>
+  <tr>
+    <th>Project</th>
+    <th>Lft</th>
+    <th>Rt</th>
+    <th>Rootnode</th>
+  </tr>
+  <% for clone_tree in @clone_trees %>
+    <tr>
+      <td><%=h clone_tree.project_id %></td>
+      <td><%=h clone_tree.lft %></td>
+      <td><%=h clone_tree.rt %></td>
+      <td><%=h clone_tree.rootnode %></td>
+      <td><%= link_to "Show", clone_tree %></td>
+      <td><%= link_to "Edit", edit_clone_tree_path(clone_tree) %></td>
+      <td><%= link_to "Destroy", clone_tree, :confirm => 'Are you sure?', :method => :delete %></td>
+    </tr>
+  <% end %>
+</table>
+
+<p><%= link_to "New Clone Tree", new_clone_tree_path %></p>

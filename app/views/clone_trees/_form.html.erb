@@ -1,0 +1,21 @@
+<% form_for @clone_tree do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :project_id %><br />
+    <%= f.text_field :project_id %>
+  </p>
+  <p>
+    <%= f.label :lft %><br />
+    <%= f.text_field :lft %>
+  </p>
+  <p>
+    <%= f.label :rt %><br />
+    <%= f.text_field :rt %>
+  </p>
+  <p>
+    <%= f.label :rootnode %><br />
+    <%= f.text_field :rootnode %>
+  </p>
+  <p><%= f.submit "Submit" %></p>
+<% end %>

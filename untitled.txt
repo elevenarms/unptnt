@@ -1,0 +1,12 @@
+<h3>Bill of Materials</h3>
+<div>
+  <% if @project.bom.nil? then %>
+      <%= link_to 'No BOM yet - create one', new_project_bom_path(@project) -%>
+  <% else %>
+      <%= link_to 'Show BOM', bom_items_path(@project.bom) -%>
+  <% end %>
+</div><br />
+
+
+<span id="proj_links"><%= render :partial => "/projects/project_links", :locals => {:project => @project} %>
+</span>

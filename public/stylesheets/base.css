@@ -1,0 +1,386 @@
+body{
+background: #white;
+}
+#superheader {
+background: #F26B1D none repeat scroll 0 0;
+/*background: #F26B1D none repeat scroll 0 0;
+height:60px;
+border-bottom: solid #D9C043;
+left:0;
+opacity:1;
+position:relative;
+width:100%;
+z-index:2;*/
+}
+
+#header{
+  background:white none repeat scroll 0 0;
+}
+#header-top{
+	height:35px;
+	background: none none repeat scroll 0 0;
+	
+}
+#header-top h4{
+	padding-top:10px;
+	text-align:center;
+}
+#header-middle{
+	background: #F26B1D none repeat scroll 0 0;
+	height:50px;
+}
+#header-bottom{
+	background:#A6351C none repeat scroll 0 0;
+	height:40px;
+}
+#header-bottom h3{
+	padding-top:10px;
+	padding-left:120px;
+	color:white;
+}
+#header-middle-dashboard{
+	background: #6091D7 none repeat scroll 0 0;
+	height:110px;
+}
+#header-bottom-dashboard{
+	background:#6091D7 none repeat scroll 0 0;
+	height:40px;
+}
+#logo{
+    background:transparent; 
+	position:absolute;
+	
+}
+#profile-bar{
+	padding-top:18px;
+	color:white;
+}
+#profile-bar h3{
+	color:white;
+	margin-bottom:.5em;
+}
+#profile-bar a{
+	color:white;
+}
+#tab-bar{
+	padding-top:22px;
+}
+#tab-bar li{
+	margin-right:25px;
+	float:left;
+	height:28px;
+	list-style-type:none;
+}
+
+#tablist li {
+  display: inline;
+  margin-right: 20px;
+}
+#tablist li.secondary {
+  margin-right: 5px;
+  color: #666;
+}
+#tablist li a { 
+  padding-top:5px;
+  font-size: 14px;
+  color: black;
+  text-decoration: underline;
+
+}
+
+#tablist li.secondary a { 
+ font-size: 11px; 
+}
+
+#tablist li a:hover {
+  text-decoration: none;
+}
+.bomtypebar{
+
+}
+.bomtypebar h3{
+	position:relative;
+	left:45px;
+	top:45px;
+	color:white;
+}
+
+.tab{
+	background:transparent url('/images/tab2.png') ;
+	width:102px;
+	height:28px;
+
+}
+.tab-selected{
+	background:transparent url('/images/tab2selected.png') ;
+	width:102px;
+	height:28px;
+}
+.tab-selected h4{
+	padding-top:5px;
+	text-align:center;
+	color:white;
+}
+
+.tab h4{
+	padding-top:5px;
+	text-align:center;
+}
+#dashboard-projects-c{
+	padding-top:20px;
+
+}
+#dashboard-projects{
+	margin-left:20px;
+	width:829px;
+	height:43px;
+	background:transparent url('/images/projectbar.png');
+}
+#dashboard-projects h3{
+	padding-top:10px;
+	color:white;
+}
+.project-box{
+	height:130px;
+	width:130px;
+	background:transparent url('/images/projectbox.png');
+}
+.project-box img{
+	
+}
+.project-box a{
+	
+	
+}
+#dashboard-feed-c{
+	padding-top:20px;
+
+}
+#dashboard-feed{
+	margin-left:20px;
+	width:829px;
+	height:43px;
+	background:transparent url('/images/feedbar.png');
+}
+#dashboard-feed h3{
+	padding-top:10px;
+	color:white;
+}
+#project-addinfo{
+	margin-left:20px;
+	width:860px;
+	height:46px;
+	background:transparent url('/images/projectaddinfobar.png');
+	margin-bottom:10px;
+	border-bottom:none;
+}
+#project-addinfo h3{
+	padding-left:45px;
+	padding-top:12px;
+	color:white;
+}
+#context-menu{
+	padding-top: 0px;
+	color:white;
+}
+#context-menu li{
+	margin-top:8px;
+	margin-right:25px;
+	float:left;
+	list-style-type:none;
+}
+#context-menu h4 a{
+	color:white;
+	font-size:1.2em;
+	height:1.25em;
+	line-height:1;
+	margin-bottom:0em;
+	margin-right:.5em;
+	text-decoration: none;
+  
+}
+#feed-bar{
+	background:transparent url('/images/feedbar.png') ;
+	width:770px;
+	height:22px;
+}
+#feed-bar h3{
+	color:white;
+	padding-left:15px;
+}
+
+#items {
+  position:relative;
+  left:50px;
+  bottom:10px;
+}
+
+#status{
+  padding: 5px;
+}
+#status h4{
+  padding: 0px;
+}
+
+#project-master{
+
+}
+#project-subheader{
+	border: 5px;
+	padding-top:0px;
+
+}
+#project-subheader h3{
+	padding:3px;
+	text-align:center;
+	color:black;
+	border:dashed 2px;
+}
+#projects-show{
+}
+#project-header{
+	background: white;
+	padding-top:10px;
+}
+#project-image{
+padding-left:15px;
+}
+#project-image img{
+	
+	border:solid 5px #6091d7;
+}
+
+#project-name{
+  padding: 10px;
+}
+#project-description{
+  padding-left: 10px;
+}
+#project-details{
+  padding-left: 5px;
+}
+#project-details h1{
+  margin-bottom: 5px;
+}
+#project-details h4{
+  margin-bottom: 5px;
+}
+#project-details h5{
+  margin-bottom: 5px;
+}
+#people-owner{
+	padding-top:4px;
+	margin-right:0px;
+	background: cyan;
+	text-align:center;
+}
+#people-collab{
+	padding-top:4px;
+	margin-right:0px;
+	background: blue;
+	text-align:center;
+}
+#people-followers{
+	padding-top:4px;
+	margin-right:0px;
+	background: green;
+	text-align:center;
+}
+/*Bookmarklet*/
+#bookmarklet{
+	background:transparent url('/images/bookmarkletbox.png') no-repeat;
+	width:340px;
+	height:170px;
+}
+#bookmarklet_button{
+	position:relative;
+	left:175px;
+	top:75px;
+}
+/* EVENTS */
+#events-container{
+	padding-top:25px;
+	margin-left:20px;
+}
+.events li {
+	list-style-image:none;
+	list-style-position: outside;
+	list-style-type:none;
+}
+.events .date {
+  background: #1e438f;
+  padding: 5px 10px 3px 10px;
+  color: white;
+  text-transform: lowercase;
+  font-size: 13px;
+}
+
+.events .event_instances {
+  margin: 0;
+	
+}
+
+.events .event_instances strong { 
+  color: #555; 
+}
+
+.events .event_instance .event_date {
+  float: left;
+  width: 80px;
+  text-align: center;
+  padding-top: 5px;
+  font-size: 11px;
+  color: #898989;
+}
+.events .event_instance img {
+  margin-bottom: 5px;
+}
+.events .event_user{
+	vertical-align:middle;
+}
+.events .event_action{
+	position: relative;
+	left:50px;
+	top:-40px;
+}
+
+.events .event_instance .event_meta p { padding: 0; margin: 0;}
+.events .event_instance .event_meta {
+  margin: 0 50px 5px 100px;
+}
+
+.events .event_instance .event_category {
+  float: left;
+  min-width: 80px;
+  text-align: center;
+  padding: 2px 5px 0 5px;
+  font-size: 11px;
+  text-transform: lowercase;
+  color: #fff;
+  background: #b6babc;
+  margin-top:10px;
+}
+
+.event_instance .event_category.materials { background: #80A13A; }
+.event_instance .event_category.project  { background: #E37229; }
+.event_instance .event_category.merge_request { background: #a2a498; }
+
+/* pagination */
+.apple_pagination {
+  background: #F1F1F1;
+  border: 1px solid #E5E5E5;
+  text-align: center;
+  padding: 1em; }
+  .apple_pagination a, .apple_pagination span {
+    padding: .2em .3em; }
+  .apple_pagination span.disabled {
+    color: #AAA; }
+  .apple_pagination span.current {
+    font-weight: bold;
+    background: transparent url(/images/apple-circle.gif) no-repeat 40% 40%; }
+  .apple_pagination a {
+    text-decoration: none;
+    color: black; }
+    .apple_pagination a:hover, .apple_pagination a:focus {
+      text-decoration: underline; }
+

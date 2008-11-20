@@ -1,0 +1,2 @@
+page.replace_html 'proj-doc', :partial => 'show', 
+    :locals => { :doc_version => @doc_version }

@@ -1,0 +1,46 @@
+
+
+
+<div id="header-bottom" class="span-24">
+	<ul id="context-menu">
+		<li>
+			<h4>
+			<% if logged_in? && current_user.is_editor?(@project) then %>
+		  		<%= link_to 'edit', edit_project_path(@project) -%>
+			<% end %>
+                        <% if logged_in? then %>
+		  		<%= link_to '    clone (alpha!)', project_path(@project) , :confirm=>"we're still working on this..." -%>
+			<% end %>
+		</h4>
+		</li>
+	</ul>	
+</div>
+
+
+<div id="project-master" class="contatiner">
+
+<div id="project-header" class="container">
+  <div id="proj-image" class="column span-5">
+    <%= render :partial => '/images/show_in_project', :locals => { :project => @project } %>
+  </div>
+  <div class="column span-16 last">
+    <div id="status-containter" class="column span-18 last">
+      <div id="proj-details">
+        <%= render :partial => 'show', :locals => { :project => @project, :related_users => @related_users } %>
+      </div>
+      <div id="proj-doc">
+        <% if @doc_version.nil? then %>
+          Click
+          <%= link_to_remote "here", :url => new_project_doc_version_path(@project),:method => :get %>
+          to create an introductory document for this project
+        <% else %>
+            <%= render :partial => 'doc_versions/show', 
+              :locals => { :doc_version => @doc_version, :project_id => @project.id, 
+              :item_id => 0, :home_page => true } %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+</div>

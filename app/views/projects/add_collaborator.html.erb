@@ -1,0 +1,7 @@
+<h3>Select user to add as a collaborator to project: <%= @project.name %></h3>
+<% form_tag :controller => 'projects', :action => 'create_collaborator' do %>
+    <%= hidden_field_tag :projectid, @project.id %>
+    <p><%= label_tag 'select_a_collaborator' %><br />
+    <%=select_tag "userid", options_for_select([["-- Select a User --", ""]] + @users.collect {|u| [u.login, u.id]}) %> 
+    <p><%= submit_tag 'Add user' %></p>
+<% end %>

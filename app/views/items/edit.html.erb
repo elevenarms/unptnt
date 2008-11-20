@@ -1,0 +1,67 @@
+
+<h3>Project: <%= @bom.project.name  %> </h3>
+<h3>Edit item</h3>
+
+<% form_for([@bom, @item], :html => { :multipart => true })  do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :item_type %><br />
+    <%= f.select :item_type, @item_types %>
+  </p> 
+  
+  <p>
+    <%= f.label :quantity %><br />
+    <%= f.text_field :quantity %>
+  </p>  
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+    <%= f.label :info_url %><br />
+    <%= f.text_field :info_url %>
+  </p>
+  
+  <p>
+     <%= f.label :item_image %><br />
+     <%= f.file_field :item_image %><br />
+      <em>Note: new image replaces old - can only have one.</em>
+  </p>  
+  
+  <% unless @file_attachments.empty? then %>
+    Attached files:<br />
+    <% for file_attachment in @file_attachments -%>
+      <%= link_to image_tag(file_attachment.public_filename(:thumb)), file_attachment.public_filename %><br />
+    <% end -%>  
+  <% end %><br />
+
+  <% fields_for :file_attachment do |a| %>
+    <p>
+      <label for="file_attachment">Upload a file:</label><br />
+      <%= a.file_field :uploaded_data %>
+    </p> 
+  <% end %> 
+
+  <% fields_for :doc_version do |dv| %>  
+    <p>
+      <%= dv.label :title %><br />
+      <%= dv.text_field :title %>
+    </p>
+      <%= dv.label :content %><br />
+      <%= dv.text_area :content, :size => "700x40", :class => "mceEditor" %>
+  <% end %><br />  
+  <%= hidden_field_tag :itemidnum, @item.id %> 
+   
+  <p>
+    <%= f.submit "Update item" %>
+  </p>
+<% end %>
+
+<%= link_to 'Cancel and return to BOM', @bom %>
+
+<% unless @item.item_image_file_name.nil?  then %>
+  <p><%= image_tag @item.item_image.url %></p>
+<% end %>

@@ -1,0 +1,2 @@
+page.replace_html "follow_project", { :partial => 'project_links',:locals => { :project => @project } }
+page.visual_effect :highlight,  'follow_project', :duration => 1

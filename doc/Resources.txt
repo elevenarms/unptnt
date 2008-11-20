@@ -1,0 +1,42 @@
+This note outlines the resources that are available in the RESTful API.  It includes the functionality, the URL used to access that resource, and the path to use in form_for and link_to actions in ERB.  The arguments shown below in the path method calls refer to objects.  (@user) means a user object.
+
+Projects:
+=========
+Get collection of ALL projects: /projects; projects_path
+Show users related to a project:  /projects/project_id/related_users; project_related_users_path(@project)
+		Note: @related_users is a hash with three elements: :owner is the single project owner, :followers is a collection of the project followers (or nil if none),
+		and :collaborators is a collection of the project collaborators
+Make a new project owned by logged in user: /projects/new; new_user_project_path(@user)
+Show a project: projects/project_id; @project 
+Edit a project: projects/project_id/edit; edit_project_path(@project)Delete a project: -----; @project, :method => 'delete'  
+Status history for a project: /projects/project_id/status_history; project_status_history_path(@project)
+
+BOMs and Items:
+===============
+Show the BOM (i.e. list of items):  /boms/bom_id/show; @bom
+Add a new item to the BOM: /boms/bom_id/items/new;  new_bom_item_path(@bom)
+Show details of an item:  /boms/bom_id/items/item_id;  bom_item_path(@bom, @item)
+Edit an item:  /boms/bom_id/items/item_id/edit; edit_bom_item_path(@bom, @item)
+Delete an item:  -----;  [@bom, @item], :method => 'delete'
+
+Users/People (not including authentication and access control):
+==============================================================
+Edit a user's profile: /users/user_id/edit; edit_user_path(@user)
+Show a user's profile: /users/user_id;  @user 
+Add logged in user to project as a collaborator:  /people/add_collaborator/project_id/user_id;  :controller => people, :action => 'follow_project', :projectid => @project.id
+Add a user to project as a follower:  /people/add_follower/project_id/user_id;  :controller => people, :action => 'add_follower', :projectid => @project.id, :userid => @user.id
+Get collection of projects for specific user: /users/user_id/related_projects; user_related_projects_path(user)  
+		Note: @related_projects is a hash with three elements: :owns is a collection of the projects this user owns (or nil if none), 
+		:following is a collection of the projects this user follows,
+		and :collaborating is a collection of the projects this user is collaboratoring on
+Delete a user from a project as a collaborator:  -----; :controller => people, :action => 'remove_collaborator', :projectid => @project.id, :userid => @user.id
+Delete logged in user from a project as a follower:  -----; :controller => people, :action => 'stop_following', :projectid => @project.id
+
+Licenses:
+=========
+Create a license: /licenses/new; new_license_path
+List all licenses: /licenses;  licenses_path
+Show details of a license:  /licenses/license_id;  @license
+Edit a license: /licenses/license_id/edit; edit_license_path(@license)
+
+

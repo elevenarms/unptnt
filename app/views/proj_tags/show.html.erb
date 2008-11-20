@@ -1,0 +1,15 @@
+<h3>For tag: <%= @tag.name %></h3>
+
+<% unless @projects.nil? then %>
+  Projects:<br />
+  <% @projects.each do |p| %>
+    <%=h p.name %>: <%= p.description.slice(0,25) unless p.description.nil? %>
+  <% end %>
+<% end %>
+
+<% unless @users.nil? then %>
+  users:<br />
+  <% @users.each do |u| %>
+    <%=h u.name %>, <%= u.description.slice(0,25) unless u.description.nil? %>
+  <% end %>
+<% end %>
