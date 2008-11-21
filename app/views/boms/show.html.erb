@@ -1,80 +1,25 @@
-<div id="header-bottom" class="span-24">
-	<ul id="context-menu">
-		<li>
-		</li>
-    	<li>	
-			<% if logged_in? && current_user.is_editor?(@bom.project) then %>
-		    <h4><%= link_to( 'add an item', new_bom_item_path(@bom) )%></h4>
-		  	<% end %>
-		</li> 
-              </ul>	
-</div>
-<div id="bom_header" class="container">
-	<div id="bom_title" class="column span-12">
-		<h1><%= @bom.project.name  %> </h1>
-		
-	</div>
-<div id="bookmarklet"  class="column span-5">
-    <script type="text/javascript">
-        function bookmarklet_tooltip() {
-                            alert("Drag this Unptnt link to your Bookmarks Bar to install.  Once installed, you can instantly add items to a Bill of Materials from any website!");
-                        return false;
-        }
-    
-        function tstbklt() {
-            alert("unptnt bookmarklet successfully installed");
-            return false;
-        }
-        function test_bookmarklet() { tstbklt(); }
-    </script>
-		<div id="bookmarklet_button">
-            <a title="Drag to your Bookmarks Bar" onclick="return bookmarklet_tooltip();" href="javascript:var 		d=document,w=window,e=w.getSelection,k=d.getSelection,x=d.selection,s=(e?e():(k)?k():(x?x.createRange().text:0)),f='http://unptnt.com/bookmarklets/new',l=d.location,e=encodeURIComponent,p='?v=3&amp;u='+e(l.href) +'&amp;t='+e(d.title) +'&amp;s='+e(s),u=f+p;try{if(!/^(.*\.)?unptnt[^.]*$/.test(l.host))throw(0);tstbklt();}catch(z){a 	=function(){if(!w.open(u,'t','toolbar=0,resizable=0,status=1,width=450,height=700'))l.href=u;};if(/Firefox/.test(navigator.userAgent))setTimeout(a,0);else a();}void(0)"><img  src="/images/bookmarkletbutton.png" alt="Add Unptnt Item"/></a>
-		</div>
-	</div>
-</div>
-
-
-<% if @bom.items.empty? then %>
-  <%= link_to 'Add first item to this BOM', new_bom_item_path(@bom) %>
-<% else %>
-  
-
-
-
-
-    <% [:Hardware, :Software, :Tools].each do |item_type| %>
+<!--
+Bom#show - shows a list of all the items, in summary form.
+-->
+<% count = 0 %>
+<% [:Hardware, :Software, :Tools].each do |item_type| %>
       
-		<div class="bomtypebar">
-		<h3><strong><%=item_type.to_s%></strong></h3>
-		<%=image_tag(item_type.to_s+'bar.png') %>
-		</div>
-<table>        
-<div ><% @items[item_type].each do |i|  %>
-          <tr>
-            <td>          
-              <% unless i.item_image_file_name.nil?  then %>
-                  <%= link_to(image_tag(i.item_image.url(:thumb), :size => "40x40"), bom_item_path(@bom, i)) %>
-              <% else%>
-                <img src="/images/itemnoimgsmall.png">
-              <% end %>
-            </td>
-            <td><%=h i.quantity %></td>
-            <td><%=h i.name %></td>
-            <td><%= auto_link(i.info_url) %></td>
-            <td><em><%= link_to 'show', bom_item_path(@bom, i) %></em></td>
-            <% if logged_in? && current_user.is_editor?(@bom.project) then %>
-              <td><em><%= link_to 'edit', edit_bom_item_path(@bom, i) %></em></td> 
-              <td><em><%= link_to 'delete', [@bom, i], :confirm => 'Are you sure?  This action is FINAL and cannot be undone.', :method => :delete %></em></td>
-            <% end %>           
-          </tr>
-        <% end %>
- </table>
-    <% end %>
- <br /><br />
-  <% if logged_in? && current_user.is_editor?(@bom.project) then %>
-    <%= link_to 'Add another item to this BOM', new_bom_item_path(@bom) %><br />
-  <% end %>
-  <%= link_to 'Back to project page', @bom.project %><br />
-  <%= link_to 'Home', projects_path %><br />
+  <%= "<div id=\"" + "#{ item_type }" + "\">"  %>  <!-- gets the id of the div to be the item_type -->
+    <h3><strong><%=item_type.to_s%></strong></h3>
+    <%=image_tag(item_type.to_s+'bar.png') %>
+    </div>
 
+  
+  <table>        
+    <div><% @items[item_type].each do |item|  %>
+      <% count += 1 %>
+      <tr>
+        <% div_for item do %>
+        <td><img src="/images/itemnoimgsmall.png"></td>
+        <%= render :partial => "items/summary", :locals => { :item => item} %>
+      <% end %> </tr>
+    <% end %> </div>
+  </table>
 <% end %>
+
+<%= render :partial => 'items/new_item_link', :locals => { :count => count } %>

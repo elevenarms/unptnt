@@ -1,7 +1,7 @@
 
 
-<%= render :partial => 'form' %>
+<%= render :partial => 'edit', :locals => { :doc_version => @doc_version } %>
 
 <p>
-  <%= link_to "Cancel edit", @doc_version %>
+  <%= link_to "cancel", @doc_version %>
 </p>

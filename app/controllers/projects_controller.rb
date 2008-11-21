@@ -39,6 +39,7 @@ class ProjectsController < ApplicationController
   
     respond_to do |format|
       format.html # show.html.erb
+      format.js   # show.js.rjs
       format.xml  { render :xml => @project }
     end
   end
@@ -54,8 +55,6 @@ class ProjectsController < ApplicationController
     @project = Project.new
     @licenses = License.find(:all)   
     @project_types = PROJECT_TYPES
-    @doc_version = doc_version_to_display(0,0)
-
   end
   
   def new_clone
@@ -72,7 +71,11 @@ class ProjectsController < ApplicationController
     end    
     @licenses = License.find(:all)
     @project_types = PROJECT_TYPES
-    @doc_version = doc_version_to_display(@project.id, 0)
+    
+    respond_to do |wants|
+      wants.html  # edit.html.erb
+      wants.js    # edit.js.rjs
+    end
   end
 
   # POST /projects
@@ -151,19 +154,10 @@ class ProjectsController < ApplicationController
     if @project.update_attributes(params[:project])
       flash[:notice] = 'Project was successfully updated.'
       #create event
-      
-      #three cases: no doc, a newly created doc, or an updated doc
-      params[:projectidnum] = @project.id
-      params[:itemidnum] = 0
-      @doc_version = make_new_doc
-      if @doc_version.nil? then
-        redirect_to(@project) and return
+      respond_to do |wants|
+        wants.html { redirect_to :action => 'show' and return }
+        wants.js   #update.js.rjs
       end
-      unless @doc_version.new_record? then
-          save_current_or_make_new(@doc_version)
-        end
-      @doc_version.save    
-      redirect_to(@project) and return
     else       
       render :action => "edit" and return
     end
@@ -171,9 +165,8 @@ class ProjectsController < ApplicationController
 
   # DELETE /projects/1
   # DELETE /projects/1.xml
-  def destroy    
-    @project = Project.find(params[:id])
-    redirect_to @project and return
+  def destroy
+    redirect_to :back and return
     #unless current_user.is_owner?(@project) then 
       #redirect_to @project
     #end    

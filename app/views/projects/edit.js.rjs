@@ -1,0 +1,3 @@
+
+page.replace_html "proj-fields", :partial => "edit", 
+    :locals => { :project => @project, :licenses => @licenses, :project_types => @project_types  }

@@ -1,0 +1,2 @@
+page.replace_html("item_#{ @item.id }", :partial => '/items/show_summary', :locals => { :show_summary => @item } )
+page.visual_effect :highlight, "item_#{ @item.id }", :duration => 1

@@ -1,0 +1,31 @@
+<% form_for(project) do |f| %>
+
+  <p>
+    <%= f.label :title %><br />
+    <%= f.text_field :name %>
+  </p>
+  
+    <p>
+    <%= f.label :summary %><br />
+    <%= f.text_field :description %>
+  </p>
+  
+   <p>
+     <%= f.label :status %><br />
+     <%= f.text_field :status %>
+  </p> 
+  
+  <p>
+     <%= f.label :proj_types %><br />
+     <%= f.select :project_type, project_types %>
+  </p> 
+
+  <p>
+    <%= f.label :license %><br />
+    <%= f.select :license_id, [["-- Select a License --", ""]] + licenses.collect {|el| [el.name, el.id]} %>
+  </p>    
+
+  <p>
+    <%= f.submit "Update", :class => 'button positive' %> or <em><%= link_to_remote 'cancel', :url => project, :method => :get %><br /></em>
+  </p>
+<% end %>

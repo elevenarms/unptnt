@@ -1,2 +1,3 @@
 page.replace_html 'document', :partial => 'show', 
     :locals => { :doc_version => @doc_version }
+

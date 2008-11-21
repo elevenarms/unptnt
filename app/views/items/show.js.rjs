@@ -1,0 +1,6 @@
+if !params[:sum].nil? && params[:sum] then
+  page.replace_html("item_#{ @item.id }", :partial => 'summary' )
+else
+  page.replace_html("item_#{ @item.id }", :partial => 'show' )
+end
+page.visual_effect :highlight, "item_#{ @item.id }", :duration => 1

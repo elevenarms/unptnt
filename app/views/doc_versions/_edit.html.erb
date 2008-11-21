@@ -1,6 +1,5 @@
 
 <% remote_form_for(doc_version) do |f| %>
-  <%= f.error_messages %>
 
   <p>
     <%= f.label :title %><br />
@@ -14,5 +13,5 @@
     <%= hidden_field_tag :projectidnum, project_id %>
     <%= hidden_field_tag :home_page, home_page %>
 
-  <p><%= f.submit "Submit" %></p>
+  <p><%= f.submit "Save" %></p> or <%= link_to_remote "cancel", :url => doc_version, :method => :get %>
 <% end %>

@@ -20,26 +20,16 @@ class DocVersionsController < ApplicationController
     end
     unless params[:project_id].nil? then
       @doc_versions = DocVersion.find_current_for_project(params[:project_id]) 
-      @project = Project.find(params[:project_id])
+      @project = session[:project]
       @domain = "project"
     end
   end
   
   def show
-    @doc = DocVersion.find(params[:id])
-    @editor = @doc.editor
-    @doc_versions = DocVersion.find(:all,
-      :conditions => "doc_id = '#{ @doc.doc_id }'", 
-      :order => 'version_num DESC')
-    @item = @doc.item 
-    @project = @doc.project
-    @user = @doc.editor
-    
+    @doc_version = DocVersion.find(params[:id])    
     respond_to do |wants|
       wants.html # show.html.erb
-      wants.js {  
-        
-      }
+      wants.js   #show.js.rjs
     end    
   end  
   
@@ -84,9 +74,12 @@ class DocVersionsController < ApplicationController
   
   def edit
     @doc_version = DocVersion.find(params[:id])
-    @project = Project.find(params[:project_id])
     # can only edit current version
     redirect_to @doc_version unless @doc_version.current_version
+    respond_to do |what|
+      what.html #edit.html.erb
+      what.js   #edit.js.rjs
+    end
   end
   
   def update

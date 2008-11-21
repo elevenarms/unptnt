@@ -4,7 +4,7 @@ class BomsController < ApplicationController
   
   def index
     #this method is here so the UI can call it whether there is a bom or not
-    @project = Project.find(params[:project_id])
+    @project = session[:project]
     redirect_to projects_path and return if @project.nil?
     redirect_to new_project_bom_path(@project) and return if params[:id].nil? 
     @bom = Bom.find(params[:id])
@@ -14,7 +14,8 @@ class BomsController < ApplicationController
   
   def show
     #is really a list of the items in the BOM, since the BOM itself does not have any
-    #  data of its own  
+    #  data of its own
+    @project = session[:project]    
     @bom = Bom.find(params[:id])
     redirect_to new_bom_item_path(@bom) and return if @bom.items.nil? 
     @items = @bom.items_grouped

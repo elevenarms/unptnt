@@ -1,0 +1,2 @@
+page.replace_html "document", :partial => 'edit', 
+  :locals => { :doc_version => @doc_version, :item_id => nil, :project_id => nil, :home_page => nil }

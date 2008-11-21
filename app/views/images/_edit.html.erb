@@ -1,0 +1,6 @@
+<% form_for(@project, :html => { :multipart => true }) do |f| %>
+  <p>
+     <%= f.label :project_image %><br />
+     <%= f.file_field :project_image %>
+  </p> 
+<% end %>

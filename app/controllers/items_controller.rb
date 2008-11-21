@@ -2,7 +2,7 @@ class ItemsController < ApplicationController
   layout 'project'
   include DocVersioning
   before_filter :login_required, :only => [ :new, :edit, :create, :update, :destroy ]
-  uses_tiny_mce(:only => [:new, :edit], :options => AppConfig.default_mce_options)
+  after_filter  :load_item_and_bom, :only => [ :show, :create, :update ]
   
  ITEM_TYPES = ["Hardware", "Software", "Tools"] 
  
@@ -23,11 +23,16 @@ class ItemsController < ApplicationController
   # bom_item_path (@bom, @item)
   def show
     @bom = Bom.find(params[:bom_id])
-    @project = Project.find(@bom.project_id)
+    @project = session[:project]
     @item = Item.find(params[:id])
     @file_attachments = @item.file_attachments
     @doc_version = doc_version_to_display(1, @item.id)
     @project = @bom.project
+    @item_to_show = params[:item_to_show]
+    respond_to do |what|
+      what.html # show.html.erb
+      what.js   # show.js.rjs        
+    end
   end
 
   # GET  /bom/1/items/new
@@ -58,6 +63,10 @@ class ItemsController < ApplicationController
     @file_attachments = @item.file_attachments
     @doc_version = doc_version_to_display(1, @item.id)
     @project = @bom.project
+    respond_to do |what|
+      what.html # edit.html.erb
+      what.js   #edit.rjs
+    end
   end
 
   # POST /items
@@ -148,5 +157,11 @@ class ItemsController < ApplicationController
     #@item.destroy
     #end    
     redirect_to @bom  and return
+  end    
+  protected
+  def load_item_and_bom
+    session[:item] = @item
+    session[:bom] = @item
   end
+  
 end

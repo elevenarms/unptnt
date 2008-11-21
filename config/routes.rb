@@ -5,6 +5,8 @@ ActionController::Routing::Routes.draw do |map|
 
   map.resources :invitations
   
+  map.resources :images
+  
   map.resources :users, :member => { :related_projects => :get  } do |users|
     users.resources :doc_versions
   end

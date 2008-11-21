@@ -1,0 +1,38 @@
+<div>
+<br />
+<h3>Item Detail</h3>
+
+  <% if logged_in? && current_user.is_editor?(@bom.project) then %>
+    <em><%= link_to_remote "Edit", 
+                  :url => edit_bom_item_path(@bom, @item), 
+                  :method => :get %></em>
+    <em><td><em>
+          <%= link_to_remote "Delete", 
+                  :url => [@bom, @item], 
+                  :method => :delete %>
+      </em></td></em>
+  <% end %> <br />
+Quantity:   <%=h @item.quantity %><br />
+Item type:  <%=h @item.item_type %><br />
+Item name: <%=h @item.name %><br />
+<% unless @item.info_url.nil? then %>
+  URL for Item info: <%= auto_link(@item.info_url)  %>  
+<% end %>  
+       
+<br /><br />
+<% unless @file_attachments.empty? then %>
+    Attached files:<br />
+    <% for file_attachment in @file_attachments -%>
+      <%= link_to image_tag(file_attachment.public_filename(:thumb)), file_attachment.public_filename %><br />
+    <% end -%>  
+  <% end %><br />
+
+  <div class="whatever" id=doc_version_in_project>
+    <%= render :partial => "/doc_versions/show_in_item" %>
+  </div>
+  
+<% unless @item.item_image_file_name.nil?  then %>
+  <p><%= image_tag @item.item_image.url %></p>
+<% end %><br />
+<%= link_to_remote 'Hide details', :url => bom_item_path(@bom, @item), :method => :get %>
+</div>
