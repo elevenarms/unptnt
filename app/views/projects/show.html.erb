@@ -22,13 +22,7 @@
 </div>
 
 <div id="document">
-  <% if @doc_version.nil? then %>
-    Click
-    <%= link_to_remote "here", :url => new_project_doc_version_path(@project),:method => :get %>
-    to create an introductory document for this project
-  <% else %>
-      <%= render :partial => 'doc_versions/show', 
+  <%= render :partial => 'doc_versions/show', 
         :locals => { :doc_version => @doc_version, :project_id => @project.id, 
         :item_id => 0, :home_page => true } %>
-  <% end %>
 </div>

@@ -1,8 +1,4 @@
-<div>
-<br />
-<h3>Item Detail</h3>
-
-  <% if logged_in? && current_user.is_editor?(@bom.project) then %>
+ <% if logged_in? && current_user.is_editor?(@bom.project) then %>
     <em><%= link_to_remote "Edit", 
                   :url => edit_bom_item_path(@bom, @item), 
                   :method => :get %></em>

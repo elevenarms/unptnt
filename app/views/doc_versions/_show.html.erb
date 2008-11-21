@@ -1,6 +1,17 @@
-   <br /><span id=doc-title><%= doc_version.title %></span> 
+  <% if doc_version.nil? then %>
+    Click
+    <%= link_to_remote "here", :url => new_project_doc_version_path(session[:project]),:method => :get %>
+    to create an introductory document for this project
+  <% else %>
+    <br /><span id=doc-title><%= doc_version.title %></span> 
     <br />
     <span id=doc-content><%= doc_version.content %></span>
     <br />
-    <%= link_to_remote "edit", :url => edit_doc_version_path(doc_version.id), :method => :get  %>
+    <%= link_to_remote "edit", :url => edit_doc_version_path(doc_version.id), :method => :get  %>      
+  <% end %>
+
+
+
+
+
 

@@ -120,12 +120,6 @@ class ProjectsController < ApplicationController
         clone_elements(@project, parent_project)
         @project.make_new_clone(parent_project)
       end
-      
-      #if a new project introduction document was created, save it
-      params[:projectidnum] = @project.id
-      params[:itemidnum] = 0
-      @doc_version = make_new_doc
-      @doc_version.save unless @doc_version.nil?
          
       redirect_to(@project) and return
     else     

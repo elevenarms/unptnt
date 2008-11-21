@@ -5,6 +5,6 @@
     <%  else %>
         <%  what = "another"  %>
     <% end %>
-        <%= link_to_remote "Add #{ what } item to this BOM", :url => new_bom_item_path(session[:bom]), :method => :get %>
+        <%= link_to_remote "Add #{ what } item to this BOM", :url => new_bom_item_path(project.bom), :method => :get %>
   <% end %>
 </div>

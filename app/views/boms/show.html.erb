@@ -11,14 +11,15 @@ Bom#show - shows a list of all the items, in summary form.
 
   
   <table>        
-    <div><% @items[item_type].each do |item|  %>
+    <% @items[item_type].each do |item|  %>
       <% count += 1 %>
-      <tr>
-        <% div_for item do %>
+      <%= "<tr id=\"item_" + "#{ item.id }" + "\">"  %>  <!-- gets the id of the div to be the item_type -->
+        <% span_for item do %>
         <td><img src="/images/itemnoimgsmall.png"></td>
         <%= render :partial => "items/summary", :locals => { :item => item} %>
+        <%= render :partial => "items/links", :locals => { :item => item} %>
       <% end %> </tr>
-    <% end %> </div>
+    <% end %>
   </table>
 <% end %>
 

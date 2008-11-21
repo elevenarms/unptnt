@@ -62,6 +62,13 @@ class DocVersionsController < ApplicationController
   end
   
   def create    
+    if params[:doc_version].nil? && request.xml_http_request?
+      @doc_version = nil
+      respond_to do |wants|
+        wants.js { render :template =>  'doc_versions/show.js.rjs' }
+      end
+      return
+    end
     @doc_version = make_new_doc
     @doc_version.save
     respond_to do |wants|
