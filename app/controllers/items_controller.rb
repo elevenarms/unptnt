@@ -42,7 +42,7 @@ class ItemsController < ApplicationController
     @project = Project.find(@bom.project_id)
     @item = Item.new
     @item_types = ITEM_TYPES
-    @doc_version = doc_version_to_display(0, 0)
+    @doc_version = DocVersion.new
     @project = @bom.project
     respond_to do |format|
       format.html # new.html.erb
@@ -61,7 +61,7 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @item_types = ITEM_TYPES
     @file_attachments = @item.file_attachments
-    @doc_version = doc_version_to_display(1, @item.id)
+    @doc_version = doc_version_to_display(0, @item.id)
     @project = @bom.project
     respond_to do |what|
       what.html # edit.html.erb
@@ -90,11 +90,6 @@ class ItemsController < ApplicationController
         flash[:notice] = 'Item was successfully created.'
         #create event
         project.create_event(Action::CREATE_ITEM, @item, current_user)
-         
-        params[:itemidnum] = @item.id
-        params[:projectidnum] = project.id
-        @doc_version = make_new_doc
-        @doc_version.save unless @doc_version.nil?
             
          redirect_to @bom  and return
       else

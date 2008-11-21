@@ -36,7 +36,7 @@ module DocVersioning
         :conditions => "item_id = '#{ itemidnum }' AND home_page = true AND current_version = true", 
         :order => 'created_at')
     end        
-    doc_version = DocVersion.new(:title => "Introduction", :content => "<p>The content for your Project Introduction document goes here.</p>")  if doc_version.nil?
+    doc_version = DocVersion.new  if doc_version.nil?
     return doc_version
   end
   

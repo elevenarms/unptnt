@@ -59,11 +59,7 @@
 					<h4><%= link_to 'docs', project_path(@project) , :confirm => "we're still working on this..."-%></h4>
 				</li>
 				<li  class="tab">
-					<h4><% if @project.bom.nil? then %>
-				      <%= link_to 'materials', :controller => 'boms', :action => 'new', :project_id => @project -%>
-				  <% else %>
-				      <%= link_to 'materials', @project.bom -%>
-				  <% end %></h4>
+					<h4><%= link_to 'materials', project_boms_path(@project) -%></h4>
 				</li>	
 
 			</ul>
