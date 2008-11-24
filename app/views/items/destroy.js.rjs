@@ -1,0 +1,3 @@
+page.visual_effect :highlight, "item_#{ @item.id }", :duration => 3
+page.remove "item_#{ @item.id }"
+

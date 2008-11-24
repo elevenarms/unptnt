@@ -1,47 +1,22 @@
-<h3>Project <%= @bom.project.name  %> </h3>
-
 <table>
-  <tr>
-    <th>Quantity</th>
-    <th>Type</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Link</th>
-  </tr>
-    <tr>
-      <td><%=h @item.quantity %></td>
-      <td><%=h @item.item_type %></td
-      <td><%=h @item.name %></td>
+    <tr id="item_fields">
+      <td/><td/><td>
+        <%= "<span id=\"item_" + "#{ @item.id }" + "\">"  %>  <!-- gets the id of the span to be the item_type -->  
+          <%= render :partial => '/items/show_fields', :locals => { :item => @item } %>
+        </span><br/>
 
-      <td><%= auto_link(@item.info_url)  %> </td>   
-      <% if logged_in? && current_user.is_editor?(@bom.project) then %>
-        <td><em><%= link_to 'edit', edit_bom_item_path(@bom, @item) %></em></td>
-        <td><em><%= link_to '  delete', [@bom, @item], :confirm => 'Are you sure?', :method => :delete %></em></td>
-      <% end %>        
+        <%= render :partial => 'attachments/index', :locals => { :file_attachments => @file_attachments }  %><br />
+      <span id="document"
+        <%= render :partial => 'items/show_doc_version', 
+              :locals => { :doc_version => @doc_version, :item => @item, :home_page => true, :bom => @bom, :project => session[:project] } %><br/>  
+      </span>        
+
+      <span id="imagediv">
+        <%= render :partial => '/images/show_in_item', :locals => { :item => @item, :bom => @bom, :project => session[:project] } %>
+        </span><br/>
+      </td><td/><td/><td/><td/>
+        
     </tr>
 </table><br /><br />
 
-  <% unless @file_attachments.empty? then %>
-    Attached files:<br />
-    <% for file_attachment in @file_attachments -%>
-      <%= link_to image_tag(file_attachment.public_filename(:thumb)), file_attachment.public_filename %><br />
-    <% end -%>  
-  <% end %><br />
-
-<% unless @doc_version.nil? then %>
-   <br /><h1><%= @doc_version.title %></h1> 
-
-    <br />
-     <%= @doc_version.content %>
-    <br /><br />
-<% end %>
-
-<% if logged_in? && current_user.is_editor?(@bom.project) then %>
-  <%= link_to 'Add another item to this BOM', new_bom_item_path(@bom) %><br />
-<% end %>
-
-<%= link_to 'Back to the item list for this BOM', @bom %>
-
-<% unless @item.item_image_file_name.nil?  then %>
-  <p><%= image_tag @item.item_image.url %></p>
-<% end %>
+ <%= render :partial => 'items/new_item_link', :locals => { :item => @item } %>

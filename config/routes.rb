@@ -18,15 +18,18 @@ ActionController::Routing::Routes.draw do |map|
               :related_users => :get,
               :status_history => :get,
               :show_family_trees => :get,
-              :new_clone => :get  }  do |projects|
+              :new_clone => :get,
+              :show_doc_version => :get }  do |projects|
       projects.resources :doc_versions  
       projects.resources :boms
+      projects.resources :images
     end
 
   
   map.resources :boms do |boms|
-    boms.resources :items do |items|
+    boms.resources :items, :member => { :show_doc_version => :get } do |items|
       items.resources :doc_versions
+      items.resources :images
     end    
   end
   

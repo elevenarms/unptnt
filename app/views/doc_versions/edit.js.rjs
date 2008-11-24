@@ -1,2 +1,5 @@
 page.replace_html "document", :partial => 'edit', 
-  :locals => { :doc_version => @doc_version, :item_id => nil, :project_id => nil, :home_page => nil }
+  :locals => { :doc_version => @doc_version, :home_page => @home_page,
+               :item => @item, :bom => @bom, :project => @project }
+page.visual_effect :highlight, 'document', :duration => 1    
+

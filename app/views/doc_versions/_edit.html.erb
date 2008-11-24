@@ -14,9 +14,11 @@
     <%= hidden_field_tag :home_page, home_page %>
 
   <p><%= f.submit "Save" %></p> or 
-  <%if doc_version.new_record? then %>
-    <%= link_to_remote "cancel", :url => doc_version, :method => :post %>
+  
+  <% unless item.nil? then %>
+    <%= link_to_remote "cancel", :url => show_doc_version_bom_item_path(bom, item), :method => :get %>
   <% else %>
-    <%= link_to_remote "cancel", :url => doc_version, :method => :get %>
+    <%= link_to_remote "cancel", :url => show_doc_version_project_path(project), :method => :get %>
   <% end %>
+
 <% end %>

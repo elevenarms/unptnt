@@ -1,0 +1,12 @@
+  <% if doc_version.nil? then %>
+    <%= link_to_remote "add document", :url => new_bom_item_doc_version_path(bom, item), :method => :get %>
+
+  <% else %>
+    <br /><span id="doc-title"><%= doc_version.title %></span> 
+    <br />
+    <span id="doc-content"><%= doc_version.content %></span>
+    <br />
+    <% if logged_in? && current_user.is_editor?(session[:project])  then %>
+      <%= link_to_remote "edit", :url => edit_doc_version_path(doc_version.id), :method => :get  %>  
+    <% end %>    
+  <% end %>

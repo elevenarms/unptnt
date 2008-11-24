@@ -3,7 +3,7 @@
 <%  if @doc.current_version  then %>
   <em>current version</em>
   <% else %>
-    <em>version<%=  @doc.version_num %> </em>
+    <em>version<%=  @doc_version.version_num %> </em>
   <% end %>
 <br />
  <%= @doc.content %>

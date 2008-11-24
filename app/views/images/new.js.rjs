@@ -1,4 +1,0 @@
-
-page.replace_html 'imagediv', :partial => 'edit',
-      :locals => { :project_id => @project.id, @image => nil,
-                   :item_id => @item.id }

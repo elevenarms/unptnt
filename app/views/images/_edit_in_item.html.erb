@@ -1,0 +1,7 @@
+<% remote_form_for(:item, :url => bom_item_image_path(bom, item, image), :html => { :multipart => true }) do |f| %>
+  <br/><p>
+     <%= f.label :item_image %><br />
+     <%= f.file_field :item_image %>
+  </p> 
+  <%= f.submit "Upload" %> of <%= link_to_remote "cancel", :url => bom_item_image_path(bom, item, image), :method => :get %>
+<% end %>

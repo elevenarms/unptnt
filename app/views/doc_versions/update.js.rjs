@@ -1,3 +1,5 @@
 page.replace_html 'document', :partial => 'show', 
     :locals => { :doc_version => @doc_version }
+page.visual_effect :highlight, 'imagediv', :duration => 1    
+  
 

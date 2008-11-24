@@ -1,6 +1,33 @@
-<%#
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-%>
 
-<%= "_edit.html" %>
+<% form_for([bom, item])  do |f| %>
+
+  <p>
+    <%= f.label :item_type %><br />
+    <%= f.select :item_type, @item_types %>
+  </p> 
+  
+  <p>
+    <%= f.label :quantity %><br />
+    <%= f.text_field :quantity %>
+  </p>  
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_field :name %>
+  </p>
+  
+  <p>
+    <%= f.label :info_url %><br />
+    <%= f.text_field :info_url %>
+  </p> 
+   
+  <p>
+    <%= f.submit "Save" %> or 
+  <% unless item.new_record? then %>  
+    <%= link_to "cancel", :url => bom_item_path(bom, item), :method => :get %>
+  <% else %>
+    <%= link_to "cancel",  [project, bom] %>
+  <% end %>
+  </p>
+<% end %>
+

@@ -1,0 +1,10 @@
+if !@sum.nil? && @sum then
+  page.replace_html "new-item", :partial => 'new_item_link' 
+  page.insert_html(:bottom, '#{ @item_type }', :partial => 'summary', :locals => { :item => @item } )
+  page.visual_effect :highlight, "new-item", :duration => 1
+else
+  page.replace_html '#{ @item_type }', :partial => 'show_fields', :locals => {:item => @item }
+  page.visual_effect :highlight, "item_#{ @item.id }", :duration => 1
+end
+
+

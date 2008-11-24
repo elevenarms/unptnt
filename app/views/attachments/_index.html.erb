@@ -1,0 +1,6 @@
+<% unless file_attachments.empty? then %>
+  <h3>Files attached to item:</h3>
+  <% for file_attachment in file_attachments -%>
+      <%= link_to image_tag(file_attachment.public_filename(:thumb)), file_attachment.public_filename %><br />
+  <% end -%>  
+<% end %><br />

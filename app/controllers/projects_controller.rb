@@ -101,12 +101,6 @@ class ProjectsController < ApplicationController
       @project.license = license      
     end
     
-    #link in the tags
-    proj_types = params[:tags][:proj_types_list]
-    keywords = params[:tags][:keywords_list]
-    @project.proj_type_list = proj_types unless proj_types.nil?
-    @project.keyword_list = keywords unless keywords.nil?
-    
     if @project.save        
       flash[:notice] = 'Project was successfully created.'
       #create event
@@ -226,6 +220,14 @@ class ProjectsController < ApplicationController
     #TO DO convert to @project.related_users
     @related_users = @project.related_users
   end 
+  
+  def show_doc_version
+    @project = session[:project]
+    @doc_version = DocVersion.find(:first, :conditions => "item_id < 1 AND project_id = '#{ @project.id }' AND home_page = true")
+    respond_to do |wants|
+      wants.js # show_doc_versionl.js.rjs
+    end
+  end
   
   protected  #can only be called from here
   

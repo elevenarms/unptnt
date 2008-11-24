@@ -1,0 +1,5 @@
+
+page.replace_html 'imagediv', :partial => 'edit_in_item',
+      :locals => { :bom => @bom, :image => @image, :item => @item }
+page.visual_effect :highlight, 'imagediv', :duration => 1    
+    

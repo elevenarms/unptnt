@@ -1,0 +1,7 @@
+Quantity:   <%=h item.quantity %><br />
+Item type:  <%=h item.item_type %><br />
+Item name: <%=h item.name %><br />
+<% unless item.info_url.nil? then %>
+  URL for Item info: <%= auto_link(item.info_url)  %>  
+<% end %> <br />
+<em><%= link_to_remote 'edit', :url => edit_bom_item_path(item.bom, item), :method => :get %></em><br/>

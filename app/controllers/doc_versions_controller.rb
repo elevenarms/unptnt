@@ -26,12 +26,8 @@ class DocVersionsController < ApplicationController
   end
   
   def show
-    @doc_version = DocVersion.find(params[:id])    
-    respond_to do |wants|
-      wants.html # show.html.erb
-      wants.js   #show.js.rjs
-    end    
-  end  
+      @doc_version = DocVersion.find(params[:id])
+  end
   
   def new
     #setup for the creation the first version of a new title (document)
@@ -40,8 +36,9 @@ class DocVersionsController < ApplicationController
     @home_page = false
     unless params[:item_id].nil? then
       @item = Item.find(params[:item_id])
-      @project = @item.project and return
+      @bom = @item.bom
       @home_page = true if @item.doc_versions.size == 0
+      @project = @item.bom.project and return
     else
       @item = { :id => 0 }
     end
@@ -62,25 +59,28 @@ class DocVersionsController < ApplicationController
   end
   
   def create    
-    if params[:doc_version].nil? && request.xml_http_request?
-      @doc_version = nil
-      respond_to do |wants|
-        wants.js { render :template =>  'doc_versions/show.js.rjs' }
-      end
-      return
-    end
     @doc_version = make_new_doc
     @doc_version.save
     respond_to do |wants|
       wants.html { flash[:notice] = "Successfully created doc version."
         redirect_to @doc_version and return     
       }
-      wants.js  #create.js.rjs
+      wants.js  do
+        if @doc_version.doc_type == 'item'
+          render :template => 'items/show_doc_version'
+        else
+          render :template =>  'projects/show_doc_version'
+        end
+      end
     end 
   end
   
   def edit
     @doc_version = DocVersion.find(params[:id])
+    @item = @doc_version.item
+    @project = @doc_version.project 
+    @bom = @project.bom
+    @home_page = false
     # can only edit current version
     redirect_to @doc_version unless @doc_version.current_version
     respond_to do |what|
@@ -94,6 +94,18 @@ class DocVersionsController < ApplicationController
     #if current editor is same as editor or current version, just save; else make new version
     redirect_to projects_path and return if @doc_version.nil?
     save_current_or_make_new(@doc_version)
+    respond_to do |wants|
+      wants.html { flash[:notice] = "Successfully created doc version."
+        redirect_to @doc_version and return     
+      }
+      wants.js  do
+        if @doc_version.doc_type == 'item'
+          render :template =>  'items/show_doc_version'
+        else
+          render :template =>  'projects/show_doc_version'
+        end
+      end
+    end     
   end
   
   def destroy

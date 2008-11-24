@@ -1,10 +1,5 @@
  <div id="new-item">
   <% if logged_in? && current_user.is_editor?(session[:project]) then %>
-    <% if count == 0 then %>
-      <%  what = "the first"  %>
-    <%  else %>
-        <%  what = "another"  %>
-    <% end %>
-        <%= link_to_remote "Add #{ what } item to this BOM", :url => new_bom_item_path(session[:project].bom), :method => :get %>
+        <%= link_to "Add another item to this BOM", new_bom_item_path(session[:project].bom) %>
   <% end %>
 </div>

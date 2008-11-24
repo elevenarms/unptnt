@@ -22,7 +22,7 @@
 </div>
 
 <div id="document">
-  <%= render :partial => 'doc_versions/show', 
-        :locals => { :doc_version => @doc_version, :project_id => @project.id, 
+  <%= render :partial =>  'projects/show_doc_version', 
+        :locals => { :doc_version => @doc_version, :project => @project, 
         :item_id => 0, :home_page => true } %>
 </div>

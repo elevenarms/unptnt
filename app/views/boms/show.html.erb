@@ -2,23 +2,29 @@
 Bom#show - shows a list of all the items, in summary form.
 -->
 <% count = 0 %>
+<% size = Hash.new
+   size[:Hardware] = size[:Software] = size[:Tools] = 0 %>
 <% [:Hardware, :Software, :Tools].each do |item_type| %>
       
-  <%= "<div id=\"" + "#{ item_type }" + "\">"  %>  <!-- gets the id of the div to be the item_type -->
+  <div>  
     <h3><strong><%=item_type.to_s%></strong></h3>
     <%=image_tag(item_type.to_s+'bar.png') %>
-    </div>
-
+  </div>
   
-  <table>        
+   <%= "<table id=\"" + "#{ item_type }" + "\">"  %>  <!-- gets the id of the table to be the item_type -->        
     <% @items[item_type].each do |item|  %>
       <% count += 1 %>
-      <%= "<tr id=\"item_" + "#{ item.id }" + "\">"  %>  <!-- gets the id of the div to be the item_type -->
-        <% span_for item do %>
-        <td><img src="/images/itemnoimgsmall.png"></td>
-        <%= render :partial => "items/summary", :locals => { :item => item} %>
-        <%= render :partial => "items/links", :locals => { :item => item} %>
-      <% end %> </tr>
+      <%= "<tr id=\"item_" + "#{ item.id }" + "\">"  %>  <!-- gets the id of the div to be the item_type -->        
+        <%= render :partial => "items/summary", :locals => { :item => item} %>        
+      </tr>
+      <%  case item_type 
+            when :Hardware 
+              size[:Hardware] = count
+             when :Software
+              size[:Software] = count - size[:Hardware]
+            when :Tools
+              size[:Tools] = count - size[:Software] - size[:Hardware]
+      end %>
     <% end %>
   </table>
 <% end %>

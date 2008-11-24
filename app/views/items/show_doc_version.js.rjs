@@ -1,0 +1,3 @@
+page.replace_html "document", :partial => 'items/show_doc_version', 
+  :locals => { :doc_version => @doc_version, :bom => @bom, :item => @item }
+page.visual_effect :highlight, 'document', :duration => 1    
