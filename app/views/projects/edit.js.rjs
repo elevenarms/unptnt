@@ -1,3 +1,4 @@
 
-page.replace_html "proj-fields", :partial => "edit", 
+page.replace_html "proj-fields", :partial => "edit_fields",
     :locals => { :project => @project, :licenses => @licenses, :project_types => @project_types  }
+page.visual_effect :highlight, "proj-fields", :duration => 1

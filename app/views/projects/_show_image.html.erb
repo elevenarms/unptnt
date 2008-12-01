@@ -1,0 +1,11 @@
+<span id="image-image">
+<% unless project.project_image_file_name.nil?  then %>
+	  <p><%= image_tag project.project_image.url,:width=>'150' %></p>
+<% else%>
+	  <p><img src="/images/noimgprojectlarge.png"></p>
+<% end %> </span>           
+<div id="image-edit">
+  <% if logged_in? && current_user.is_editor?(project) then %>
+    <%= link_to_remote "edit", :url => edit_image_project_path(project), :method => :get %>
+  <% end %>
+</div>

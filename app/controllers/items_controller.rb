@@ -101,7 +101,7 @@ class ItemsController < ApplicationController
   # PUT /items/1
   def update
     @bom = Bom.find(params[:bom_id])
-    project = @bom.project
+    project = session[:project]
     unless current_user.is_editor?(project) then 
       redirect_to @bom and return
     end    
@@ -111,11 +111,10 @@ class ItemsController < ApplicationController
     if @item.update_attributes(params[:item])
       flash[:notice] = 'Item was successfully updated.'
         #create event
-        @project = Project.find(@bom.project_id)
-        @project.create_event(Action::UPDATE_ITEM, @item, current_user)
+        project.create_event(Action::UPDATE_ITEM, @item, current_user)
       respond_to do |wants|
         wants.html { redirect_to @bom  and return }
-        wants.js   { render :template => 'items/show'       }
+        wants.js   { render :template => 'items/show_fields'       }
       end      
     else
       respond_to do |wants|
@@ -165,6 +164,42 @@ class ItemsController < ApplicationController
       respond_to do |wants|
         wants.js # show_doc_version.js.rjs
       end          
+  end
+
+  def show_image
+    @item = Item.find(params[:id])
+    @bom = @item.bom
+    respond_to do |wants|
+      wants.js  # show_image.js.rjs
+    end
+  end
+
+  def edit_image
+    @item = Item.find(params[:id])
+    @bom = @item.bom
+    respond_to do |wants|
+      wants.js # edit_image.js.rjs
+    end
+  end
+
+  def update_image
+    @item = Item.find(params[:id])
+    @bom = @item.bom
+    unless @item.item_image_file_name.nil? then
+      # how do you delete a paperclip image??????
+    end
+    @item.update_attributes(:item_image => params[:item][:item_image])
+    respond_to do |wants|
+      wants.js  do
+        responds_to_parent do
+          render :update do |page|
+            page.replace_html "imagediv", :partial => "items/show_image",
+                :locals => { :bom => @bom, :item => @item  }
+            page.visual_effect :highlight, "imagediv"
+          end
+        end
+      end
+    end
   end
   
   protected

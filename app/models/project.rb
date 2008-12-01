@@ -8,7 +8,7 @@ class Project < ActiveRecord::Base
   has_many :items , :through => :bom
   has_many :statuses, :order => "created_at DESC"
   has_many :clone_trees
-  acts_as_taggable_on  :proj_types, :keywords
+  acts_as_taggable_on :keywords
   has_attached_file :project_image, 
                     :styles => { :medium => "300x300>",
                                  :thumb => "100x100>" }

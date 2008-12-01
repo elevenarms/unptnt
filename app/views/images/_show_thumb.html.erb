@@ -1,5 +1,0 @@
-<% unless item.item_image_file_name.nil?  then %>
-        <%= link_to_remote(image_tag(item.item_image.url(:thumb), :size => "40x40"), :url => bom_item_path(session[:bom], item)) unless item.nil? %>
-    <% else%>
-      <img src="/images/itemnoimgsmall.png">
-<% end %>

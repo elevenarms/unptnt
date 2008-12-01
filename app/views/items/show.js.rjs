@@ -1,13 +1,3 @@
-if !@sum.nil? && @sum then
-  page.replace_html("item_#{ @item.id }", :partial => 'summary', :locals => { :item => @item } )
-else
-  if @old_type == @item.item_type then
-    page.replace_html("item_#{ @item.id }", :partial => 'show_fields', 
-        :locals => { :item => @item, :bom => @bom, :file_attachments => @file_attachments, :doc_version => @doc_version }  )
-  else
-    # editor changed the type of item.  Needs to move to a different place on the screen
-    page.remove "item_#{ @item.id }"
-    page.insert_html(:bottom, '#{ @item_type }', :partial => 'summary', :locals => { :item => @item } )
-  end
-end
+page.replace_html("item_#{ @item.id }", :partial => 'show_fields',
+        :locals => { :item => @item, :bom => @bom }  )
 page.visual_effect :highlight, "item_#{ @item.id }", :duration => 1

@@ -51,7 +51,7 @@ class ImagesController < ApplicationController
       @project = session[:project]
       respond_to do |wants|
         wants.html
-        wants.js   { render :template => 'images/show_in_item' }
+        wants.js   { render :template => 'images/show' }
       end  
       return
     else

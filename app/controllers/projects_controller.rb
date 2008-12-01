@@ -33,6 +33,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1.xml
   def show
     @project = Project.find(params[:id])
+    session[:project] = @project
     @events = @project.events
     @related_users = @project.related_users
     @doc_version = DocVersion.find_by_project_id(@project.id)
@@ -144,7 +145,7 @@ class ProjectsController < ApplicationController
       #create event
       respond_to do |wants|
         wants.html { redirect_to :action => 'show' and return }
-        wants.js   #update.js.rjs
+        wants.js   # update.js.rjs
       end
     else       
       render :action => "edit" and return
@@ -225,7 +226,41 @@ class ProjectsController < ApplicationController
     @project = session[:project]
     @doc_version = DocVersion.find(:first, :conditions => "item_id < 1 AND project_id = '#{ @project.id }' AND home_page = true")
     respond_to do |wants|
-      wants.js # show_doc_versionl.js.rjs
+      wants.js # show_doc_version.js.rjs
+    end
+  end
+  
+  def show_image
+    @project = session[:project]
+    respond_to do |wants|
+      wants.js  # show_image.js.rjs
+    end
+  end
+  
+  def edit_image
+    @project = session[:project]
+    respond_to do |wants|
+      wants.js # edit_image.js.rjs
+    end
+  end
+  
+  def update_image
+    @project = session[:project]
+    unless @project.project_image_file_name.nil? then
+      # how do you delete a paperclip image??????
+    end
+    @project.update_attributes(:project_image => params[:project][:project_image])
+    session[:project] = @project
+    respond_to do |wants|
+      wants.js  do
+        responds_to_parent do
+          render :update do |page|
+            page.replace_html "imagediv", :partial => "projects/show_image",
+                :locals => { :project => @project  }
+            page.visual_effect :highlight, "imagediv"
+          end
+        end
+      end
     end
   end
   

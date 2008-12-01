@@ -19,15 +19,20 @@ ActionController::Routing::Routes.draw do |map|
               :status_history => :get,
               :show_family_trees => :get,
               :new_clone => :get,
-              :show_doc_version => :get }  do |projects|
+              :show_doc_version => :get,
+              :show_image => :get,
+              :edit_image => :get,
+              :update_image => :put }  do |projects|
       projects.resources :doc_versions  
       projects.resources :boms
-      projects.resources :images
     end
 
   
   map.resources :boms do |boms|
-    boms.resources :items, :member => { :show_doc_version => :get } do |items|
+    boms.resources :items, :member => { :show_doc_version => :get,
+              :show_image => :get,
+              :edit_image => :get,
+              :update_image => :put   } do |items|
       items.resources :doc_versions
       items.resources :images
     end    

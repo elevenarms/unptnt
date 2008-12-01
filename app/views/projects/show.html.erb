@@ -7,11 +7,11 @@
 <div id="proj-details">
   
   <div id="imagediv">
-    <%= render :partial => '/images/show_in_project', :locals => { :project => @project } %>
+    <%= render :partial => '/projects/show_image', :locals => { :project => @project } %>
   </div>
 
   <div id="proj-fields">
-    <%= render :partial => 'show', :locals => { :project => @project, :related_users => @related_users } %>
+    <%= render :partial => 'projects/show', :locals => { :project => @project, :related_users => @related_users } %>
   </div>
 </div>   <!-- proj-details -->  
   

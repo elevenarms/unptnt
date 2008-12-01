@@ -1,2 +1,0 @@
-
-page.replace_html "proj-fields", :partial => "show", :locals => { :project => @project, :related_users => @project.related_users }

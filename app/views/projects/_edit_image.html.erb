@@ -1,0 +1,9 @@
+<% form_for(project, :url => formatted_update_image_project_path(:format => 'js'),  
+        :html => { :multipart => true, :target => 'upload_frame' } ) do |f| %>
+  <br/>
+     <%= f.label :project_image %><br />
+     <%= f.file_field :project_image %> 
+  <%= f.submit "Upload new image" %>
+<% end %>
+or <%= link_to_remote "cancel", :url => show_image_project_path(project), :method => :get %>
+<iframe id='upload_frame' name="upload_frame" style="width:1px;height:1px;border:0px" src="about:blank"></iframe>

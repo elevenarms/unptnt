@@ -23,4 +23,6 @@
  </tr>
 </table>
 
-<%= link_to_remote "edit", :url => edit_project_path(@project), :method => :get %>
+<% if logged_in? && current_user.is_editor?(@project) then %>
+  <%= link_to_remote "edit", :url => edit_project_path(@project), :method => :get %>
+<% end %>

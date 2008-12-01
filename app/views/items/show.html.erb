@@ -6,15 +6,16 @@
         </span><br/>
 
         <%= render :partial => 'attachments/index', :locals => { :file_attachments => @file_attachments }  %><br />
+
+      <span id="imagediv">
+        <%= render :partial => '/items/show_image', :locals => { :item => @item, :bom => @bom, :project => session[:project] } %>
+        </span><br/>
+      </td><td/><td/><td/><td/>
+
       <span id="document"
         <%= render :partial => 'items/show_doc_version', 
               :locals => { :doc_version => @doc_version, :item => @item, :home_page => true, :bom => @bom, :project => session[:project] } %><br/>  
       </span>        
-
-      <span id="imagediv">
-        <%= render :partial => '/images/show_in_item', :locals => { :item => @item, :bom => @bom, :project => session[:project] } %>
-        </span><br/>
-      </td><td/><td/><td/><td/>
         
     </tr>
 </table><br /><br />

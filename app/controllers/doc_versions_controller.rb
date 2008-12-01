@@ -77,7 +77,7 @@ class DocVersionsController < ApplicationController
   
   def edit
     @doc_version = DocVersion.find(params[:id])
-    @item = @doc_version.item
+    @doc_version.item_id == 0 ? @item = { :id => 0 } : @item = @doc_version.item
     @project = @doc_version.project 
     @bom = @project.bom
     @home_page = false
