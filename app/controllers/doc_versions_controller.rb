@@ -1,4 +1,5 @@
 class DocVersionsController < ApplicationController
+  include ProjectModule
   include DocVersioning
   layout 'project'
   uses_tiny_mce(:only => [:new, :edit], :options => AppConfig.default_mce_options)
@@ -43,7 +44,7 @@ class DocVersionsController < ApplicationController
       @item = { :id => 0 }
     end
     unless params[:project_id].nil? then
-      @project = Project.find(params[:project_id])     
+      @project = current_project(params[:project_id])
       @home_page = true if @project.doc_versions.size == 0
     end
     if params[:project_id].nil? && params[:item_id].nil? then
@@ -77,7 +78,7 @@ class DocVersionsController < ApplicationController
   
   def edit
     @doc_version = DocVersion.find(params[:id])
-    @doc_version.item_id == 0 ? @item = { :id => 0 } : @item = @doc_version.item
+    @doc_version.doc_type == "item" ? @item = @doc_version.item : @item = { :id => 0 }
     @project = @doc_version.project 
     @bom = @project.bom
     @home_page = false
@@ -111,7 +112,7 @@ class DocVersionsController < ApplicationController
   def destroy
     @doc_version = DocVersion.find(params[:id])
     @doc_version.destroy
-    @project = Project.find(params[:project_id])
+    @project = current_project(params[:project_id])
     flash[:notice] = "Successfully destroyed doc version."
     redirect_to project_doc_versions_path(@project)
   end

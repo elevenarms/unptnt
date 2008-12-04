@@ -117,7 +117,7 @@ def create_root
       clone_trees << CloneTree.find(:all, :conditions => "rootnode = '#{r.rootnode}'", :order => 'lft')
     end
     return clone_trees
-  end  
-  
+  end
+
 end
 

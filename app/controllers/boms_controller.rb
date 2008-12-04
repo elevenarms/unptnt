@@ -1,4 +1,5 @@
 class BomsController < ApplicationController
+  include ProjectModule
   layout "project"
   before_filter :login_required, :only => [:new]
   
@@ -21,7 +22,7 @@ class BomsController < ApplicationController
   end
 
   def new  #does nothing more than set name and redirect to items
-    @project = Project.find(params[:project_id])
+    @project = current_project(params[:project_id])
     redirect_to @project unless current_user.is_owner?(@project)
     @bom = Bom.create(:name => @project.name)
     @project.bom = @bom

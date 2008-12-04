@@ -1,5 +1,5 @@
 class ProjectsController < ApplicationController
-  include ProjectCloning
+  include ProjectModule
   include DocVersioning
   layout "project"
   uses_tiny_mce(:only => [:new, :edit], :options => AppConfig.default_mce_options)
@@ -22,7 +22,7 @@ class ProjectsController < ApplicationController
   
   #get all the users who have any relationship to this project
   def related_users
-    @project = Project.find(params[:id])
+    @project = current_project(params[:id])
     if @project.nil? then 
       redirect_to projects_path and return
     end
@@ -32,8 +32,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.xml
   def show
-    @project = Project.find(params[:id])
-    session[:project] = @project
+    @project = current_project(params[:id])
     @events = @project.events
     @related_users = @project.related_users
     @doc_version = DocVersion.find_by_project_id(@project.id)
@@ -46,7 +45,7 @@ class ProjectsController < ApplicationController
   end
   
   def show_family_trees
-    @project = Project.find(params[:id])
+    @project = current_project(params[:id])
     @family_trees = @project.find_trees
   end
 
@@ -59,14 +58,14 @@ class ProjectsController < ApplicationController
   end
   
   def new_clone
-    @parent_project = Project.find(params[:id])
+    @parent_project = current_project(params[:id])
     @project = Project.new
   end
   
 
   # GET /projects/1/edit
   def edit
-    @project = Project.find(params[:id])
+    @project = current_project(params[:id])
     unless current_user.is_editor?(@project) then 
       redirect_to @project and return
     end    
@@ -102,7 +101,8 @@ class ProjectsController < ApplicationController
       @project.license = license      
     end
     
-    if @project.save        
+    if @project.save
+      session[:project] = @project
       flash[:notice] = 'Project was successfully created.'
       #create event
       @project.create_event(Action::CREATE_PROJECT, @project, current_user)
@@ -111,7 +111,7 @@ class ProjectsController < ApplicationController
       if  params[:parent_projectid].nil? then
         @project.create_root
       else
-        parent_project = Project.find(params[:parent_projectid])
+        parent_project = current_project(params[:parent_projectid])
         clone_elements(@project, parent_project)
         @project.make_new_clone(parent_project)
       end
@@ -125,7 +125,7 @@ class ProjectsController < ApplicationController
   # PUT /projects/1
   # PUT /projects/1.xml
   def update
-    @project = Project.find(params[:id])
+    @project = current_project(params[:id])
     unless current_user.is_editor?(@project) then 
       redirect_to @project and return
     end     
@@ -141,6 +141,7 @@ class ProjectsController < ApplicationController
     end
 
     if @project.update_attributes(params[:project])
+      session[:project] = @project
       flash[:notice] = 'Project was successfully updated.'
       #create event
       respond_to do |wants|
@@ -166,11 +167,11 @@ class ProjectsController < ApplicationController
   end
   
   def status_history
-    @project = Project.find(params[:id])
+    @project = current_project(params[:id])
   end
   
   def follow 
-    @project = Project.find(params[:id])    
+    @project = current_project(params[:id])
     connect(@project, current_user, "follower")
     respond_to do |format| 
       format.html { redirect_to :action => 'show' }
@@ -179,7 +180,7 @@ class ProjectsController < ApplicationController
   end
   
   def stop_following
-    @project = Project.find(params[:id]) 
+    @project = current_project(params[:id])
     proj_people = ProjectPerson.find(:first, :conditions => "user_id = '#{current_user.id}' && project_id = '#{params[:id]}'")
     proj_people.destroy
     respond_to do |format|
@@ -190,14 +191,14 @@ class ProjectsController < ApplicationController
   
   def add_collaborator
     @users = User.find(:all)
-    @project = Project.find(params[:id])
+    @project = current_project(params[:id])
     unless current_user.is_owner?(@project) then 
       redirect_to @project
     end     
   end
   
   def create_collaborator
-    @project = Project.find(params[:id]) 
+    @project = current_project(params[:id])
     unless current_user.is_owner?(@project) then 
       redirect_to @project
     end
@@ -207,7 +208,7 @@ class ProjectsController < ApplicationController
   end
   
   def remove_collaborator
-    project = Project.find(params[:id]) 
+    project = current_project(params[:id])
     unless current_user.is_owner?(project) then 
       redirect_to project
     end    
@@ -217,7 +218,7 @@ class ProjectsController < ApplicationController
   end
   
   def related_users
-    @project = Project.find(params[:id])
+    @project = current_project(params[:id])
     #TO DO convert to @project.related_users
     @related_users = @project.related_users
   end 

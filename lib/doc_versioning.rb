@@ -14,7 +14,7 @@ module DocVersioning
     doc_version.editor = current_user
     doc_version.project_id = params[:projectidnum]
     doc_version.item_id = params[:itemidnum]
-    if params[:itemidnum] == 0 then
+    if params[:itemidnum] == "0" then
       doc_version.doc_type = "project"
     else
       doc_version.doc_type = "item"

@@ -1,7 +1,8 @@
 class PeopleController < ApplicationController
+  include ProjectModule
   layout "project"
   def follow_project 
-    @project = Project.find(params[:id])    
+    @project = current_project(params[:id])
     connect(@project, current_user, "follower")
     respond_to do |format| 
       format.html { render :template => '/projects/show.html.erb' }
@@ -10,7 +11,7 @@ class PeopleController < ApplicationController
   end
   
   def stop_following_project
-    @project = Project.find(params[:id]) 
+    @project = current_project(params[:id])
     proj_people = ProjectPerson.find(:first, :conditions => "user_id = '#{current_user.id}' && project_id = '#{params[:id]}'")
     proj_people.destroy
     respond_to do |format|
@@ -21,18 +22,18 @@ class PeopleController < ApplicationController
   
   def add_collaborator
     @users = User.find(:all)
-    @project = Project.find(params[:id])
+    @project = current_project(params[:id])
   end
   
   def create_collaborator
-    @project = Project.find(params[:projectid]) 
+    @project = current_project(params[:projectid])
     user = User.find(params[:userid])
     connect(@project, user,  "collaborator")
     render :template => '/projects/show.html.erb' 
   end
   
   def remove_collaborator
-    project = Project.find(params[:projectid]) 
+    project = current_project(params[:projectid])
     proj_person = ProjectPerson.find(:first, :conditions => "user_id = '#{params[:userid]}' && project_id = '#{project.id }'")
     proj_person.destroy
     redirect_to :action => 'show_project_people', :id => project.id

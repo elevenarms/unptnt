@@ -1,10 +1,10 @@
 class ImagesController < ApplicationController
-  
+  include ProjectModule
   def new
     @project = @item = nil
     @image = { :id => 0 }
     if !params[:project_id].nil?  then
-      redirect_to projects_path and return if (@project = Project.find(params[:project_id])).nil?
+      redirect_to projects_path and return if (@project = current_project(params[:project_id])).nil?
     elsif !params[:item_id].nil? then
       redirect_to @project and return if (@item = Item.find(params[:item_id])).nil?
       # new item image
@@ -28,7 +28,7 @@ class ImagesController < ApplicationController
   def edit
     @project = @item = nil
     if !params[:project_id].nil?  then
-      redirect_to projects_path and return if (@project = Project.find(params[:project_id])).nil?
+      redirect_to projects_path and return if (@project = current_project(params[:project_id])).nil?
     elsif !parmas[:item_id].nil?
       redirect_to @project and return if (@item = Item.find(params[:item_id])).nil?
     else redirect_to projects_path and return
@@ -43,7 +43,7 @@ class ImagesController < ApplicationController
     @project = @item = nil
     @image = { :id => 0 }
     if !params[:project_id].nil?  then
-      redirect_to projects_path and return if (@project = Project.find(params[:project_id])).nil?
+      redirect_to projects_path and return if (@project = current_project(params[:project_id])).nil?
     elsif !params[:item_id].nil? then
       redirect_to @project and return if (@item = Item.find(params[:item_id])).nil?
       # new item image
