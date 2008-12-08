@@ -6,6 +6,6 @@
 <% end %> </span>           
 <div id="image-edit">
   <% if logged_in? && current_user.is_editor?(project) then %>
-    <%= link_to_remote "edit", :url => edit_image_project_path(project), :method => :get %>
+    <%= link_to_remote image_tag("/images/edit.png"), :url => edit_image_project_path(project), :method => :get %>
   <% end %>
 </div>

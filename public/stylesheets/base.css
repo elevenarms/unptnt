@@ -26,7 +26,7 @@ z-index:2;*/
 	text-align:center;
 }
 #header-middle{
-	background: #F26B1D none repeat scroll 0 0;
+	background: #6091d7 none repeat scroll 0 0;
 	height:50px;
 }
 #header-bottom{
@@ -215,58 +215,42 @@ z-index:2;*/
   bottom:10px;
 }
 
-#status{
-  padding: 5px;
+/* project page */
+#proj-details{
+    
+    padding-left: 5px;
+    border-top-style: solid;
+    border-bottom-style: solid;
+    border-left-style: solid;
+    border-right-style: solid;
+    border-top-color: #000000;
+    border-bottom-color: #000000;
+    border-left-color: #000000;
+    border-right-color: #000000;
 }
-#status h4{
-  padding: 0px;
-}
-
-#project-master{
-
-}
-#project-subheader{
-	border: 5px;
-	padding-top:0px;
-
-}
-#project-subheader h3{
-	padding:3px;
-	text-align:center;
-	color:black;
-	border:dashed 2px;
-}
-#projects-show{
-}
-#project-header{
-	background: white;
-	padding-top:10px;
-}
-#project-image{
-padding-left:15px;
-}
-#project-image img{
-	
-	border:solid 5px #6091d7;
-}
-
-#project-name{
-  padding: 10px;
-}
-#project-description{
-  padding-left: 10px;
-}
-#project-details{
-  padding-left: 5px;
-}
-#project-details h1{
+#proj-details h1{
   margin-bottom: 5px;
 }
-#project-details h4{
+#proj-details h4{
   margin-bottom: 5px;
 }
-#project-details h5{
+#proj-details h5{
   margin-bottom: 5px;
+}
+#image-edit{
+    position:absolute;
+	left:350px;
+	top:120px;
+    color: white;
+}
+#image-edit a{
+    color:white;
+}
+#doc-title{
+    font-size:1.5em;
+}
+#doc-content{
+
 }
 #people-owner{
 	padding-top:4px;

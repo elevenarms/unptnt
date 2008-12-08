@@ -11,11 +11,6 @@ class DocVersion < ActiveRecord::Base
   validates_presence_of :item_id
   validates_presence_of :doc_id
   
-  def create_event(action_id, target, user, data = nil, body = nil, date = Time.now.utc)
-    #debugger - commented out so it would run in NetBeans
-    events.create(:action => action_id, :target => target, :user => user,
-                  :body => body, :data => data, :created_at => date)
-  end  
   
   def self.find_current_for_item(item_id)
     return DocVersion.find(:all, 

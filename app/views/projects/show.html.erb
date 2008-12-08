@@ -6,22 +6,22 @@
 
 <div id="proj-details">
   
-  <div id="imagediv">
+  <div id="imagediv" class="column span-5">
     <%= render :partial => '/projects/show_image', :locals => { :project => @project } %>
   </div>
 
-  <div id="proj-fields">
+  <div id="proj-fields" class="column span-18">
     <%= render :partial => 'projects/show', :locals => { :project => @project, :related_users => @related_users } %>
   </div>
 </div>   <!-- proj-details -->  
   
-<div id="proj-events">
+<div id="proj-events" class="column span-24">
   =============================<br />
   Placeholder:  render the project events partial here.<br />
   =============================<br />
 </div>
 
-<div id="document">
+<div id="document" class="column span-24">
   <%= render :partial =>  'projects/show_doc_version', 
         :locals => { :doc_version => @doc_version, :project => @project, 
         :item_id => 0, :home_page => true } %>
