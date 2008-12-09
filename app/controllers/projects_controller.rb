@@ -36,7 +36,8 @@ class ProjectsController < ApplicationController
     @events = @project.events
     @related_users = @project.related_users
     @doc_version = DocVersion.find_by_project_id(@project.id)
-  
+    @forum = @project.forum
+    @forum = "0" if @forum.nil?
     respond_to do |format|
       format.html # show.html.erb
       format.js   # show.js.rjs

@@ -12,12 +12,17 @@
         </span><br/>
       </td><td/><td/><td/><td/>
 
-      <span id="document"
+      <span id="document">
         <%= render :partial => 'items/show_doc_version', 
               :locals => { :doc_version => @doc_version, :item => @item, :home_page => true, :bom => @bom, :project => session[:project] } %><br/>  
       </span>        
         
     </tr>
-</table><br /><br />
+</table><br />
+
+
+<div id="forum-link">
+  <%= link_to "Item discussion forum", bom_item_forum_path(@bom, @item, @forum) %>
+</div><br />
 
  <%= render :partial => 'items/new_item_link', :locals => { :item => @item } %>

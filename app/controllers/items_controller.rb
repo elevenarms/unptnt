@@ -29,6 +29,8 @@ class ItemsController < ApplicationController
     @doc_version = doc_version_to_display(1, @item.id)
     @sum = params[:sum]
     @old_type = @item.item_type
+    @forum = @item.forum
+    @forum = "0" if @forum.nil?
     respond_to do |what|
       what.html # show.html.erb
       what.js   # show.js.rjs        

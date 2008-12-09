@@ -1,4 +1,7 @@
 ActionController::Routing::Routes.draw do |map|
+
+  map.from_plugin :aep_beast
+  
   map.resources :clone_trees
 
   map.resources :doc_versions
@@ -25,6 +28,7 @@ ActionController::Routing::Routes.draw do |map|
               :update_image => :put }  do |projects|
       projects.resources :doc_versions  
       projects.resources :boms
+      projects.resources :forums
     end
 
   
@@ -35,6 +39,7 @@ ActionController::Routing::Routes.draw do |map|
               :update_image => :put   } do |items|
       items.resources :doc_versions
       items.resources :images
+      items.resources :forums
     end    
   end
   

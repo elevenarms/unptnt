@@ -14,6 +14,7 @@ class Project < ActiveRecord::Base
                                  :thumb => "100x100>" }
   is_indexed :fields => ['name', 'description', 'status'], :delta => true
   has_many :doc_versions
+  has_one  :forum, :as => :subject
 
   validates_presence_of     :name
   validates_length_of       :name,     :maximum => 100

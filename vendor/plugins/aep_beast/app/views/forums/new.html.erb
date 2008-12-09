@@ -1,0 +1,16 @@
+The forum for this
+<%= @subject_type %>
+has not been started yet.<br/>
+
+<% form_for :forum, :url => { :controller => 'forums', :action => 'create' } do |f| %>
+  <%= f.hidden_field :subject_type, :value => @subject_type %>
+  <%= f.hidden_field :subject_id, :value => @subject_id %>
+  <%= f.hidden_field :name, :value => @name %>
+  <%= f.submit 'Create the first topic and post' %>
+<% end %><br/>
+or
+<% if @subject_type == 'item' then %>
+  <%= link_to "return to item", bom_item_path(@bom, @subject_id)  %>
+<% else %>
+  <%= link_to "return to project", project_path(@subject_id)  %>
+<% end %>

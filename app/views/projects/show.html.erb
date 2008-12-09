@@ -24,5 +24,9 @@
 <div id="document" class="column span-24">
   <%= render :partial =>  'projects/show_doc_version', 
         :locals => { :doc_version => @doc_version, :project => @project, 
-        :item_id => 0, :home_page => true } %>
+        :item_id => "0", :home_page => true } %>
+</div>
+
+<div id="forum-link">
+  <%= link_to "Project discussion forum", project_forum_path(@project, @forum) if logged_in? || @forum.id != "0" %>
 </div>

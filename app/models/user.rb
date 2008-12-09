@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   include Authentication
   include Authentication::ByPassword
   include Authentication::ByCookieToken
+  include SavageBeast::UserInit
 
   validates_presence_of     :login
   validates_length_of       :login,    :within => 3..40
@@ -86,9 +87,7 @@ class User < ActiveRecord::Base
   end
   
   def is_editor?(project)
-    if self.relationship(project) == 'owner' || self.relationship(project) == 'collaborator' then true
-    else false
-    end
+    self.relationship(project) == 'owner' || self.relationship(project) == 'collaborator' 
   end
   
   def is_owner?(project)
@@ -150,7 +149,29 @@ class User < ActiveRecord::Base
   def docs
     #get just current versions
     DocVersion.find(:all, :conditions => "editor_id = '#{self.id}'  AND  current_version = TRUE", :order => "last_edited_at DESC")
-  end   
+  end
+
+  # the following four methods are implemented to support aep_beast
+
+  def self.currently_online
+    # assume this returns an array of all users who are currently logged in
+    false
+  end
+
+  def display_name
+    # name to display for the user
+    self.login
+  end
+
+  def admin?
+    # is this person a forum administrator - nobody is
+    false
+  end
+
+  def build_search_conditions(query)
+		query && ['LOWER(display_name) LIKE :q OR LOWER(login) LIKE :q', {:q => "%#{query}%"}]
+		query
+	end
 
   private
 

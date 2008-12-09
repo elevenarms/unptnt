@@ -7,6 +7,7 @@ class Item < ActiveRecord::Base
   has_many   :events, :as => :target, :dependent => :destroy
   is_indexed :fields => ['name'], :delta => true
   has_many :doc_versions
+  has_one  :forum, :as => :subject
  
   def docs
     #get just current versions
