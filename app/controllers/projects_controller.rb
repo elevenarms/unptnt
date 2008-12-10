@@ -38,6 +38,7 @@ class ProjectsController < ApplicationController
     @doc_version = DocVersion.find_by_project_id(@project.id)
     @forum = @project.forum
     @forum = "0" if @forum.nil?
+    add_notice( "test me" )
     respond_to do |format|
       format.html # show.html.erb
       format.js   # show.js.rjs
