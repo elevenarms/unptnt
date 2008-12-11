@@ -1,7 +1,8 @@
-<%#
-# To change this template, choose Tools | Templates
-# and open the template in the editor.
-%>
-
-<%= "index.html" %>
-<%= debug(@users) %>
+<% for user in @users do %>
+	<% unless user.user_image_file_name.nil?  then %>
+	  <%= image_tag user.user_image.url,:height=>'45',:width=>'45' %>
+	<% else%>
+	  <%= image_tag 'avatar.gif',:height=>'45',:width=>'45' %>
+	<% end %>&nbsp;&nbsp;&nbsp;
+  <%= user.login %>&nbsp;(<%= user.name %> )<br/>
+<% end %>

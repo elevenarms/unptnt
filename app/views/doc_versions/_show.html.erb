@@ -1,0 +1,7 @@
+    <br /><span id="doc-title"><%= doc_version.title %></span>
+    <br />
+    <span id="doc-content"><%= doc_version.content %></span>
+    <br />
+    <% if logged_in? && current_user.is_editor?(project)  then %>
+      <%= link_to_remote "edit", :url => edit_doc_version_path(doc_version), :method => :get  %>
+    <% end %>

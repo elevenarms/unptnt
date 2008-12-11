@@ -16,9 +16,10 @@
 </div>   <!-- proj-details -->  
   
 <div id="proj-events" class="column span-24">
-  =============================<br />
-  Placeholder:  render the project events partial here.<br />
-  =============================<br />
+    <div id="events-container">
+       <%= render :partial => '/events/events' -%>
+    </div>
+    <%= will_paginate @events , :class=>"apple_pagination span-24" %>
 </div>
 
 <div id="document" class="column span-24">
@@ -28,5 +29,5 @@
 </div>
 
 <div id="forum-link">
-  <%= link_to "Project discussion forum", project_forum_path(@project, @forum) if logged_in? || @forum.id != "0" %>
+  <%= link_to "Project discussion forum", project_forum_path(@project, @forum)  %>
 </div>

@@ -9,8 +9,8 @@
     <%= f.label :content %><br />
     <%= f.text_area :content, :size => "700x40" %>
 
-    <%= hidden_field_tag :itemidnum, item[:id] %>
-    <%= hidden_field_tag :projectidnum, project[:id] %>
+    <%= hidden_field_tag :item_id, item[:id] %>
+    <%= hidden_field_tag :project_id, project[:id] %>
     <%= hidden_field_tag :home_page, home_page %>
 
   <p><%= f.submit "Save" %></p> or 

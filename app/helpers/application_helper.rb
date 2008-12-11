@@ -5,7 +5,7 @@ module ApplicationHelper
     target = event.target
     action = ""
     body = ""
-    category = ""   
+    category = ""
     case event.action
       when Action::CREATE_PROJECT
         action = "<strong>created project</strong> #{link_to h(target.name), project_path(target)}"
@@ -33,7 +33,7 @@ module ApplicationHelper
       when Action::CREATE_DOC
         action = "<strong>created document</strong> #{link_to h(target.name), item_path(target)}"
         body = "#{target.title} - "
-        category = "docs" 
+        category = "docs"
       when Action::UPDATE_DOC
         action = "<strong>created document</strong> #{link_to h(target.name), item_path(target)}"
         body = "#{target.title} - "
@@ -49,18 +49,42 @@ module ApplicationHelper
       when Action::BEGIN_COLLAB
         action = "<strong>created document</strong> #{link_to h(target.name), item_path(target)}"
         body = "#{target.title} - #{target.description}"
-        category = "people" 
+        category = "people"
+      when Action::CREATE_TOPIC
+        action = "<strong>created document</strong> #{link_to h(target.name), item_path(target)}"
+        body = "#{target.title} - #{target.description}"
+        category = "discuss"
+      when Action::UPDATE_TOPIC
+        action = "<strong>created document</strong> #{link_to h(target.name), item_path(target)}"
+        body = "#{target.title} - #{target.description}"
+        category = "discuss"
+      when Action::DELETE_POST
+        action = "<strong>created document</strong> #{link_to h(target.name), item_path(target)}"
+        body = "#{target.title} - #{target.description}"
+        category = "discuss"
+      when Action::CREATE_POST
+        action = "<strong>created document</strong> #{link_to h(target.name), item_path(target)}"
+        body = "#{target.title} - #{target.description}"
+        category = "discuss"
+      when Action::UPDATE_POST
+        action = "<strong>created document</strong> #{link_to h(target.name), item_path(target)}"
+        body = "#{target.title} - #{target.description}"
+        category = "discuss"
+      when Action::DELETE_POST
+        action = "<strong>created document</strong> #{link_to h(target.name), item_path(target)}"
+        body = "#{target.title} - #{target.description}"
+        category = "discuss"
       when Action::CLONE_REPOSITORY
         original_repo = Repository.find_by_id(event.data.to_i)
         next if original_repo.nil?
-        
+
         project = target.project
-        
+
         action = "<strong>cloned</strong> #{link_to h(project.slug), project_path(project)}/#{link_to h(original_repo.name), project_repository_url(project, original_repo)} in #{link_to h(target.name), project_repository_url(project, target)}"
         category = "repository"
- 
+
     end
-      
+
     [action, body, category]
   end
 end

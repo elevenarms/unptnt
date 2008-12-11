@@ -6,7 +6,6 @@ class ForumsController < ApplicationController
   def show
     #is there already a forum to show???
     if params[:id] == "0" then
-      redirect_to :back and return unless logged_in?
       if !params[:item_id].nil? then
         @subject_id = params[:item_id]
         @subject_type = 'item'

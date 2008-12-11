@@ -1,5 +1,6 @@
 class PostsController < ApplicationController
-  before_filter :find_post,      :except => [:index, :create, :monitored, :search]
+  include ProjectModule
+  before_filter :find_post,      :except => [:index, :monitored, :search]
   before_filter :login_required, :except => [:index, :monitored, :search, :show]
   @@query_options = { :select => "#{Post.table_name}.*, #{Topic.table_name}.title as topic_title, #{Forum.table_name}.name as forum_name", :joins => "inner join #{Topic.table_name} on #{Post.table_name}.topic_id = #{Topic.table_name}.id inner join #{Forum.table_name} on #{Topic.table_name}.forum_id = #{Forum.table_name}.id" }
 
@@ -60,6 +61,7 @@ class PostsController < ApplicationController
     @post  = @topic.posts.build(params[:post])
     @post.user = current_user
     @post.save!
+    #@project.create_event(Action::CREATE_POST, @post, current_user)
     respond_to do |format|
       format.html do
         redirect_to forum_topic_path(:forum_id => params[:forum_id], :id => params[:topic_id], :anchor => @post.dom_id, :page => params[:page] || '1')
@@ -86,6 +88,7 @@ class PostsController < ApplicationController
   def update
     @post.attributes = params[:post]
     @post.save!
+    @project.create_event(Action::UPDATE_POST, @post, current_user)
   rescue ActiveRecord::RecordInvalid
     flash[:bad_reply] = 'An error occurred'[:error_occured_message]
   ensure
@@ -100,6 +103,7 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
+    @project.create_event(Action::DELETE_POST, @post, current_user)
     flash[:notice] = "Post of '{title}' was deleted."[:post_deleted_message, @post.topic.title]
     respond_to do |format|
       format.html do
@@ -120,8 +124,17 @@ class PostsController < ApplicationController
       "#{Post.table_name}.created_at#{params[:forum_id] && params[:topic_id] ? nil : " desc"}"
     end
     
-    def find_post			
-			@post = Post.find_by_id_and_topic_id_and_forum_id(params[:id], params[:topic_id], params[:forum_id]) || raise(ActiveRecord::RecordNotFound)
+    def find_post
+      unless params[:id].nil? then
+		  	@post = Post.find_by_id_and_topic_id_and_forum_id(params[:id], params[:topic_id], params[:forum_id]) || raise(ActiveRecord::RecordNotFound)
+      end      
+      @forum = Forum.find(params[:forum_id])
+      if @forum.subject_type == 'project' then
+        @project = current_project(@forum.subject_id)
+      else
+        item = Item.find(@forum.subject_id)
+        @project = current_project(item.project_id)
+      end
     end
     
     def render_posts_or_xml(template_name = action_name)

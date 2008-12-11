@@ -15,8 +15,15 @@ module ApplicationHelper
     "<img src='/plugin_assets/aep_beast/images/#{spinner}' style='display:none; vertical-align:middle;' id='#{id.to_s}_spinner'> "
   end
 
-  def avatar_for(user, size=32)
-    image_tag "http://www.gravatar.com/avatar.php?gravatar_id=#{MD5.md5(user.email)}&rating=PG&size=#{size}", :size => "#{size}x#{size}", :class => 'photo'
+  def avatar_for(user, size=45)
+    unless user.user_image_file_name.nil?  then
+	    image_tag user.user_image.url,:height=>size,:width=>size
+	  else
+	    image_tag 'avatar.gif',:height=>size,:width=>size
+  	end
+
+    #original next line for using Gravatar
+    #image_tag "http://www.gravatar.com/avatar.php?gravatar_id=#{MD5.md5(user.email)}&rating=PG&size=#{size}", :size => "#{size}x#{size}", :class => 'photo'
   end
 	
 	def beast_user_name

@@ -28,51 +28,41 @@ class DocVersionsController < ApplicationController
   
   def show
       @doc_version = DocVersion.find(params[:id])
+      setup_ids(params)
   end
   
   def new
     #setup for the creation the first version of a new title (document)
     #  need to figure out if an item or project doc and which item or project
     @doc_version = DocVersion.new
+    setup_ids(params)
+
     @home_page = false
-    unless params[:item_id].nil? then
-      @item = Item.find(params[:item_id])
-      @bom = @item.bom
-      @home_page = true if @item.doc_versions.size == 0
-      @project = @item.bom.project and return
-    else
-      @item = { :id => 0 }
-    end
-    unless params[:project_id].nil? then
-      @project = current_project(params[:project_id])
-      @home_page = true if @project.doc_versions.size == 0
-    end
     if params[:project_id].nil? && params[:item_id].nil? then
-      flash[:error] = "Cannot create a document without an associated project or item"
+      add_error("Cannot create a document without an associated project or item")
       redirect_to projects_path
     else
       respond_to do |wants|
         wants.html # new.html.erb
         wants.js   # new.js.rjs
       end
-    end
-    
+    end    
   end
   
   def create    
     @doc_version = make_new_doc
-    @doc_version.save
-    respond_to do |wants|
-      wants.html { flash[:notice] = "Successfully created doc version."
-        redirect_to @doc_version and return     
-      }
-      wants.js  do
-        if @doc_version.doc_type == 'item'
-          render :template => 'items/show_doc_version'
-        else
-          render :template =>  'projects/show_doc_version'
+    if @doc_version.save then
+      respond_to do |wants|
+        wants.html { add_notice("Successfully created doc version.")
+          redirect_to @doc_version and return
+        }
+        wants.js  do
+          setup_ids(params)
+          render :template => 'doc_versions/show'
         end
       end
+    else
+      add_error(" Document not created")
     end 
   end
   
@@ -100,11 +90,7 @@ class DocVersionsController < ApplicationController
         redirect_to @doc_version and return     
       }
       wants.js  do
-        if @doc_version.doc_type == 'item'
-          render :template =>  'items/show_doc_version'
-        else
-          render :template =>  'projects/show_doc_version'
-        end
+       setup_ids(params)
       end
     end     
   end
@@ -115,5 +101,21 @@ class DocVersionsController < ApplicationController
     @project = current_project(params[:project_id])
     flash[:notice] = "Successfully destroyed doc version."
     redirect_to project_doc_versions_path(@project)
+  end
+
+  def setup_ids(params)
+     unless params[:item_id].nil? then
+      @item = Item.find(params[:item_id])
+      @bom = @item.bom
+      @home_page = true if @item.doc_versions.size == 0
+      @project = current_project(params[project_id]) and return
+    else
+      @item = { :id => 0 }
+    end
+    unless params[:project_id].nil? then
+      @project = current_project(params[:project_id])
+      @home_page = true if @project.doc_versions.size == 0
+    end
+
   end
 end

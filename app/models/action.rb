@@ -11,12 +11,13 @@ class Action
   DELETE_TAG = 9
   BEGIN_FOLLOW = 10
   BEGIN_COLLAB = 11
-  COMMENT = 12
-  REQUEST_MERGE = 13
-  RESOLVE_MERGE_REQUEST = 14
-  UPDATE_MERGE_REQUEST = 15
-  DELETE_MERGE_REQUEST = 16
-  
+  NEW_TOPIC = 12
+  EDIT_TOPIC = 13
+  DELETE_TOPIC=14
+  NEW_POST = 15
+  EDIT_POST= 16
+  DELETE_POST = 17
+
   def self.name(action_id)
     case action_id
       when CREATE_PROJECT
@@ -45,14 +46,18 @@ class Action
         "remove committer"
       when COMMENT
         "comment"
-      when REQUEST_MERGE
-        "request merge"
-      when RESOLVE_MERGE_REQUEST
-        "resolve merge request"
-      when UPDATE_MERGE_REQUEST
-        "update merge request"
-      when DELETE_MERGE_REQUEST
-        "delete merge request"
+      when CREATE_TOPIC
+        "create topic"
+      when UPDATE_TOPIC
+        "update topic"
+      when DELETE_TOPIC
+        "delete topic"
+      when CREATE_POST
+        "create post"
+      when UPDATE_POST
+        "update post"
+      when DELETE_POST
+        "delete post"
     end
   end
 end

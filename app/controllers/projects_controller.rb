@@ -33,12 +33,11 @@ class ProjectsController < ApplicationController
   # GET /projects/1.xml
   def show
     @project = current_project(params[:id])
-    @events = @project.events
+    @events = @project.events.paginate  :page=>params[:page],  :per_page => 5
     @related_users = @project.related_users
     @doc_version = DocVersion.find_by_project_id(@project.id)
     @forum = @project.forum
     @forum = "0" if @forum.nil?
-    add_notice( "test me" )
     respond_to do |format|
       format.html # show.html.erb
       format.js   # show.js.rjs

@@ -120,5 +120,11 @@ def create_root
     return clone_trees
   end
 
+  def owner
+    user_id = ProjectPerson.find(:first,
+      :conditions => "relationship = 'owner' AND project_id = '#{ self.id }' ").user_id
+    return User.find(user_id)
+  end
+
 end
 

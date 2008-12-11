@@ -1,0 +1,10 @@
+
+
+if @item.id == "0" then
+page.replace_html "document", :partial => "projects/show_doc_version",
+    :locals => { :project => @project, :doc_version => @doc_version }
+else
+  page.replace_html "document", :partial => "items/show_doc_version",
+    :locals => { :project => @project, :item => @item, :bom => @bom, :doc_version => @doc_version }
+end
+page.visual_effect :highlight, "proj-fields", :duration => 1

@@ -27,7 +27,7 @@ development:
 test:
   adapter: mysql
   encoding: utf8
-  database: unptnt_test
+  database: unptnt_plus_aep_beast_test
   username: root
   password: 
 
