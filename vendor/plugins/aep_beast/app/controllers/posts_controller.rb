@@ -58,6 +58,8 @@ class PostsController < ApplicationController
       return
     end
     @forum = @topic.forum
+    params[:post][:subject_id] = @forum.subject_id
+    params[:post][:subject_type] = @forum.subject_type
     @post  = @topic.posts.build(params[:post])
     @post.user = current_user
     @post.save!

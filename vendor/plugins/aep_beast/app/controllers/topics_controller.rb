@@ -49,6 +49,8 @@ class TopicsController < ApplicationController
     topic_saved, post_saved = false, false
 		# this is icky - move the topic/first post workings into the topic model?
     Topic.transaction do
+      params[:topic][:subject_id] = @forum.subject_id
+      params[:topic][:subject_type] = @forum.subject_type
 	    @topic  = @forum.topics.build(params[:topic])
       assign_protected
       @post       = @topic.posts.build(params[:topic])
@@ -58,7 +60,7 @@ class TopicsController < ApplicationController
       @topic.body = @post.body # incase save fails and we go back to the form
       topic_saved = @topic.save if @post.valid?
       post_saved = @post.save
-      @project.create_event(Action::CREATE_TOPIC, @topic, current_user)
+      @project.create_event(Action::CREATE_TOPIC, @topic, current_user) if topic_saved
     end
 		
 		if topic_saved && post_saved

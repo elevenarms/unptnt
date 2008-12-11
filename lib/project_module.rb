@@ -57,11 +57,4 @@ module ProjectModule
     end unless old_docs.nil?    
   end
 
-  def current_project(id)
-    #gets either the session project or retrieves one from the database
-    return session[:project] if !session[:project].nil? && session[:project][:id] == id
-    project = Project.find(id)
-    session[:project] = project
-    return project
-  end
 end

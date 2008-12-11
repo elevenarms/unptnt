@@ -1,5 +1,4 @@
 class BomsController < ApplicationController
-  include ProjectModule
   layout "project"
   before_filter :login_required, :only => [:index]
   

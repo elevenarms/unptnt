@@ -18,5 +18,15 @@ class ApplicationController < ActionController::Base
     html_options.merge!({ :id => 'current' }) if current_page?(options)
     link_to name, options, html_options
   end
-  #this goes in the view <% tab_link_to 'Companies', companies_path %>  
+  #this goes in the view <% tab_link_to 'Companies', companies_path %>
+
+
+  def current_project(id)
+    #gets either the session project or retrieves one from the database
+    return session[:project] if !session[:project].nil? && session[:project][:id] == id
+    project = Project.find(id)
+    session[:project] = project
+    return project
+  end
+  
 end

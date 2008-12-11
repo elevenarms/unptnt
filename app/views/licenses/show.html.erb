@@ -1,11 +1,13 @@
 Name:<br />
 <%=  @license.name %><br /><br />
 URL: <br />
-<%=  @license.url %><br /><br />
+<%=  auto_link(@license.url) %><br /><br />
+Description: <br />
+<%=  @license.description %><br /><br />
 
   
 	<% unless @license.license_image_file_name.nil?  then %>
-	  <p><%= image_tag @license.license_image.url,:width=>'150' %></p>
+	  <p><%= image_tag @license.license_image.url,:width=>'50' %></p>
 	<% else%>
 	  <p><img></p>
 	<% end %>

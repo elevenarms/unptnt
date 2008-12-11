@@ -8,10 +8,10 @@
   <tr><td><b>License:</b> <% if project.license.nil? then %>
      No license selected yet.
   <% else %>
-     <%=h project.license.name -%>
+     <%=h project.license.name -%> 
 
     <% unless project.license.license_image_file_name.nil?  then %>
-      <%= image_tag project.license.license_image.url(:thumb) %>
+      <%= link_to image_tag(project.license.license_image.url), license_path(project.license) %>
     <% end %>
  <% end %></td></tr>
  <tr><td><b>Owner: </b>

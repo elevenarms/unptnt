@@ -11,7 +11,20 @@
   <p>
     <%= f.label :license_url %><br />
     <%= f.text_field :url %>
-  </p> 
+  </p>
+
+
+
+  <p>
+    <%= f.label :license_description %><br />
+    <%= f.text_area :description %>
+  </p>
+
+	<% unless @license.license_image_file_name.nil?  then %>
+	  <p><%= image_tag @license.license_image.url,:width=>'50' %></p>
+	<% else%>
+	  <p><img></p>
+	<% end %>
   
   <p>
      <%= f.label :license_image %><br />

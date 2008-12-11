@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081207225642) do
+ActiveRecord::Schema.define(:version => 20081211204453) do
 
   create_table "boms", :force => true do |t|
     t.string   "project_id"
@@ -142,6 +142,8 @@ ActiveRecord::Schema.define(:version => 20081207225642) do
     t.datetime "updated_at"
     t.integer  "forum_id"
     t.text     "body_html"
+    t.integer  "subject_id"
+    t.string   "subject_type"
   end
 
   add_index "posts", ["forum_id", "created_at"], :name => "index_posts_on_forum_id"
@@ -222,6 +224,8 @@ ActiveRecord::Schema.define(:version => 20081207225642) do
     t.boolean  "locked",       :default => false
     t.integer  "replied_by"
     t.integer  "last_post_id"
+    t.integer  "subject_id"
+    t.string   "subject_type"
   end
 
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"

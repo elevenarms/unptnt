@@ -54,7 +54,8 @@ class ProjectsController < ApplicationController
   # GET /projects/new.xml
   def new
     @project = Project.new
-    @project.status
+    @project.status = "Created"
+    @project.license_id = 2
     @licenses = License.find(:all)   
     @project_types = PROJECT_TYPES
   end
