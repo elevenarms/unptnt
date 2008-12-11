@@ -54,6 +54,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new.xml
   def new
     @project = Project.new
+    @project.status
     @licenses = License.find(:all)   
     @project_types = PROJECT_TYPES
   end
@@ -101,6 +102,11 @@ class ProjectsController < ApplicationController
       license = License.find(params[:project][:license_id])
       @project.license = license      
     end
+
+    #create bom
+    bom = Bom.create(:name => @project.name)
+    bom.save
+    @project.bom = bom
     
     if @project.save
       session[:project] = @project

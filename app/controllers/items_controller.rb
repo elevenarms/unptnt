@@ -1,5 +1,6 @@
 class ItemsController < ApplicationController
   layout 'project'
+  include ProjectModule
   include DocVersioning
   before_filter :login_required, :only => [ :new, :edit, :create, :update, :destroy ]
   after_filter  :load_item_and_bom, :only => [ :show, :create, :update ]
@@ -41,7 +42,7 @@ class ItemsController < ApplicationController
   #new_bom_item_path(@bom)
   def new
     @bom = Bom.find(params[:bom_id])
-    @project = session[:project]
+    @project = current_project(@bom.project_id)
     @item = Item.new
     @item_types = ITEM_TYPES
     @doc_version = DocVersion.new
