@@ -4,6 +4,8 @@
   <title><% unless @project.nil? then%><%= @project.name%><%else%>Unptnt - Make Something! <%end%></title>
   <%= stylesheet_link_tag "base" -%>    
   <%= stylesheet_link_tag "blueprint/screen" -%>
+  <%= stylesheet_link_tag "display" -%>
+
   <%= javascript_include_tag "prototype" %>
   <%= javascript_include_tiny_mce_if_used %> 
   <%= tiny_mce if using_tiny_mce? %>
@@ -57,7 +59,7 @@
 					<h4><%= link_to 'people', related_users_project_path(@project) -%></h4>
 				</li>
 				<li  class="tab">
-					<h4><%= link_to 'docs', project_path(@project) , :confirm => "we're still working on this..."-%></h4>
+					<h4><%= link_to "discuss", project_forum_path(@project, @forum) %></h4>
 				</li>
 				<li  class="tab">
 					<h4><%= link_to 'materials', project_boms_path(@project) -%></h4>

@@ -4,13 +4,13 @@
 # rendered by project#show.html
 -->
 
-<div id="proj-details">
+<div id="proj-details" >
   
-  <div id="imagediv" class="column span-5">
+  <div id="imagediv" class="column span-3 prepend-2">
     <%= render :partial => '/projects/show_image', :locals => { :project => @project } %>
   </div>
 
-  <div id="proj-fields" class="column span-18">
+  <div id="proj-fields" class="column prepend-2 span-12">
     <%= render :partial => 'projects/show', :locals => { :project => @project, :related_users => @related_users } %>
   </div>
 </div>   <!-- proj-details -->  
@@ -22,12 +22,9 @@
     <%= will_paginate @events , :class=>"apple_pagination span-24" %>
 </div>
 
-<div id="document" class="column span-24">
+<div id="document" class="column prepend-2 span-20">
   <%= render :partial =>  'projects/show_doc_version', 
         :locals => { :doc_version => @doc_version, :project => @project, 
         :item_id => "0", :home_page => true } %>
 </div>
 
-<div id="forum-link">
-  <%= link_to "Project discussion forum", project_forum_path(@project, @forum)  %>
-</div>
