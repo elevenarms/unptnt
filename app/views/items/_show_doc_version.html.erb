@@ -2,5 +2,6 @@
     <%= link_to_remote "add document", :url => new_bom_item_doc_version_path(bom, item), :method => :get %>
 
   <% else %>
-    <%= render :partial => 'doc_versions/show', :locals => { :doc_version => doc_version, :project => project } %>
+    <%= render :partial => 'doc_versions/show',
+      :locals => { :doc_version => doc_version, :project => project } %>
   <% end %>

@@ -5,5 +5,5 @@
      <%= f.file_field :item_image %>
   <%= f.submit "Upload new image" %>
 <% end %>
-or <%= link_to_remote "cancel", :url => show_image_bom_item_path(bom, item), :method => :get %>
+or <%= link_to_remote 'cancel', :url => show_image_bom_item_path(bom, item), :method => :get %>
 <iframe id='upload_frame' name="upload_frame" style="width:1px;height:1px;border:0px" src="about:blank"></iframe>

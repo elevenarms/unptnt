@@ -34,14 +34,12 @@ class DocVersionsController < ApplicationController
   def new
     #setup for the creation the first version of a new title (document)
     #  need to figure out if an item or project doc and which item or project
-    @doc_version = DocVersion.new
-    setup_ids(params)
-
-    @home_page = false
+    @doc_version = DocVersion.new    
     if params[:project_id].nil? && params[:item_id].nil? then
       add_error("Cannot create a document without an associated project or item")
       redirect_to projects_path
     else
+      setup_ids(params)
       respond_to do |wants|
         wants.html # new.html.erb
         wants.js   # new.js.rjs
@@ -52,6 +50,7 @@ class DocVersionsController < ApplicationController
   def create    
     @doc_version = make_new_doc
     if @doc_version.save then
+      setup_ids(params)
       respond_to do |wants|
         wants.html { add_notice("Successfully created doc version.")
           redirect_to @doc_version and return
@@ -91,6 +90,7 @@ class DocVersionsController < ApplicationController
       }
       wants.js  do
        setup_ids(params)
+       render :template => 'doc_versions/show'
       end
     end     
   end
@@ -104,11 +104,11 @@ class DocVersionsController < ApplicationController
   end
 
   def setup_ids(params)
-     unless params[:item_id].nil? then
+     unless params[:item_id].nil? || params[:item_id] == "0" then
       @item = Item.find(params[:item_id])
       @bom = @item.bom
       @home_page = true if @item.doc_versions.size == 0
-      @project = current_project(params[project_id]) and return
+      @project = current_project(@bom.project_id) and return
     else
       @item = { :id => 0 }
     end

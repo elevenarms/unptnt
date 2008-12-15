@@ -24,7 +24,7 @@ class ItemsController < ApplicationController
   # bom_item_path (@bom, @item)
   def show
     @bom = Bom.find(params[:bom_id])
-    @project = session[:project]
+    @project = current_project(@bom.project_id)
     @item = Item.find(params[:id])
     @file_attachments = @item.file_attachments
     @doc_version = doc_version_to_display(1, @item.id)
@@ -32,6 +32,8 @@ class ItemsController < ApplicationController
     @old_type = @item.item_type
     @forum = @item.forum
     @forum = "0" if @forum.nil?
+    @logged_in = logged_in?
+    @current_user_is_editor = current_user.is_editor?(@project) if @logged_in
     respond_to do |what|
       what.html # show.html.erb
       what.js   # show.js.rjs        
@@ -58,8 +60,8 @@ class ItemsController < ApplicationController
   #edit_bom_item_path(@bom)
   def edit
     @bom = Bom.find(params[:bom_id])
-    @project = session[:project]
-    unless current_user.is_editor?(@bom.project) then 
+    @project = current_project(@bom.project_id)
+    unless current_user.is_editor?(@project) then 
       redirect_to @bom and return
     end    
     @item = Item.find(params[:id])
@@ -117,7 +119,7 @@ class ItemsController < ApplicationController
         project.create_event(Action::UPDATE_ITEM, @item, current_user)
       respond_to do |wants|
         wants.html { redirect_to @bom  and return }
-        wants.js   { render :template => 'items/show_fields'       }
+        wants.js   { render :template => 'items/show'       }
       end      
     else
       respond_to do |wants|
@@ -172,6 +174,9 @@ class ItemsController < ApplicationController
   def show_image
     @item = Item.find(params[:id])
     @bom = @item.bom
+    @logged_in = logged_in?
+    @project = current_project(@bom.project_id)
+    @current_user_is_editor = current_user.is_editor?(@project) if @logged_in
     respond_to do |wants|
       wants.js  # show_image.js.rjs
     end

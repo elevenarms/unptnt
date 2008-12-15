@@ -1,6 +1,5 @@
 class BomsController < ApplicationController
   layout "project"
-  before_filter :login_required, :only => [:index]
   
   def index
     @project = current_project(params[:project_id])

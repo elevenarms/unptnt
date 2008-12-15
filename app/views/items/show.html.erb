@@ -1,24 +1,21 @@
-<table>
-    <tr id="item_fields">
-      <td/><td/><td>
-        <%= "<span id=\"item_" + "#{ @item.id }" + "\">"  %>  <!-- gets the id of the span to be the item_type -->  
-          <%= render :partial => '/items/show_fields', :locals => { :item => @item } %>
-        </span><br/>
+<div id="item_fields">
+    <%= render :partial => 'items/show_fields', 
+      :locals => { :item => @item, :bom => @bom, :project => @project, :current_user_is_editor => @current_user_is_editor, :logged_in => @logged_in }  %><br />
+</div>
 
-        <%= render :partial => 'attachments/index', :locals => { :file_attachments => @file_attachments }  %><br />
+<div id="item_attachments">
+    <%= render :partial => 'attachments/index', :locals => { :file_attachments => @file_attachments }  %><br />
+</div>
 
-      <span id="imagediv">
-        <%= render :partial => '/items/show_image', :locals => { :item => @item, :bom => @bom, :project => session[:project] } %>
-        </span><br/>
-      </td><td/><td/><td/><td/>
+<div id="imagediv">
+  <%= render :partial => '/items/show_image',
+      :locals => { :item => @item, :bom => @bom, :project => @project, :current_user_is_editor => @current_user_is_editor, :logged_in => @logged_in } %>
+</div><br/> 
 
-      <span id="document">
-        <%= render :partial => 'items/show_doc_version', 
-              :locals => { :doc_version => @doc_version, :item => @item, :home_page => true, :bom => @bom, :project => session[:project] } %><br/>  
-      </span>        
-        
-    </tr>
-</table><br />
+ <div id="document">
+    <%= render :partial => 'items/show_doc_version',
+          :locals => { :doc_version => @doc_version, :item => @item, :home_page => true, :bom => @bom, :project => session[:project] } %><br/>
+</div>
 
 
 <div id="forum-link">

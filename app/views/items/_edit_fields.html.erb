@@ -21,12 +21,12 @@
     <%= f.text_field :info_url %>
   </p>
 
-  <p>
-    <%= f.submit "Save" %> or
+    <%= f.submit "Save" %>
+<% end %>
+    or
   <% unless item.new_record? then %>
     <%= link_to_remote "cancel", :url => bom_item_path(bom, item), :method => :get %>
   <% else %>
     <%= link_to "cancel",  [project, bom] %>
   <% end %>
-  </p>
-<% end %>
+
