@@ -10,10 +10,10 @@ class InvitationsController < ApplicationController
     if @invitation.save
       if logged_in?
         Mailer.deliver_invitation(@invitation, signup_url(@invitation.token), current_user.name)
-        flash[:notice] = "Thank you, invitation sent."
+        add_message("Thank you, invitation sent.")
         redirect_to dashboard_path
       else
-        flash[:notice] = "Thank you, we will notify when we are ready to accept new users."
+        add_message("Thank you, we will notify when we are ready to accept new users.")
         redirect_to projects_path
       end
     else

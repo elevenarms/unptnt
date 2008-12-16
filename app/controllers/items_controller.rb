@@ -88,7 +88,7 @@ class ItemsController < ApplicationController
     @doc_version = DocVersion.new
     @file_attachments = Hash.new
     if @item.save && @bom.save        
-      flash[:notice] = 'Item was successfully created.'
+      add_message('Item was successfully created.')
       #create event
       project.create_event(Action::CREATE_ITEM, @item, current_user)
       respond_to do |wants|
@@ -114,7 +114,7 @@ class ItemsController < ApplicationController
     @old_type = @item.item_type
     @sum = params[:sum]
     if @item.update_attributes(params[:item])
-      flash[:notice] = 'Item was successfully updated.'
+      add_message('Item was successfully updated.')
         #create event
         project.create_event(Action::UPDATE_ITEM, @item, current_user)
       respond_to do |wants|

@@ -52,7 +52,7 @@ class DocVersionsController < ApplicationController
     if @doc_version.save then
       setup_ids(params)
       respond_to do |wants|
-        wants.html { add_notice("Successfully created doc version.")
+        wants.html { add_message("Successfully created doc version.")
           redirect_to @doc_version and return
         }
         wants.js  do
@@ -85,7 +85,7 @@ class DocVersionsController < ApplicationController
     redirect_to projects_path and return if @doc_version.nil?
     save_current_or_make_new(@doc_version)
     respond_to do |wants|
-      wants.html { flash[:notice] = "Successfully created doc version."
+      wants.html { add_message("Successfully created doc version.")
         redirect_to @doc_version and return     
       }
       wants.js  do
@@ -99,7 +99,7 @@ class DocVersionsController < ApplicationController
     @doc_version = DocVersion.find(params[:id])
     @doc_version.destroy
     @project = current_project(params[:project_id])
-    flash[:notice] = "Successfully destroyed doc version."
+    add_message("Successfully destroyed doc version.")
     redirect_to project_doc_versions_path(@project)
   end
 

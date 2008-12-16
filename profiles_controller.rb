@@ -44,7 +44,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.save
-        flash[:notice] = 'Profile was successfully created.'
+        add_message('Profile was successfully created.')
         format.html { redirect_to(@profile) }
         format.xml  { render :xml => @profile, :status => :created, :location => @profile }
       else
@@ -61,7 +61,7 @@ class ProfilesController < ApplicationController
 
     respond_to do |format|
       if @profile.update_attributes(params[:profile])
-        flash[:notice] = 'Profile was successfully updated.'
+        add_message('Profile was successfully updated.')
         format.html { redirect_to(@profile) }
         format.xml  { head :ok }
       else

@@ -7,4 +7,4 @@ else
   page.replace_html "document", :partial => "items/show_doc_version",
     :locals => { :project => @project, :item => @item, :bom => @bom, :doc_version => @doc_version }
 end
-page.visual_effect :highlight, "proj-fields", :duration => 1
+page.visual_effect :highlight, "document", :duration => 1

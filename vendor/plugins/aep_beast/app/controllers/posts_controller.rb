@@ -48,7 +48,7 @@ class PostsController < ApplicationController
     if @topic.locked?
       respond_to do |format|
         format.html do
-          flash[:notice] = 'This topic is locked.'[:locked_topic]
+          add_notice('This topic is locked.'[:locked_topic])
           redirect_to(forum_topic_path(:forum_id => params[:forum_id], :id => params[:topic_id]))
         end
         format.xml do
@@ -71,7 +71,7 @@ class PostsController < ApplicationController
       format.xml { head :created, :location => formatted_post_url(:forum_id => params[:forum_id], :topic_id => params[:topic_id], :id => @post, :format => :xml) }
     end
   rescue ActiveRecord::RecordInvalid
-    flash[:bad_reply] = 'Please post something at least...'[:post_something_message]
+    add_notice('Please post something at least...'[:post_something_message])
     respond_to do |format|
       format.html do
         redirect_to forum_topic_path(:forum_id => params[:forum_id], :id => params[:topic_id], :anchor => 'reply-form', :page => params[:page] || '1')
@@ -92,7 +92,7 @@ class PostsController < ApplicationController
     @post.save!
     @project.create_event(Action::UPDATE_POST, @post, current_user)
   rescue ActiveRecord::RecordInvalid
-    flash[:bad_reply] = 'An error occurred'[:error_occured_message]
+    add_error('An error occurred'[:error_occured_message])
   ensure
     respond_to do |format|
       format.html do
@@ -106,7 +106,7 @@ class PostsController < ApplicationController
   def destroy
     @post.destroy
     @project.create_event(Action::DELETE_POST, @post, current_user)
-    flash[:notice] = "Post of '{title}' was deleted."[:post_deleted_message, @post.topic.title]
+    add_message("Post of '{title}' was deleted."[:post_deleted_message, @post.topic.title])
     respond_to do |format|
       format.html do
         redirect_to(@post.topic.frozen? ? 

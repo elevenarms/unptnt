@@ -111,7 +111,7 @@ class ProjectsController < ApplicationController
     
     if @project.save
       session[:project] = @project
-      flash[:notice] = 'Project was successfully created.'
+      add_message('Project was successfully created.')
       #create event
       @project.create_event(Action::CREATE_PROJECT, @project, current_user)
       
@@ -150,7 +150,7 @@ class ProjectsController < ApplicationController
 
     if @project.update_attributes(params[:project])
       session[:project] = @project
-      flash[:notice] = 'Project was successfully updated.'
+      add_message('Project was successfully updated.')
       #create event
       respond_to do |wants|
         wants.html { redirect_to :action => 'show' and return }
@@ -240,21 +240,21 @@ class ProjectsController < ApplicationController
   end
   
   def show_image
-    @project = session[:project]
+    @project = current_project(params[:id])
     respond_to do |wants|
       wants.js  # show_image.js.rjs
     end
   end
   
   def edit_image
-    @project = session[:project]
+    @project = current_project(params[:id])
     respond_to do |wants|
       wants.js # edit_image.js.rjs
     end
   end
   
   def update_image
-    @project = session[:project]
+    @project = current_project(params[:id])
     unless @project.project_image_file_name.nil? then
       # how do you delete a paperclip image??????
     end

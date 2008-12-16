@@ -22,7 +22,7 @@ class LicensesController < ApplicationController
     @license = License.create(params[:license])
 
       if @license.save
-        flash[:notice] = 'License was successfully created.'
+        add_message('License was successfully created.')
         redirect_to :action => "index"
       else
         render :action => "new" 
@@ -33,7 +33,7 @@ class LicensesController < ApplicationController
     @license = License.find(params[:id])
 
       if @license.update_attributes(params[:license])
-        flash[:notice] = 'License was successfully updated.'
+        add_message('License was successfully updated.')
         redirect_to :action => "index"
       else
         render :action => "new" 

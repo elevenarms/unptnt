@@ -60,7 +60,8 @@ class TopicsController < ApplicationController
       @topic.body = @post.body # incase save fails and we go back to the form
       topic_saved = @topic.save if @post.valid?
       post_saved = @post.save
-      @project.create_event(Action::CREATE_TOPIC, @topic, current_user) if topic_saved
+      #TODO fix this create call
+      #@project.create_event(Action::CREATE_TOPIC, @topic, current_user) if topic_saved
     end
 		
 		if topic_saved && post_saved
@@ -88,7 +89,7 @@ class TopicsController < ApplicationController
   def destroy
     @topic.destroy
     @project.create_event(Action::DELETE_TOPIC, @topic, current_user)
-    flash[:notice] = "Topic '{title}' was deleted."[:topic_deleted_message, @topic.title]
+    add_message("Topic '{title}' was deleted."[:topic_deleted_message, @topic.title])
     respond_to do |format|
       format.html { redirect_to forum_path(@forum) }
       format.xml  { head 200 }

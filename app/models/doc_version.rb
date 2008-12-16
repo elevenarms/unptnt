@@ -6,10 +6,11 @@ class DocVersion < ActiveRecord::Base
   has_many   :events, :as => :target, :dependent => :destroy
    is_indexed :fields => ['content'], :delta => true
   
-  validates_presence_of :project_id
-  validates_presence_of :editor_id
-  validates_presence_of :item_id
-  validates_presence_of :doc_id
+  validates_presence_of :project_id, :editor_id, :item_id, :doc_id, :content
+
+  #for RedCloth support
+  format_attribute :content
+  attr_accessible :content
   
   
   def self.find_current_for_item(item_id)
