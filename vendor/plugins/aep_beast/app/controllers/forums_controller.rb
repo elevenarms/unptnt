@@ -17,9 +17,11 @@ class ForumsController < ApplicationController
         @subject_id = params[:project_id]
         @subject_type = 'project'
       end
+      @forum = Forum.create(params[:forum])
       render :template => 'forums/new' and return
     end
     @forum = Forum.find(params[:id])
+    render :template => 'forums/new' and return if @forum.topics_count == 0
     respond_to do |format|
       format.html do
         # keep track of when we last viewed this forum for activity indicators
@@ -34,12 +36,8 @@ class ForumsController < ApplicationController
   end
   
   def create
-    #this is called when we need to create a forum for an item or project.
-    @forum = Forum.create(params[:forum])
-    respond_to do |format|
-      format.html { redirect_to @forum }
-      format.xml  { head :created, :location => formatted_forum_url(@forum, :xml) }
-    end
+    #when this is called, we already have created the forum.  Need to create the first topic and post
+    redirect_to new_forum_topic_path(params[:forum][:forum_id])
   end
 
 end

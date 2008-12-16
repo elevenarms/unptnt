@@ -108,6 +108,9 @@ class ProjectsController < ApplicationController
     bom = Bom.create(:name => @project.name)
     bom.save
     @project.bom = bom
+
+    #create forum
+    @forum = Forum.create(:name => @project.name, :subject_id => @project.id, :subject_type => 'project')
     
     if @project.save
       session[:project] = @project

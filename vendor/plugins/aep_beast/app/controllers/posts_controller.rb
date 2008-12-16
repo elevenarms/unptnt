@@ -1,5 +1,4 @@
 class PostsController < ApplicationController
-  include ProjectModule
   before_filter :find_post,      :except => [:index, :monitored, :search]
   before_filter :login_required, :except => [:index, :monitored, :search, :show]
   @@query_options = { :select => "#{Post.table_name}.*, #{Topic.table_name}.title as topic_title, #{Forum.table_name}.name as forum_name", :joins => "inner join #{Topic.table_name} on #{Post.table_name}.topic_id = #{Topic.table_name}.id inner join #{Forum.table_name} on #{Topic.table_name}.forum_id = #{Forum.table_name}.id" }
@@ -58,12 +57,12 @@ class PostsController < ApplicationController
       return
     end
     @forum = @topic.forum
-    params[:post][:subject_id] = @forum.subject_id
-    params[:post][:subject_type] = @forum.subject_type
     @post  = @topic.posts.build(params[:post])
+    @post.subject_id = @forum.subject_id
+    @post.subject_type = @forum.subject_type
     @post.user = current_user
     @post.save!
-    #@project.create_event(Action::CREATE_POST, @post, current_user)
+    #get_project(@post.subject_type, @post.subject_id).create_event(Action::CREATE_POST, @post, current_user)
     respond_to do |format|
       format.html do
         redirect_to forum_topic_path(:forum_id => params[:forum_id], :id => params[:topic_id], :anchor => @post.dom_id, :page => params[:page] || '1')
@@ -90,7 +89,7 @@ class PostsController < ApplicationController
   def update
     @post.attributes = params[:post]
     @post.save!
-    @project.create_event(Action::UPDATE_POST, @post, current_user)
+    #get_project(@post.subject_type, @post.subject_id).get_project.create_event(Action::UPDATE_POST, @post, current_user)
   rescue ActiveRecord::RecordInvalid
     add_error('An error occurred'[:error_occured_message])
   ensure
@@ -104,9 +103,9 @@ class PostsController < ApplicationController
   end
 
   def destroy
+    #get_project(@post.subject_type, @post.subject_id).get_project.create_event(Action::DELETE_POST, @post, current_user)
     @post.destroy
-    @project.create_event(Action::DELETE_POST, @post, current_user)
-    add_message("Post of '{title}' was deleted."[:post_deleted_message, @post.topic.title])
+       add_message("Post of '{title}' was deleted."[:post_deleted_message, @post.topic.title])
     respond_to do |format|
       format.html do
         redirect_to(@post.topic.frozen? ? 
@@ -146,4 +145,13 @@ class PostsController < ApplicationController
         format.xml  { render :xml => @posts.to_xml }
       end
     end
+    
+  def get_project(subject_type, subject_id)
+    if subject_type == 'project' then
+      return current_project(subject_id)
+    else
+      item = Item.find(subject_type)
+      return current_project(item.bom.project_id)
+    end
+  end
 end

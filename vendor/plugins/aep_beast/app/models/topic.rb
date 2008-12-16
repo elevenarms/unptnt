@@ -50,7 +50,7 @@ class Topic < ActiveRecord::Base
       self.destroy
     end
   end
-  
+ 
   protected
     def set_default_replied_at_and_sticky
       self.replied_at = Time.now.utc

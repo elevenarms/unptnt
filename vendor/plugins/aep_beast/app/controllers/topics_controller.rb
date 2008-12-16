@@ -49,9 +49,9 @@ class TopicsController < ApplicationController
     topic_saved, post_saved = false, false
 		# this is icky - move the topic/first post workings into the topic model?
     Topic.transaction do
-      params[:topic][:subject_id] = @forum.subject_id
-      params[:topic][:subject_type] = @forum.subject_type
 	    @topic  = @forum.topics.build(params[:topic])
+      @topic.subject_id = @forum.subject_id
+      @topic.subject_type = @forum.subject_type
       assign_protected
       @post       = @topic.posts.build(params[:topic])
       @post.topic = @topic
@@ -60,8 +60,7 @@ class TopicsController < ApplicationController
       @topic.body = @post.body # incase save fails and we go back to the form
       topic_saved = @topic.save if @post.valid?
       post_saved = @post.save
-      #TODO fix this create call
-      #@project.create_event(Action::CREATE_TOPIC, @topic, current_user) if topic_saved
+      #@topic.get_project.create_event(Action::CREATE_TOPIC, @topic, current_user) if topic_saved
     end
 		
 		if topic_saved && post_saved
@@ -79,7 +78,7 @@ class TopicsController < ApplicationController
     @topic.attributes = params[:topic]
     assign_protected
     @topic.save!
-    @project.create_event(Action::UPDATE_TOPIC, @topic, current_user)
+    #@topic.get_project.create_event(Action::UPDATE_TOPIC, @topic, current_user)
     respond_to do |format|
       format.html { redirect_to forum_topic_path(@forum, @topic) }
       format.xml  { head 200 }
@@ -88,13 +87,22 @@ class TopicsController < ApplicationController
   
   def destroy
     @topic.destroy
-    @project.create_event(Action::DELETE_TOPIC, @topic, current_user)
+    #@project.create_event(Action::DELETE_TOPIC, @topic, current_user)
     add_message("Topic '{title}' was deleted."[:topic_deleted_message, @topic.title])
     respond_to do |format|
       format.html { redirect_to forum_path(@forum) }
       format.xml  { head 200 }
     end
   end
+  
+    def get_project
+      if self.subject_type == 'project' then
+        return current_project(self.subject_id)
+      else
+        item = Item.find(self.subject_type)
+        return current_project(item.bom.project_id)
+      end
+    end
   
   protected
     def assign_protected

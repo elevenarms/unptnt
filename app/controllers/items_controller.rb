@@ -87,6 +87,9 @@ class ItemsController < ApplicationController
     @items_grouped = @bom.items_grouped
     @doc_version = DocVersion.new
     @file_attachments = Hash.new
+    #create forum
+    @forum = Forum.create(:name => @item.name, :subject_id => @item.id, :subject_type => 'item')
+
     if @item.save && @bom.save        
       add_message('Item was successfully created.')
       #create event
