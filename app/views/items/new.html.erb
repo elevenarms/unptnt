@@ -1,1 +1,9 @@
+<div id="header-bottom" class="span-24">
+  <ul id="context-menu">
+<li><%= link_to image_tag("/images/cancelbutton.png"), project_path(@project)  %></li>
+
+    <li><%= link_to image_tag("/images/additembutton.png"), new_bom_item_path(@project.bom)  %></li>
+
+  </ul>
+</div>
 <%= render :partial => 'items/edit', :locals => { :item => @item, :bom => @bom, :project => @project } %>

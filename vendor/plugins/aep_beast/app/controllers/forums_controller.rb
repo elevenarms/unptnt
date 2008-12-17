@@ -28,7 +28,7 @@ class ForumsController < ApplicationController
     @forum = Forum.find(params[:id])
     @project = get_project(@forum.subject_type, @forum.subject_id)
     render :template => 'forums/new' and return if @forum.topics_count == 0
-    
+
     respond_to do |format|
       format.html do
         # keep track of when we last viewed this forum for activity indicators        

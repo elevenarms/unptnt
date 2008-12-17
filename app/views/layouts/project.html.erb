@@ -14,7 +14,7 @@
 </head>
 <body>
 
-  <%= render_flash_messages %>
+
   <div id="header" class="container">
     <div id="header-top" class="span-24">
       <div id="logo" class="prepend-1">
@@ -53,21 +53,21 @@
         <% tabs do |tab| %>
           <%= tab.project "project", project_path(@project) %>
           <%= tab.people "people", related_users_project_path(@project)%>
-          <%= tab.discuss "discuss", project_forum_path(@project, @forum) %>
+
           <%= tab.materials "materials", project_boms_path(@project) %>
         <% end %>
       </div>
     </div>
-    <div id="menu">
+    
+  </div>
+<div id="flashbar" class="column span-24">
+      <%= render_flash_messages %>
 
     </div>
 
   </div>
-
-
-  </div>
   <div id="content" class="container">
-
+    
     <%=@content_for_layout%>
 
   </div>

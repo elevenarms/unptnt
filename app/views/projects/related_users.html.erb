@@ -9,9 +9,8 @@
     <% elsif logged_in? && current_user.relationship(@project) == "collaborator" then %>
       <li><h4><strong>You are collaborating on this project: <%= link_to " stop", stop_following_project_path(@project) %></strong></h4></li>
     <% elsif logged_in? and current_user.relationship(@project) == "owner" %>
-      <li><h4><strong>You are project owner: <%= link_to " add collaborator", add_collaborator_project_path(@project)  %></strong></h4></li>
+      <li><%= link_to image_tag("/images/addcollabbutton.png"), add_collaborator_project_path(@project)  %></li>
     <% end %>
-    <li><%= link_to image_tag("/images/addcollabbutton.png"), follow_project_path(@project)  %></li>
 
   </ul>
 </div>

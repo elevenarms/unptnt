@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   include ProjectModule
   include DocVersioning
   before_filter :login_required, :only => [ :new, :edit, :create, :update, :destroy ]
-  
+  tab :materials
  ITEM_TYPES = ["Hardware", "Software", "Tools"] 
  
   # GET /items

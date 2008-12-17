@@ -205,6 +205,7 @@ class ProjectsController < ApplicationController
   end
   
   def add_collaborator
+    tab :people
     @users = User.find(:all)
     @project = current_project(params[:id])
     unless current_user.is_owner?(@project) then 
@@ -233,6 +234,7 @@ class ProjectsController < ApplicationController
   end
   
   def related_users
+    tab :people
     @project = current_project(params[:id])
     #TO DO convert to @project.related_users
     @related_users = @project.related_users

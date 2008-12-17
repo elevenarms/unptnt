@@ -1,5 +1,5 @@
  <div id="new-item">
   <% if logged_in? && current_user.is_editor?(session[:project]) then %>
-        <%= link_to "Add another item to this BOM", new_bom_item_path(session[:project].bom) %>
+        <%= link_to "Add another item to this BOM", new_bom_item_path(@project.bom) %>
   <% end %>
 </div>
