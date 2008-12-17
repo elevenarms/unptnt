@@ -26,11 +26,12 @@ class ForumsController < ApplicationController
       render :template => 'forums/new' and return
     end
     @forum = Forum.find(params[:id])
-    redirect_to new_forum_topic(@forum) and return if @forum.topics_count == 0
+    @project = get_project(@forum.subject_type, @forum.subject_id)
+    render :template => 'forums/new' and return if @forum.topics_count == 0
+    
     respond_to do |format|
       format.html do
-        # keep track of when we last viewed this forum for activity indicators
-        @project = get_project(@forum.subject_type, @forum.subject_id)
+        # keep track of when we last viewed this forum for activity indicators        
         (session[:forums] ||= {})[@forum.id] = Time.now.utc if logged_in?
         (session[:forum_page] ||= Hash.new(1))[@forum.id] = params[:page].to_i if params[:page]
 
@@ -66,9 +67,10 @@ class ForumsController < ApplicationController
 
   def get_project(subject_type, subject_id)
     if subject_type == 'project' then
+      @item = { :id => "0" }
       return current_project(subject_id)
     else
-      item = Item.find(subject_type)
+      @item = Item.find(subject_type)
       return current_project(item.bom.project_id)
     end
   end

@@ -1,0 +1,14 @@
+
+Please enter the email address of a friend you<br />
+would like to invite to join the UnPtnt Alpha.
+<% form_for @invitation do |f| %>
+
+  <p>
+    <%= f.label :recipient_email %><br />
+    <%= f.text_field :recipient_email %>
+  </p>
+
+  <p><%= f.submit "Submit" %></p>
+<% end %>
+
+

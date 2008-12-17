@@ -1,7 +1,19 @@
-<h3>Select user to add as a collaborator to project: <%= @project.name %></h3>
+<h3>Select a current user to add as a collaborator to project: <%= @project.name %></h3>
 <% form_tag :controller => 'projects', :action => 'create_collaborator' do %>
     <%= hidden_field_tag :projectid, @project.id %>
     <p><%= label_tag 'select_a_collaborator' %><br />
-    <%=select_tag "userid", options_for_select([["-- Select a User --", ""]] + @users.collect {|u| [u.login, u.id]}) %> 
-    <p><%= submit_tag 'Add user' %></p>
+    <%=select_tag "userid", options_for_select([["-- Select a User --", ""]] + @users.collect {|u| [u.login, u.id]}) %> <br/>
+    <%= submit_tag 'Add current user' %>
+<% end %><br/><br/><br/>
+<strong>or</strong><br/>
+Please enter the email address of a friend you<br />
+would like to invite to join the UnPtnt system.
+<% form_tag :controller => 'invitations', :action => 'create'  do %>
+  <%= hidden_field_tag :project_id, @project.id %>
+  <p>
+    <%= label_tag :recipient_email %><br />
+    <%= text_field_tag :recipient_email %>
+  </p>
+
+  <p><%= submit_tag "Invite new user" %></p>
 <% end %>

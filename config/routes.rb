@@ -5,8 +5,6 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :clone_trees
 
   map.resources :doc_versions
-
-  map.resources :invitations
   
   map.resources :images
   
@@ -54,8 +52,8 @@ ActionController::Routing::Routes.draw do |map|
   map.logout '/logout', :controller => 'sessions', :action => 'destroy'
   map.login '/login', :controller => 'sessions', :action => 'new'
   map.register '/register', :controller => 'users', :action => 'create'
-  map.signup '/signup/:invitation_token', :controller => 'users', :action => 'new'
-   map.events '/events', :controller =>'events', :action =>'index'
+  map.signup '/signup', :controller => 'users', :action => 'new'
+  map.events '/events', :controller =>'events', :action =>'index'
   map.resource :session
 
   map.root :controller => 'home', :action => 'index'

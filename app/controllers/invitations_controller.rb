@@ -1,23 +1,15 @@
 class InvitationsController < ApplicationController
-  
-  def new
-    @invitation = Invitation.new
-  end
 
   def create
-    @invitation = Invitation.new(params[:invitation])
-    @invitation.sender = current_user
-    if @invitation.save
-      if logged_in?
-        Mailer.deliver_invitation(@invitation, signup_url(@invitation.token), current_user.name)
-        add_message("Thank you, invitation sent.")
-        redirect_to dashboard_path
-      else
-        add_message("Thank you, we will notify when we are ready to accept new users.")
-        redirect_to projects_path
-      end
+    @project = current_project(params[:project_id])
+    @recipient_email = (params[:recipient_email])
+    if logged_in?
+      Mailer.deliver_invitation(@recipient_email, @project, current_user)
+      add_message("Thank you, invitation sent.")
+      redirect_to dashboard_path and return
     else
-      render :action => 'new'
+      add_message("Thank you, we will notify when we are ready to accept new users.")
+      redirect_to projects_path and return
     end
   end
   

@@ -31,19 +31,13 @@ class User < ActiveRecord::Base
   has_attached_file :user_image, 
                     :styles => { :medium => "300x300>",
                                  :thumb => "40x40>" }
-                               
-  validates_presence_of :invitation_id, :message => 'is required'
-  validates_uniqueness_of :invitation_id
-
-  has_many :sent_invitations, :class_name => 'Invitation', :foreign_key => 'sender_id'
-  belongs_to :invitation
 
   before_create :set_invitation_limit
   
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :name, :password, :password_confirmation, :user_image, :invitation_token
+  attr_accessible :login, :email, :name, :password, :password_confirmation, :user_image
   
    #Activates the user in the database.
   def activate!
@@ -107,9 +101,9 @@ class User < ActiveRecord::Base
     related_projects = { :owns => [], :following => [], :collaborating => [] }
     project_people.each do |pp|
       case pp.relationship
-      when "owner" :  related_projects[:owns] << pp.project
-      when "follower" : related_projects[:following] << pp.project
-      when "collaborator" : related_projects[:collaborating] << pp.project        
+      when "owner" then  related_projects[:owns] << pp.project
+      when "follower" then related_projects[:following] << pp.project
+      when "collaborator" then related_projects[:collaborating] << pp.project
       end
     end
     return related_projects
@@ -136,14 +130,6 @@ class User < ActiveRecord::Base
      #all_events.sort { |a,b| b[:date] <=> a[:date] }
      return all_events.flatten
    end
-   
-  def invitation_token
-    invitation.token if invitation
-  end
-
-  def invitation_token=(token)
-    self.invitation = Invitation.find_by_token(token)
-  end
   
   def docs
     #get just current versions
@@ -173,11 +159,10 @@ class User < ActiveRecord::Base
 	end
 
   private
-
   def set_invitation_limit
-    self.invitation_limit = 5
+    self.invitation_limit = 1000
   end
-  
+
   protected
     
     def make_activation_code

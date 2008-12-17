@@ -2,7 +2,7 @@ class UsersController < ApplicationController
   # Be sure to include AuthenticationSystem in Application Controller instead
   include AuthenticatedSystem
   layout 'application'
-  before_filter :login_required, :except => [:index]
+  before_filter :login_required, :except => [:index, :new, :create]
 
 
   def index
@@ -20,8 +20,7 @@ class UsersController < ApplicationController
 
   # render new.rhtml 
   def new
-    @user = User.new(:invitation_token => params[:invitation_token])
-    @user.email = @user.invitation.recipient_email if @user.invitation
+    @user = User.new
 end
  
   def create
@@ -69,7 +68,6 @@ end
   
   def edit
     @user = User.find(params[:id])
-    @invitation = Invitation.new
     if @user.nil? then 
       redirect_to projects_path and return
     end    
