@@ -3,7 +3,9 @@ The forum for this
 has not been started yet.<br/>
 
 <% form_for :forum, :url => { :controller => 'forums', :action => 'create' } do |f| %>
-  <%= f.hidden_field :forum_id, :value => @forum.id %>
+  <%= f.hidden_field :id, :value => @forum.id %>
+  <%= f.hidden_field :project_id, :value => @project.id %>
+  <%= f.hidden_field :item_id, :value => @item.id %>
   <%= f.submit 'Create the first topic and post' %>
 <% end %><br/>
 or

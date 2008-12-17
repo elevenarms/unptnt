@@ -3,7 +3,7 @@ class ItemsController < ApplicationController
   include ProjectModule
   include DocVersioning
   before_filter :login_required, :only => [ :new, :edit, :create, :update, :destroy ]
-  after_filter  :load_item_and_bom, :only => [ :show, :create, :update ]
+  after_filter :get_forum
   
  ITEM_TYPES = ["Hardware", "Software", "Tools"] 
  
@@ -31,8 +31,7 @@ class ItemsController < ApplicationController
     @doc_version = doc_version_to_display(1, @item.id)
     @sum = params[:sum]
     @old_type = @item.item_type
-    @forum = @item.forum
-    @forum = "0" if @forum.nil?
+    @forum = @project.forum
     @logged_in = logged_in?
     @current_user_is_editor = current_user.is_editor?(@project) if @logged_in
     respond_to do |what|
@@ -79,7 +78,7 @@ class ItemsController < ApplicationController
   # POST /items
   def create 
     @bom = Bom.find(params[:bom_id])        
-    project = @bom.project
+    @project = @bom.project
     unless current_user.is_editor?(project) then 
       redirect_to @bom and return
     end    
@@ -89,7 +88,7 @@ class ItemsController < ApplicationController
     @doc_version = DocVersion.new
     @file_attachments = Hash.new
     #create forum
-    @forum = Forum.create(:name => @item.name, :subject_id => @item.id, :subject_type => 'item')
+    #@forum = Forum.create(:name => @item.name, :subject_id => @item.id, :subject_type => 'item')
 
     if @item.save && @bom.save        
       add_message('Item was successfully created.')
@@ -110,7 +109,7 @@ class ItemsController < ApplicationController
   # PUT /items/1
   def update
     @bom = Bom.find(params[:bom_id])
-    project = session[:project]
+    @project = current_project(@bom.project_id)
     unless current_user.is_editor?(project) then 
       redirect_to @bom and return
     end    
@@ -139,6 +138,7 @@ class ItemsController < ApplicationController
   def destroy
     @item = Item.find(params[:id])    
     @bom = @item.bom
+    @project = current_project(@bom.project_id)
     if logged_in? && current_user.is_editor?(session[:project]) then 
       #create event
       #Event.create(:user_id => current_user.id, 
@@ -215,9 +215,8 @@ class ItemsController < ApplicationController
   end
   
   protected
-  def load_item_and_bom
-    session[:item] = @item
-    session[:bom] = @item
+  def get_forum
+    @forum = @project.forum
   end
   
 end

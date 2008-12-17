@@ -4,28 +4,33 @@ class ForumsController < ApplicationController
   cache_sweeper :posts_sweeper, :only => [:create]
   layout "project"
   tab :discuss
+
   def show
     #is there already a forum to show???
     if params[:id] == "0" then
       if !params[:item_id].nil? then
         @subject_id = params[:item_id]
         @subject_type = 'item'
-        @name = Item.find(params[:item_id]).name
-        @bom = Item.find(params[:item_id]).bom
+        @item = Item.find(params[:item_id])
+        @name = @item.name
+        @bom = @item.bom
+        @project = @bom.project
       else
-        project = current_project(params[:project_id])
-        @name = project.name
+        @project = current_project(params[:project_id])
+        @name = @project.name
         @subject_id = params[:project_id]
         @subject_type = 'project'
+        @item = { :id => "0" }
       end
-      @forum = Forum.create(params[:forum])
+      @forum = Forum.create(:name => @name, :subject_id => @subject_id, :subject_type => @subject_type)
       render :template => 'forums/new' and return
     end
     @forum = Forum.find(params[:id])
-    render :template => 'forums/new' and return if @forum.topics_count == 0
+    redirect_to new_forum_topic(@forum) and return if @forum.topics_count == 0
     respond_to do |format|
       format.html do
         # keep track of when we last viewed this forum for activity indicators
+        @project = get_project(@forum.subject_type, @forum.subject_id)
         (session[:forums] ||= {})[@forum.id] = Time.now.utc if logged_in?
         (session[:forum_page] ||= Hash.new(1))[@forum.id] = params[:page].to_i if params[:page]
 
@@ -38,7 +43,34 @@ class ForumsController < ApplicationController
   
   def create
     #when this is called, we already have created the forum.  Need to create the first topic and post
-    redirect_to new_forum_topic_path(params[:forum][:forum_id])
+    if params[:forum][:id] == "" then
+      if !params[:item_id].nil? then
+        @subject_id = params[:item_id]
+        @subject_type = 'item'
+        @name = Item.find(params[:item_id]).name
+        @bom = Item.find(params[:item_id]).bom
+        @project = @bom.project
+      else
+        @project = current_project(params[:project_id])
+        @name = @project.name
+        @subject_id = params[:project_id]
+        @subject_type = 'project'
+      end
+      @forum = Forum.create(:name => @name, :subject_id => @subject_id, :subject_type => @subject_type)
+    else
+      @forum = Forum.find(params[:forum][:id])
+    end
+    redirect_to new_forum_topic_path(@forum)
+  end
+
+
+  def get_project(subject_type, subject_id)
+    if subject_type == 'project' then
+      return current_project(subject_id)
+    else
+      item = Item.find(subject_type)
+      return current_project(item.bom.project_id)
+    end
   end
 
 end
