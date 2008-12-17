@@ -7,7 +7,8 @@ class ProjectsController < ApplicationController
   before_filter :login_required, :only => [ :new, :edit, :create, :update, :destroy, :follow ]
   after_filter  :load_project, :only => [ :show, :create, :update ]
   #auto_complete_for :user, :login
-  
+
+
   PROJECT_TYPES = ["Electronic",  "Embeded", "Wearable", "Mechanical", "System"]
   PROJECT_SUBTYPES_ELECTRONICS = ["Robotics", "Microcontrollers", "Audio/Video"]
   PROJECT_SUBTYPES_FURNITURE = ["Wood", "Acrylic"]
@@ -22,6 +23,7 @@ class ProjectsController < ApplicationController
   
   #get all the users who have any relationship to this project
   def related_users
+    tab :people
     @project = current_project(params[:id])
     if @project.nil? then 
       redirect_to projects_path and return
@@ -32,6 +34,7 @@ class ProjectsController < ApplicationController
   # GET /projects/1
   # GET /projects/1.xml
   def show
+    tab :project
     @project = current_project(params[:id])
     @events = @project.events.paginate  :page=>params[:page],  :per_page => 5
     @related_users = @project.related_users
@@ -53,6 +56,7 @@ class ProjectsController < ApplicationController
   # GET /projects/new
   # GET /projects/new.xml
   def new
+    tab :project
     @project = Project.new
     @project.status = "Created"
     @project.license_id = 2

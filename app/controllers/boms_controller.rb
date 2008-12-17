@@ -1,6 +1,6 @@
 class BomsController < ApplicationController
   layout "project"
-  
+  tab :materials
   def index
     @project = current_project(params[:project_id])
     redirect_to projects_path and return if @project.nil?

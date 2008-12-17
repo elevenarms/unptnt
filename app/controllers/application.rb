@@ -2,10 +2,9 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
-  require 'ruby-debug'
   helper :all # include all helpers, all the time
   include AuthenticatedSystem
-
+  include TabFu
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => 'bd844a0e54e15f3ff6867d9170c994ec'
@@ -14,8 +13,9 @@ class ApplicationController < ActionController::Base
   # Uncomment this to filter the contents of submitted sensitive data parameters
   # from your application log (in this case, all fields with names like "password"). 
   # filter_parameter_logging :password
+
   def tab_link_to(name, options = {}, html_options = {})
-    html_options.merge!({ :id => 'current' }) if current_page?(options)
+    html_options.merge!({ :class => 'current_tab' }) if current_page?(options)
     link_to name, options, html_options
   end
   #this goes in the view <% tab_link_to 'Companies', companies_path %>

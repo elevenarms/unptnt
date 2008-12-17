@@ -54,15 +54,17 @@ z-index:2;*/
 	text-align:center;
 }
 #header-middle{
-	background: #6091d7 none repeat scroll 0 0;
+	background: #591500 none repeat scroll 0 0;
 	height:50px;
 }
 #header-bottom{
 	background:#A6351C none repeat scroll 0 0;
 	height:40px;
+    padding-bottom:8px;
 }
 #header-bottom h3{
 	padding-top:10px;
+    
 	padding-left:120px;
 	color:white;
 }
@@ -77,8 +79,10 @@ z-index:2;*/
 #logo{
     background:transparent; 
 	position:absolute;
+    color:white;
 	
 }
+
 #profile-bar{
 	padding-top:18px;
 	color:white;
@@ -134,17 +138,17 @@ z-index:2;*/
 }
 
 .tab{
-	background:transparent url('/images/tab2.png') ;
+	background:transparent url('/images/tabred.png') ;
 	width:102px;
 	height:28px;
 
 }
-.tab-selected{
-	background:transparent url('/images/tab2selected.png') ;
+.tab_active{
+	background:transparent url('/images/tabredselected.png') ;
 	width:102px;
 	height:28px;
 }
-.tab-selected h4{
+.tab_active h4{
 	padding-top:5px;
 	text-align:center;
 	color:white;
@@ -213,7 +217,8 @@ z-index:2;*/
 }
 #context-menu li{
 	margin-top:8px;
-	margin-right:25px;
+    padding-bottom:10px;
+	margin-right:15px;
 	float:left;
 	list-style-type:none;
 }
@@ -396,6 +401,11 @@ z-index:2;*/
     .apple_pagination a:hover, .apple_pagination a:focus {
       text-decoration: underline; }
 
+/* FORUM */
+#forum-container{
+   
+    
+}
 /* topics */
 
 #forum_description,
@@ -451,7 +461,7 @@ a.admin
 
 /* last post */
 table tr td.lp {
-	font-size:0.85em;
+	font-size:1em;
 	color:#333; }
 table tr td.lp span { color:#666; }
 table tr td.lp span a { color:#369; }
@@ -557,7 +567,7 @@ table.posts tr.spacer td
 /* fade edit links */
 .post .author .edit a
 {
-  font-size:0.7em;
+  font-size:0.95em;
   color:#666;
 }
 

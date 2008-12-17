@@ -62,6 +62,7 @@ class PostsController < ApplicationController
     @post.subject_type = @forum.subject_type
     @post.user = current_user
     @post.save!
+
     #get_project(@post.subject_type, @post.subject_id).create_event(Action::CREATE_POST, @post, current_user)
     respond_to do |format|
       format.html do

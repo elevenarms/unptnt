@@ -1,6 +1,5 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
-  require 'ruby-debug'
   def action_and_body_for_event(event)
     target = event.target
     action = ""
@@ -51,8 +50,8 @@ module ApplicationHelper
         body = "#{target.title} - #{target.description}"
         category = "people"
       when Action::CREATE_TOPIC
-        action = "<strong>created document</strong> #{link_to h(target.name), item_path(target)}"
-        body = "#{target.title} - #{target.description}"
+        action = "<strong>started a discussion:</strong> #{link_to h(target.title),forum_topic_path(target.forum_id, target)}"
+        body = "test"
         category = "discuss"
       when Action::UPDATE_TOPIC
         action = "<strong>created document</strong> #{link_to h(target.name), item_path(target)}"
@@ -63,8 +62,8 @@ module ApplicationHelper
         body = "#{target.title} - #{target.description}"
         category = "discuss"
       when Action::CREATE_POST
-        action = "<strong>created document</strong> #{link_to h(target.name), item_path(target)}"
-        body = "#{target.title} - #{target.description}"
+        action = "<strong>new post</strong> #{link_to "test", forum_topic_post_path(target.forum_id, target.topic_id, target)}"
+        body = "test"
         category = "discuss"
       when Action::UPDATE_POST
         action = "<strong>created document</strong> #{link_to h(target.name), item_path(target)}"

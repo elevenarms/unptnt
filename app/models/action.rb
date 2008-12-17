@@ -11,10 +11,10 @@ class Action
   DELETE_TAG = 9
   BEGIN_FOLLOW = 10
   BEGIN_COLLAB = 11
-  NEW_TOPIC = 12
+  CREATE_TOPIC = 12
   EDIT_TOPIC = 13
-  DELETE_TOPIC=14
-  NEW_POST = 15
+  DELETE_TOPIC = 14
+  CREATE_POST = 15
   EDIT_POST= 16
   DELETE_POST = 17
 
@@ -42,10 +42,6 @@ class Action
         "now following"
       when BEGIN_COLLAB
         "now collaborating"
-      when REMOVE_COMMITTER
-        "remove committer"
-      when COMMENT
-        "comment"
       when CREATE_TOPIC
         "create topic"
       when UPDATE_TOPIC

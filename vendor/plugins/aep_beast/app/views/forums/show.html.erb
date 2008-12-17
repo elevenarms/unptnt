@@ -1,5 +1,6 @@
-<% content_for :right do %>
+<div id="forum-container" class="prepend-2 column span-20">
 
+<% content_for :right do %>
   <% unless @forum.description.blank? %>
     <%= @forum.description_html %>
     <hr />
@@ -76,3 +77,4 @@
 <% if logged_in? %>
 <p><%= link_to 'New topic'[:new_topic], new_forum_topic_path(@forum), :class => "utility" %></p>
 <% end%>
+</div>

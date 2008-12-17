@@ -3,9 +3,27 @@
 # project/show, images/show, and doc_versions/show partials
 # rendered by project#show.html
 -->
-
+<div id="header-bottom" class="span-24">
+  <ul id="context-menu">
+<li><%= link_to image_tag("/images/backtoprojectsbutton.png"), projects_path  %></li>
+<% unless logged_in? || ( logged_in? && current_user.relationship(@project) == "none" ) then  %>
+      <li><h4><strong><%= link_to image_tag("/images/followbutton.png"), follow_project_path(@project)  %></strong></h4></li>
+    <% end %>
+    <% if logged_in? && current_user.relationship(@project) == "follower" then %>
+      <li><h4><strong>You are following this project: <%= link_to " stop", stop_following_project_path(@project) %></strong></h4></li>
+    <% elsif logged_in? && current_user.relationship(@project) == "collaborator" then %>
+      <li><h4><strong>You are collaborating on this project: <%= link_to " stop", stop_following_project_path(@project) %></strong></h4></li>
+    <% elsif logged_in? and current_user.relationship(@project) == "owner" %>
+      <li><h4><strong>You are project owner: <%= link_to " add collaborator", add_collaborator_project_path(@project)  %></strong></h4></li>
+    <% end %>
+    <li><%= link_to image_tag("/images/addcollabbutton.png"), follow_project_path(@project)  %></li>
+    <li><%= link_to image_tag("/images/addtopicbutton.png"), follow_project_path(@project)  %></li>
+    <li><%= link_to image_tag("/images/additembutton.png"), follow_project_path(@project)  %></li>
+    
+  </ul>
+</div>
 <div id="proj-details" >
-  
+
   <div id="imagediv" class="column span-3 prepend-2">
     <%= render :partial => '/projects/show_image', :locals => { :project => @project } %>
   </div>
@@ -14,17 +32,17 @@
     <%= render :partial => 'projects/show', :locals => { :project => @project, :related_users => @related_users } %>
   </div>
 </div>   <!-- proj-details -->  
-  
+
 <div id="proj-events" class="column span-24">
-    <div id="events-container">
-       <%= render :partial => '/events/events' -%>
-    </div>
-    <%= will_paginate @events , :class=>"apple_pagination span-24" %>
+  <div id="events-container">
+    <%= render :partial => '/events/events' -%>
+  </div>
+  <%= will_paginate @events , :class=>"apple_pagination span-24" %>
 </div>
 
 <div id="document" class="column prepend-2 span-20">
-  <%= render :partial =>  'projects/show_doc_version', 
-        :locals => { :doc_version => @doc_version, :project => @project, 
-        :item_id => "0", :home_page => true } %>
+  <%= render :partial =>  'projects/show_doc_version',
+    :locals => { :doc_version => @doc_version, :project => @project,
+    :item_id => "0", :home_page => true } %>
 </div>
 

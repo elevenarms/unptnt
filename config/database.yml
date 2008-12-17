@@ -17,7 +17,7 @@
 development:
   adapter: mysql
   encoding: utf8
-  database: unptnt_development
+  database: unptnt
   username: root
   password: 
 

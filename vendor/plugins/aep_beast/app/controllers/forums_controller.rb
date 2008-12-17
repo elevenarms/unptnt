@@ -2,7 +2,8 @@ class ForumsController < ApplicationController
   include ProjectModule
 	before_filter :login_required, :except => [:show]
   cache_sweeper :posts_sweeper, :only => [:create]
-
+  layout "project"
+  tab :discuss
   def show
     #is there already a forum to show???
     if params[:id] == "0" then

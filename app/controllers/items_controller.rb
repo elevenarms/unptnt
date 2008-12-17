@@ -23,6 +23,7 @@ class ItemsController < ApplicationController
   # GET /bom/1/items/1
   # bom_item_path (@bom, @item)
   def show
+    tab :materials
     @bom = Bom.find(params[:bom_id])
     @project = current_project(@bom.project_id)
     @item = Item.find(params[:id])
