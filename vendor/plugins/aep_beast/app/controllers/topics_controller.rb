@@ -120,9 +120,10 @@ class TopicsController < ApplicationController
       @topic = @forum.topics.find(params[:id]) if params[:id]
       if @forum.subject_type == 'project' then
         @project = current_project(@forum.subject_id)
+        @item = { :id => "0" }
       else
-        item = Item.find(@forum.subject_id)
-        @project = current_project(item.project_id)
+        @item = Item.find(@forum.subject_id)
+        @project = current_project(@item.bom.project_id)
       end
     end
     

@@ -44,7 +44,7 @@ class ForumsController < ApplicationController
   
   def create
     #when this is called, we already have created the forum.  Need to create the first topic and post
-    if params[:forum][:id] == "" then
+    if params[:id] == "" then
       if !params[:item_id].nil? then
         @subject_id = params[:item_id]
         @subject_type = 'item'
@@ -59,7 +59,7 @@ class ForumsController < ApplicationController
       end
       @forum = Forum.create(:name => @name, :subject_id => @subject_id, :subject_type => @subject_type)
     else
-      @forum = Forum.find(params[:forum][:id])
+      @forum = Forum.find(params[:id])
     end
     redirect_to new_forum_topic_path(@forum)
   end
@@ -70,8 +70,8 @@ class ForumsController < ApplicationController
       @item = { :id => "0" }
       return current_project(subject_id)
     else
-      @item = Item.find(subject_type)
-      return current_project(item.bom.project_id)
+      @item = Item.find(subject_id)
+      return current_project(@item.bom.project_id)
     end
   end
 

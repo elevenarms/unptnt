@@ -135,8 +135,8 @@ class PostsController < ApplicationController
       if @forum.subject_type == 'project' then
         @project = current_project(@forum.subject_id)
       else
-        item = Item.find(@forum.subject_id)
-        @project = current_project(item.project_id)
+        @item = Item.find(@forum.subject_id)
+        @project = current_project(@item.bom.project_id)
       end
     end
     
@@ -152,8 +152,8 @@ class PostsController < ApplicationController
     if subject_type == 'project' then
       return current_project(subject_id)
     else
-      item = Item.find(subject_type)
-      return current_project(item.bom.project_id)
+      @item = Item.find(subject_type)
+      return current_project(@item.bom.project_id)
     end
   end
 end
