@@ -1,0 +1,209 @@
+require "selenium"
+require "test/unit"
+
+class NewTest < Test::Unit::TestCase
+  def setup
+    @verification_errors = []
+    if $selenium
+      @selenium = $selenium
+    else
+      @selenium = Selenium::SeleniumDriver.new("localhost", 4444, "*chrome", "http://change-this-to-the-site-you-are-testing/", 10000);
+      @selenium.start
+    end
+    @selenium.set_context("test_new")
+  end
+  
+  def teardown
+    @selenium.stop unless $selenium
+    assert_equal [], @verification_errors
+  end
+  
+  def test_new
+    @selenium.open "/"
+    begin
+        assert @selenium.is_text_present("projects")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_text_present("blog")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_text_present("login")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_text_present("signup")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    assert !60.times{ break if (@selenium.is_element_present("//div[@id='logo']/img") rescue false); sleep 1 }
+    assert_equal "Unptnt - Make Something!", @selenium.get_title
+    @selenium.click "link=login"
+    @selenium.wait_for_page_to_load "30000"
+    assert_equal "Unptnt - Make Something!", @selenium.get_title
+    @selenium.type "login", "brownell"
+    @selenium.type "password", "password"
+    @selenium.click "commit"
+    @selenium.wait_for_page_to_load "30000"
+    assert_equal "Unptnt - Make Something!", @selenium.get_title
+    begin
+        assert @selenium.is_element_present("//div[@id='logo']/img")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert_equal "Unptnt - Make Something!", @selenium.get_title
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("//img[@alt='Brownell-small']")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_text_present("Brownell Chalstrom")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("link=edit profile")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("link=projects")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("link=dashboard")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("link=blog")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("link=logout")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("project-bar-details")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("//img[@alt='Newprojectbutton']")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("//img[@alt='Intro']")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_text_present("MPGuino - Spiffie.org kit (show)")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("link=show")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_text_present("exact:what's happening?")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    assert !60.times{ break if (@selenium.is_element_present("//div[@id='events-container']/ul/div/li[1]/p") rescue false); sleep 1 }
+    begin
+        assert @selenium.is_element_present("//div[@id='events-container']/ul/div/li[2]/p")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("link=Next »")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("link=6")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_text_present("ertert (show)")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    @selenium.click "link=logout"
+    @selenium.wait_for_page_to_load "30000"
+    assert_equal "Unptnt - Make Something!", @selenium.get_title
+    begin
+        assert @selenium.is_element_present("link=login")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    @selenium.click "link=login"
+    @selenium.wait_for_page_to_load "30000"
+    assert_equal "Unptnt - Make Something!", @selenium.get_title
+    @selenium.type "login", "dave"
+    @selenium.type "password", "password"
+    @selenium.click "commit"
+    @selenium.wait_for_page_to_load "30000"
+    assert_equal "Unptnt - Make Something!", @selenium.get_title
+    begin
+        assert @selenium.is_text_present("Dave Rauchwerk")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("//img[@alt='Intro']")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_text_present("MPGuino - Spiffie.org kit (show)")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("link=Next »")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_element_present("link=6")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert !@selenium.is_text_present("ertert")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    @selenium.click "link=logout"
+    @selenium.wait_for_page_to_load "30000"
+    assert_equal "Unptnt - Make Something!", @selenium.get_title
+    begin
+        assert @selenium.is_text_present("login")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+    begin
+        assert @selenium.is_text_present("signup")
+    rescue Test::Unit::AssertionFailedError
+        @verification_errors << $!
+    end
+  end
+end

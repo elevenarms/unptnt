@@ -18,7 +18,7 @@ class BomsController < ApplicationController
     @bom = Bom.find(params[:id])
     @project = current_project(@bom.project_id)
     @forum = @project.forum
-    redirect_to new_bom_item_path(@bom) and return if @bom.items.nil?
+    redirect_to @project and return if @bom.items.empty?
     @items = @bom.items_grouped
   end
 end

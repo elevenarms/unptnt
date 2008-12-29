@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>edit_project</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">edit_project</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/projects/4</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=//div[@id='document']/a</td>
+	<td>add document</td>
+</tr>
+<tr>
+	<td>assertText</td>
+	<td>xpath=//div[@id='proj-fields']/a</td>
+	<td>edit</td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>A New Project</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>xpath=//div[@id='proj-fields']/a</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForValue</td>
+	<td>project_name</td>
+	<td>A New Project</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>project_name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>project_description</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>project_status</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=cancel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[@id='imagediv']/div[@id='image-edit']/a/img</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertElementPresent</td>
+	<td>link=cancel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=cancel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>project_name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//form[@id='edit_project_4']/p[1]/label</td>
+	<td>Title</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>project_name</td>
+	<td>A New Project</td>
+</tr>
+<tr>
+	<td>verifyText</td>
+	<td>//div[@id='proj-fields']/form[@id='edit_project_4']/p[1]/input[@id='project_name']</td>
+	<td>A New Project</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>project_description</td>
+	<td>this is the summary</td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>this is the summary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>project_name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>project_description</td>
+	<td>a different summary</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>project_name</td>
+	<td>A New Project-modified</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>project_status</td>
+	<td>Edited</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>project_project_type</td>
+	<td>label=Embeded</td>
+</tr>
+<tr>
+	<td>select</td>
+	<td>project_license_id</td>
+	<td>label=Creative Commons Attribution (by)</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>project_submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>project_name</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>A New Project-modified</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>a different summary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>exact:Type: Embeded</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>exact:Status: Edited</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>exact:License: Creative Commons Attribution (by)</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>exact:Owner:</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Brownell Chalstrom</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>add document</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//img[@alt='Discussbutton']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//img[@alt='Additembutton']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//img[@alt='Addtopicbutton']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//img[@alt='Addcollabbutton']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//img[@alt='Backtoprojectsbutton']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=materials</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=people</td>
+	<td></td>
+</tr>
+<tr>
+	<td>clickAndWait</td>
+	<td>//img[@alt='Status_history']</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>A New Project-modified</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>All status messages for project: A New Project-modified</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[@id='content']/div[1]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Edited (at 2008-12-24 22:21:52 UTC )</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Created (at 2008-12-24 22:10:46 UTC )</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=Back to project</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=materials</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=people</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=project</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=logout</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=blog</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=dashboard</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=projects</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>A New Project-modified</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=Back to project</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>link=edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=add document</td>
+	<td></td>
+</tr>
+<tr>
+	<td>assertTitle</td>
+	<td>A New Project-modified</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

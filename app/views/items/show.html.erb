@@ -22,7 +22,8 @@
 
  <div id="document">
     <%= render :partial => 'items/show_doc_version',
-          :locals => { :doc_version => @doc_version, :item => @item, :home_page => true, :bom => @bom, :project => session[:project] } %><br/>
+          :locals => { :doc_version => @doc_version, :item => @item, :home_page => true, :bom => @bom, 
+                       :project => @project, :current_user_is_editor => @current_user_is_editor, :logged_in => @logged_in  } %><br/>
 </div>
 
 

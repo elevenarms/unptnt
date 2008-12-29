@@ -1,0 +1,232 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head profile="http://selenium-ide.openqa.org/profiles/test-case">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<link rel="selenium.base" href="" />
+<title>project_doc</title>
+</head>
+<body>
+<table cellpadding="1" cellspacing="1" border="1">
+<thead>
+<tr><td rowspan="1" colspan="3">project_doc</td></tr>
+</thead><tbody>
+<tr>
+	<td>open</td>
+	<td>/projects/4</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTitle</td>
+	<td>A New Project-modified</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=add document</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=add document</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>doc_version_title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>A New Project-modified</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>doc_version_title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>doc_version_content</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Formatting Help</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//div[@id='formating-help']/ul/li[3]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=cancel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//form[@id='new_doc_version']/p</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=cancel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>doc_version_title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>a different summary</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=add document</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=add document</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>doc_version_title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>doc_version_title</td>
+	<td>Project Document Title</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>doc_version_content</td>
+	<td>Project document contents<br />*this is bold*</td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>doc_version_submit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Project Document Title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>doc_version_title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//span[@id='doc-content']/p</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Project document contents<br /> this is bold</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>this is bold</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>doc-title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=edit</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>doc_version_title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>doc_version_title</td>
+	<td>Project Document Title</td>
+</tr>
+<tr>
+	<td>verifyValue</td>
+	<td>doc_version_content</td>
+	<td>exact:Project document contents<br />*this is bold*</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=cancel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>link=cancel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyTextPresent</td>
+	<td>Project Document Title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementNotPresent</td>
+	<td>doc_version_title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>//a[@onclick=&quot;new Ajax.Request('/doc_versions/11/edit', {asynchronous:true, evalScripts:true, method:'get', parameters:'authenticity_token=' + encodeURIComponent('0d98aae9f37ee9728b17bd147e37698582dab1f6')}); return false;&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>//a[@onclick=&quot;new Ajax.Request('/doc_versions/11/edit', {asynchronous:true, evalScripts:true, method:'get', parameters:'authenticity_token=' + encodeURIComponent('0d98aae9f37ee9728b17bd147e37698582dab1f6')}); return false;&quot;]</td>
+	<td></td>
+</tr>
+<tr>
+	<td>waitForElementPresent</td>
+	<td>doc_version_title</td>
+	<td></td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>doc_version_title</td>
+	<td>Project Document Title - modified</td>
+</tr>
+<tr>
+	<td>type</td>
+	<td>doc_version_content</td>
+	<td>Project document contents<br />_this is italic_</td>
+</tr>
+<tr>
+	<td>verifyElementPresent</td>
+	<td>link=cancel</td>
+	<td></td>
+</tr>
+<tr>
+	<td>click</td>
+	<td>doc_version_submit</td>
+	<td></td>
+</tr>
+
+</tbody></table>
+</body>
+</html>

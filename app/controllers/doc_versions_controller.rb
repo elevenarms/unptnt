@@ -81,9 +81,13 @@ class DocVersionsController < ApplicationController
   
   def update
     @doc_version = DocVersion.find(params[:id])
+    @project = current_project(@doc_version.project_id)
     #if current editor is same as editor or current version, just save; else make new version
     redirect_to projects_path and return if @doc_version.nil?
-    save_current_or_make_new(@doc_version)
+    @doc_version.num_edits = @doc_version.num_edits + 1
+    @doc_version.content = params[:doc_version][:content]
+    @doc_version.title = params[:doc_version][:title]
+    @doc_version.save
     respond_to do |wants|
       wants.html { add_message("Successfully created doc version.")
         redirect_to @doc_version and return     
@@ -116,6 +120,6 @@ class DocVersionsController < ApplicationController
       @project = current_project(params[:project_id])
       @home_page = true if @project.doc_versions.size == 0
     end
-
+    @current_user_is_editor = current_user.is_editor?(@project) if logged_in?
   end
 end

@@ -38,7 +38,8 @@ class ProjectsController < ApplicationController
     @project = current_project(params[:id])
     @events = @project.events.paginate  :page=>params[:page],  :per_page => 5
     @related_users = @project.related_users
-    @doc_version = DocVersion.find_by_project_id(@project.id)
+    @doc_version = DocVersion.find_current_for_project(@project.id)
+    @doc_version = @doc_version.select  { |dv| dv.home_page == true }[0] unless @doc_version.nil?
     @forum = @project.forum
     @forum = "0" if @forum.nil?
     respond_to do |format|

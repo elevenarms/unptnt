@@ -39,10 +39,10 @@ module DocVersioning
     return doc_version
   end
   
-  def save_current_or_make_new(doc_version)
-      params[:doc_version][:num_edits] = doc_version.num_edits + 1
-      doc_version.update_attributes(params[:doc_version])
-      return
+  #def save_current_or_make_new(doc_version)
+      #params[:doc_version][:num_edits] = doc_version.num_edits + 1
+      #doc_version.update_attributes(params[:doc_version])
+      #return
     #if current_user == doc_version.editor then
     #  params[:doc_version][:num_edits] = doc_version.num_edits + 1
      # doc_version.update_attributes(params[:doc_version])
@@ -60,6 +60,6 @@ module DocVersioning
      # doc_version.num_edits = 1
       #doc_version.last_edited_at = DateTime.now
     #end
-  end
+  #end
 end
 

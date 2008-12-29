@@ -169,6 +169,8 @@ class ItemsController < ApplicationController
     @doc_version = DocVersion.find(:first, :conditions => "item_id = '#{ params[:id] }' AND home_page = true")
     @item = Item.find(params[:id])
     @bom = @item.bom
+    @project = @bom.project
+    @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
       respond_to do |wants|
         wants.js # show_doc_version.js.rjs
       end          

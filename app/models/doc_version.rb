@@ -6,7 +6,7 @@ class DocVersion < ActiveRecord::Base
   has_many   :events, :as => :target, :dependent => :destroy
    is_indexed :fields => ['content'], :delta => true
   
-  validates_presence_of :project_id, :editor_id, :item_id, :doc_id, :content
+  validates_presence_of  [ :project_id, :editor_id, :item_id, :doc_id, :content], :on =>  :create
 
   #for RedCloth support
   format_attribute :content
@@ -21,7 +21,7 @@ class DocVersion < ActiveRecord::Base
   
   def self.find_current_for_project(project_id)
     return DocVersion.find(:all, 
-      :conditions => "project_id = '#{ project_id }' AND current_version = TRUE",
+      :conditions => "project_id = '#{ project_id }' AND current_version = TRUE AND item_id = '0'",
       :order => 'last_edited_at DESC')
   end  
 end

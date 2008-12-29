@@ -3,6 +3,6 @@
 
 <% else %>
     <%= render :partial => 'doc_versions/show',
-      :locals => { :doc_version => doc_version, :project => project } %>
+      :locals => { :doc_version => doc_version, :current_user_is_editor => ( logged_in? && current_user.is_editor?(@project)) } %>
 <% end %>
 
