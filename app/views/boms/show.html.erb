@@ -15,9 +15,8 @@ Bom#show - shows a list of all the items, in summary form.
    size[:Hardware] = size[:Software] = size[:Tools] = 0 %>
 <% [:Hardware, :Software, :Tools].each do |item_type| %>
       
-  <div>  
+  <%= "<div id=\"bar_" + "#{ item_type }" + "\">"  %>
     <h3><strong><%=item_type.to_s%></strong></h3>
-    <%=image_tag(item_type.to_s+'bar.png') %>
   </div>
   
    <%= "<table id=\"" + "#{ item_type }" + "\">"  %>  <!-- gets the id of the table to be the item_type -->        

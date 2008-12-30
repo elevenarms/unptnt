@@ -153,6 +153,12 @@ a { color: #24b; }
     top:45px;
     color:white;
 }
+#bar_Hardware{
+    background:transparent url('/images/hardwarebar.png') ;
+    height: 45px;
+    width: 860px;
+    margin-bottom:20px;
+}
 
 .tab{
     background:transparent url('/images/tabred.png') ;
@@ -290,13 +296,10 @@ a { color: #24b; }
     margin-bottom: 5px;
 }
 #image-edit{
-    position:absolute;
-    left:350px;
-    top:120px;
-    color: white;
+  
 }
 #image-edit a{
-    color:white;
+    
 }
 #doc-title{
     font-size:1.5em;

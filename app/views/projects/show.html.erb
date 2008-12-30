@@ -17,18 +17,16 @@
       <li><%= link_to image_tag("/images/addcollabbutton.png"), add_collaborator_project_path(@project)  %></li>
     <% end %>
     
-    <li><%= link_to image_tag("/images/addtopicbutton.png"), follow_project_path(@project)  %></li>
-    <li><%= link_to image_tag("/images/additembutton.png"), follow_project_path(@project)  %></li>
+    <li><%= link_to image_tag("/images/addtopicbutton.png")  %></li>
+    <li><%= link_to image_tag("/images/additembutton.png")  %></li>
     <li><%= link_to image_tag("/images/discussbutton.png"), project_forum_path(@project, @forum)  %></li>
   </ul>
 </div>
 <div id="proj-details" >
 
-  <div id="imagediv" class="column span-3 prepend-2">
-    <%= render :partial => '/projects/show_image', :locals => { :project => @project } %>
-  </div>
 
-  <div id="proj-fields" class="column prepend-2 span-12">
+
+  <div id="proj-fields" class="column prepend-1 span-22">
     <%= render :partial => 'projects/show', :locals => { :project => @project, :related_users => @related_users } %>
   </div>
 </div>   <!-- proj-details -->  
