@@ -1,20 +1,20 @@
 class Project < ActiveRecord::Base
   
   has_many  :users, :through => 'project_person'
-  has_many :project_people
+  has_many :project_people, :dependent => :delete_all , :dependent => :delete_all
   belongs_to :license
-  has_one :bom  
-  has_many :events
+  has_one :bom,   :include => [:items]
+  has_many :events, :dependent => :delete_all
   has_many :items , :through => :bom
-  has_many :statuses, :order => "created_at DESC"
-  has_many :clone_trees
+  has_many :statuses, :order => "created_at DESC", :dependent => :delete_all
+  has_many :clone_trees, :dependent => :delete_all
   acts_as_taggable_on :keywords
   has_attached_file :project_image, 
                     :styles => { :medium => "300x300>",
                                  :thumb => "100x100>" }
   is_indexed :fields => ['name', 'description', 'status'], :delta => true
-  has_many :doc_versions
-  has_one  :forum, :as => :subject
+  has_many :doc_versions, :dependent => :delete_all
+  has_one  :forum, :as => :subject, :include => [ {:topics => :posts} ]
 
   validates_presence_of     :name
   validates_length_of       :name,     :maximum => 100

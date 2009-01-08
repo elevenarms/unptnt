@@ -169,17 +169,24 @@ class ProjectsController < ApplicationController
     end
   end
 
+  #need this extra step in deleting because the request needs to be method=DELETE
+  def prepare_delete
+    @project = current_project(params[:id])
+    redirect_to :controller => 'sessions', :action => 'destroy' and return unless logged_in? && current_user.login == "robot"
+    # prepare_delete.html
+  end
+
   # DELETE /projects/1
   # DELETE /projects/1.xml
-  def destroy
-    redirect_to :back and return
-    #unless current_user.is_owner?(@project) then 
-      #redirect_to @project
-    #end    
-    #create event
-  
-    #@project.destroy
-    #redirect_to(projects_url)  and return
+  def destroy    
+    redirect_to :controller => 'sessions', :action => 'destroy' and return unless logged_in? && current_user.login == "robot"
+    @project = current_project(params[:id])
+    @bom = @project.bom
+    @bom.destroy unless @bom.nil?
+    @forum = @project.forum
+    @forum.destroy unless @forum.nil?
+    @project.destroy
+    redirect_to(projects_url)  and return
   end
   
   def status_history

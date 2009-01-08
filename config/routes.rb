@@ -12,7 +12,8 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :doc_versions
   end
   
-  map.resources :projects, :member => { :follow => :get, 
+  map.resources :projects, :member => { :follow => :get,
+              :prepare_delete => :get,
               :stop_following => :get, 
               :add_collaborator => :get,
               :create_collaborator => :post,

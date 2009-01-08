@@ -1,6 +1,6 @@
 class Bom < ActiveRecord::Base
   belongs_to :project
-  has_many :items
+  has_many :items, :dependent => :delete_all
   
   #return items for BOM grouped by item type
   def items_grouped
@@ -11,9 +11,9 @@ class Bom < ActiveRecord::Base
 
     self.items.each do |i|
       case i.item_type
-      when "Hardware" :  items[:Hardware] << i 
-      when "Software" : items[:Software] << i
-      when "Tools" : items[:Tools] << i
+      when "Hardware" then  items[:Hardware] << i
+      when "Software" then items[:Software] << i
+      when "Tools" then items[:Tools] << i
       end
     end   
     return items
