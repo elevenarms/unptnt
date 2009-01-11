@@ -1,6 +1,10 @@
-<% unless file_attachments.empty? then %>
-  <h3>Files attached to item:</h3>
+<strong><%= 'Uploaded files: ' %></strong>
   <% for file_attachment in file_attachments -%>
-      <%= link_to image_tag(file_attachment.public_filename(:thumb)), file_attachment.public_filename %><br />
-  <% end -%>  
-<% end %><br />
+    <%= "<div id=\"file_attachment_" + "#{ file_attachment.id }" + "\"" %> <!-- sets the div if to file_attachment id -->
+      <%= link_to file_attachment.filename, file_attachment.public_filename %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      <% if current_user_is_editor then  %>
+        <em><%= link_to_remote "delete file", :url => delete_attachment_bom_item_path(bom, item, :attachment_id => file_attachment), :method => :delete %></em>
+      <% end %>
+    <%= "</div>" %>
+  <% end -%>
+  

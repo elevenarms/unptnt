@@ -1,0 +1,60 @@
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    </head>
+    <body>
+        V I E W   M O D E
+        <div id="proj-details">
+            <div id="proj-fields" class="column prepend-1 span-22">
+                <div id="image-image" class="column span-5">
+                    <img width="150" src="/project_images/1/original/intro.jpg?1226094656" alt="Intro"/>
+                </div>
+                <table class="column span-16">
+                    <tbody>
+                    </tbody>
+                </table>
+                <a onclick="new Ajax.Request('/projects/1/edit', {asynchronous:true, evalScripts:true, method:'get', parameters:'authenticity_token=' + encodeURIComponent('0072908fa271d9b0e54bf2a4cb746fc8e2808656')}); return false;" href="#">edit</a>
+            </div>
+        </div>
+
+        E D I T   M O D E
+        <div id="proj-details">
+            <div id="proj-fields" class="column prepend-1 span-22" style="background-image: none; background-color: transparent;">
+                <div id="image-edit" class="column span-9">
+                    <img width="150" src="/project_images/1/original/intro.jpg?1226094656" alt="Intro"/>
+                    <form id="edit_project_1" class="edit_project" target="upload_frame" method="post" enctype="multipart/form-data" action="/projects/1/update_image.js">
+                        <div style="margin: 0pt; padding: 0pt;">
+                            <input type="hidden" value="put" name="_method"/>
+                            <input type="hidden" value="0072908fa271d9b0e54bf2a4cb746fc8e2808656" name="authenticity_token"/>
+                        </div>
+                        <br/>
+                        <label for="project_project_image">Project image</label>
+                        <br/>
+                        <input id="project_project_image" type="file" size="30" name="project[project_image]"/>
+                        <input id="project_submit" type="submit" value="Upload new image" name="commit"/>
+                        or
+                        <strong>
+                            <a onclick="new Ajax.Request('/projects/1', {asynchronous:true, evalScripts:true, method:'get', parameters:'authenticity_token=' + encodeURIComponent('0072908fa271d9b0e54bf2a4cb746fc8e2808656')}); return false;" href="#">cancel</a>
+                        </strong>
+                    </form>
+                    <iframe id="upload_frame" src="about:blank" style="border: 0px none ; width: 1px; height: 1px;" name="upload_frame">
+                        <html>
+                        </html>
+                    </iframe>
+                </div>
+                <div class="column span-6">
+                    <form id="edit_project_1" class="edit_project" onsubmit="new Ajax.Request('/projects/1', {asynchronous:true, evalScripts:true, parameters:Form.serialize(this)}); return false;" method="post" action="/projects/1">
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+</html>

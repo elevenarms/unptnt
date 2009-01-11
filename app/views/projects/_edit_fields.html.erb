@@ -1,19 +1,4 @@
-<div id="image-edit"class="column span-9 ">
-<% unless project.project_image_file_name.nil?  then %>
-	  <%= image_tag project.project_image.url,:width=>'150' %>
-<% else%>
-	  <img src="/images/noimgprojectlarge.png">
-<% end %> 
-<% form_for(project, :url => formatted_update_image_project_path(:format => 'js'),
-        :html => { :multipart => true, :target => 'upload_frame' } ) do |f| %>
-  <br/>
-     <%= f.label :project_image %><br />
-     <%= f.file_field :project_image %>
-  <%= f.submit "Upload new image" %> or <strong><%= link_to_remote "cancel", :url => project, :method => :get %></strong>
-<% end %>
 
-<iframe id='upload_frame' name="upload_frame" style="width:1px;height:1px;border:0px" src="about:blank"></iframe>
-</div>
 <div class="column span-6">
 <% remote_form_for(project) do |f| %>
 

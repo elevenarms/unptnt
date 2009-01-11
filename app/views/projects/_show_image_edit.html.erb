@@ -1,0 +1,7 @@
+<div class ="span-3 prepend-2 last">
+<% if current_user_is_editor then %>
+  <%= link_to_remote image_tag("/images/edit.png"), :url => edit_image_project_path(project), :method => :get %>
+<% else %>
+  <br/>
+<% end %>
+</div>

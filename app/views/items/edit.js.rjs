@@ -1,3 +1,3 @@
-page.replace_html("item_fields", :partial => 'items/edit_fields', 
+page.replace_html("item-fields", :partial => 'items/edit_fields',
       :locals => { :item => @item, :bom => @bom }   )
-page.visual_effect :highlight, "item_fields", :duration => 1
+page.visual_effect :highlight, "item-fields", :duration => 1

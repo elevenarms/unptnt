@@ -88,6 +88,7 @@ class DocVersionsController < ApplicationController
     @doc_version.content = params[:doc_version][:content]
     @doc_version.title = params[:doc_version][:title]
     @doc_version.save
+    @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
     respond_to do |wants|
       wants.html { add_message("Successfully created doc version.")
         redirect_to @doc_version and return     

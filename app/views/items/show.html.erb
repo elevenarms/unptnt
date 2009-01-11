@@ -1,34 +1,43 @@
 <div id="header-bottom" class="span-24">
   <ul id="context-menu">
-<li><%= link_to image_tag("/images/cancelbutton.png"), project_path(@project)  %></li>
+    <li><%= link_to image_tag("/images/cancelbutton.png"), project_path(@project)  %></li>
 
     <li><%= link_to image_tag("/images/discussbutton.png"), bom_item_forum_path(@bom, @item, @forum) %></li>
 
   </ul>
 </div>
-<div id="item_fields">
-    <%= render :partial => 'items/show_fields', 
-      :locals => { :item => @item, :bom => @bom, :project => @project, :current_user_is_editor => @current_user_is_editor, :logged_in => @logged_in }  %><br />
-</div>
 
-<div id="item_attachments">
-    <%= render :partial => 'attachments/index', :locals => { :file_attachments => @file_attachments }  %><br />
-</div>
+<div id="item-details" class="container">
+  <div id="imagediv" class="span-9">
+    <div id="image-image" class="span-4 prepend-1 append-1 last">
+      <%= render :partial => 'items/show_image_image', :locals => { :item => @item } %>
+    </div>
+    <div id="image-edit" class="span-9 last">
+      <%= render :partial => 'items/show_image_edit', :locals => { :bom => @bom, :item => @item,
+        :current_user_is_editor => @current_user_is_editor }  %><br/>
+    </div>
+  </div>
+  <div id="item-fields" class="span-15 last">
+    <%= render :partial => 'items/show_fields',
+      :locals => { :item => @item, :bom => @bom, :project => @project, :current_user_is_editor => @current_user_is_editor }  %><br />
+  </div>
+</div><br/>
 
-<div id="imagediv">
-  <%= render :partial => '/items/show_image',
-      :locals => { :item => @item, :bom => @bom, :project => @project, :current_user_is_editor => @current_user_is_editor, :logged_in => @logged_in } %>
-</div><br/> 
+<div id="item-attachments">
+  <div id="attachment-list">
+    <%= render :partial => 'attachments/index', :locals => { :item => @item, :bom => @bom, 
+      :file_attachments => @file_attachments, :current_user_is_editor => @current_user_is_editor }  %>
+  </div><br/>
+  <div id="add-attachment">
+    <%= render :partial => 'attachments/show_choice', :locals => { :item => @item, :bom => @bom, :count => @count,
+      :current_user_is_editor => @current_user_is_editor }  %><br />
+  </div>
+</div><br/>
 
- <div id="document">
-    <%= render :partial => 'items/show_doc_version',
-          :locals => { :doc_version => @doc_version, :item => @item, :home_page => true, :bom => @bom, 
-                       :project => @project, :current_user_is_editor => @current_user_is_editor, :logged_in => @logged_in  } %><br/>
-</div>
-
-
-<div id="forum-link">
-  <%= link_to "Item discussion forum", bom_item_forum_path(@bom, @item, @forum) %>
+<div id="document">
+  <%= render :partial => 'items/show_doc_version',
+    :locals => { :doc_version => @doc_version, :item => @item, :home_page => true, :bom => @bom,
+    :project => @project, :current_user_is_editor => @current_user_is_editor  } %><br/>
 </div><br />
 
- <%= render :partial => 'items/new_item_link', :locals => { :item => @item } %>
+<%= render :partial => 'items/new_item_link', :locals => { :item => @item } %>

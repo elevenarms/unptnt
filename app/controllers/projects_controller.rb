@@ -42,6 +42,7 @@ class ProjectsController < ApplicationController
     @doc_version = @doc_version.select  { |dv| dv.home_page == true }[0] unless @doc_version.nil?
     @forum = @project.forum
     @forum = "0" if @forum.nil?
+    @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
     respond_to do |format|
       format.html # show.html.erb
       format.js   # show.js.rjs
@@ -249,17 +250,19 @@ class ProjectsController < ApplicationController
   end 
   
   def show_doc_version
-    @project = session[:project]
+    @project = current_project(params[:id])
     @doc_version = DocVersion.find(:first, :conditions => "item_id < 1 AND project_id = '#{ @project.id }' AND home_page = true")
+    @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
     respond_to do |wants|
       wants.js # show_doc_version.js.rjs
     end
   end
   
-  def show_image
+  def cancel_edit_image
     @project = current_project(params[:id])
+    @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
     respond_to do |wants|
-      wants.js  # show_image.js.rjs
+      wants.js  #cancel_edit_image.js.rjs
     end
   end
   
@@ -277,12 +280,15 @@ class ProjectsController < ApplicationController
     end
     @project.update_attributes(:project_image => params[:project][:project_image])
     session[:project] = @project
+    @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
     respond_to do |wants|
       wants.js  do
         responds_to_parent do
           render :update do |page|
-            page.replace_html "imagediv", :partial => "projects/show_image",
+            page.replace_html "image-image", :partial => "projects/show_image_image",
                 :locals => { :project => @project  }
+            page.replace_html "image-edit", :partial => "projects/show_image_edit",
+                :locals => { :project => @project, :current_user_is_editor => @current_user_is_editor  }
             page.visual_effect :highlight, "imagediv"
           end
         end

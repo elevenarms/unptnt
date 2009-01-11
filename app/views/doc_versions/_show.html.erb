@@ -3,5 +3,5 @@
     <span id="doc-content"><%= doc_version.content_html %></span>
     <br />
     <% if current_user_is_editor  then %>
-      <%= link_to_remote "edit", :url => edit_doc_version_path(doc_version), :method => :get  %>
+      <%= link_to_remote image_tag("/images/edit.png"), :url => edit_doc_version_path(doc_version), :method => :get  %>
     <% end %>

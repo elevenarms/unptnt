@@ -1,8 +1,8 @@
 <% if doc_version.nil? then %>
-  <%= link_to_remote "add document", :url => new_project_doc_version_path(project), :method => :get %>
+  <%= link_to_remote "add a document", :url => new_project_doc_version_path(project), :method => :get %>
 
 <% else %>
     <%= render :partial => 'doc_versions/show',
-      :locals => { :doc_version => doc_version, :current_user_is_editor => ( logged_in? && current_user.is_editor?(@project)) } %>
+      :locals => { :doc_version => doc_version, :current_user_is_editor => current_user_is_editor } %>
 <% end %>
 

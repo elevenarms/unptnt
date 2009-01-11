@@ -5,8 +5,8 @@
 -->
 <div id="header-bottom" class="span-24">
   <ul id="context-menu">
-<li><%= link_to image_tag("/images/backtoprojectsbutton.png"), projects_path  %></li>
-<% unless logged_in? || ( logged_in? && current_user.relationship(@project) == "none" ) then  %>
+    <li><%= link_to image_tag("/images/backtoprojectsbutton.png"), projects_path  %></li>
+    <% unless logged_in? || ( logged_in? && current_user.relationship(@project) == "none" ) then  %>
       <li><h4><strong><%= link_to image_tag("/images/followbutton.png"), follow_project_path(@project)  %></strong></h4></li>
     <% end %>
     <% if logged_in? && current_user.relationship(@project) == "follower" then %>
@@ -16,20 +16,28 @@
     <% elsif logged_in? and current_user.relationship(@project) == "owner" %>
       <li><%= link_to image_tag("/images/addcollabbutton.png"), add_collaborator_project_path(@project)  %></li>
     <% end %>
-    
+
     <li><%= link_to image_tag("/images/addtopicbutton.png")  %></li>
     <li><%= link_to image_tag("/images/additembutton.png")  %></li>
     <li><%= link_to image_tag("/images/discussbutton.png"), project_forum_path(@project, @forum)  %></li>
   </ul>
 </div>
-<div id="proj-details" >
 
-
-
-  <div id="proj-fields" class="column prepend-1 span-22">
-    <%= render :partial => 'projects/show', :locals => { :project => @project, :related_users => @related_users } %>
+<div id="proj-details" class="container">
+  <div id="imagediv" class="span-9">
+    <div id="image-image" class="span-4 prepend-1 append-1 last">
+      <%= render :partial => 'projects/show_image_image', :locals => { :project => @project } %>
+    </div>
+    <div id="image-edit" class="span-9 last">    
+      <%= render :partial => 'projects/show_image_edit', :locals => { :project => @project,
+                 :current_user_is_editor => @current_user_is_editor }  %><br/>
+    </div>
   </div>
-</div>   <!-- proj-details -->  
+  <div id="proj-fields" class="span-15 last">
+    <%= render :partial => 'projects/show_fields', :locals => { :project => @project, :related_users => @related_users } %>
+  </div>
+</div><br/>
+  
 
 <div id="proj-events" class="column span-24">
   <div id="events-container">
@@ -41,6 +49,6 @@
 <div id="document" class="column prepend-2 span-20">
   <%= render :partial =>  'projects/show_doc_version',
     :locals => { :doc_version => @doc_version, :project => @project,
-    :item_id => "0", :home_page => true } %>
+    :item_id => "0", :home_page => true, :current_user_is_editor => @current_user_is_editor } %>
 </div>
 

@@ -1,4 +1,4 @@
 
-page.replace_html "proj-fields", :partial => "projects/show",
+page.replace_html "proj-fields", :partial => "projects/show_fields",
                 :locals => { :project => @project, :related_users => @project.related_users }
 page.visual_effect :highlight, "proj-fields", :duration => 1

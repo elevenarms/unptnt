@@ -1,4 +1,4 @@
 
 page.replace_html 'image-edit', :partial => 'projects/edit_image',
       :locals => { :project => @project  }
-#page.visual_effect :highlight, "imagediv", :duration => 1
+page.visual_effect :highlight, "image-edit", :duration => 1

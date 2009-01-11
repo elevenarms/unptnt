@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
               :show_family_trees => :get,
               :new_clone => :get,
               :show_doc_version => :get,
-              :show_image => :get,
+              :cancel_edit_image => :get,
               :edit_image => :get,
               :update_image => :put }  do |projects|
       projects.resources :doc_versions  
@@ -33,9 +33,13 @@ ActionController::Routing::Routes.draw do |map|
   
   map.resources :boms do |boms|
     boms.resources :items, :member => { :show_doc_version => :get,
-              :show_image => :get,
+              :cancel_edit_image => :get,
               :edit_image => :get,
-              :update_image => :put   } do |items|
+              :update_image => :put,
+              :create_attachment => :put,
+              :delete_attachment => :delete,
+              :show_choice => :get,
+              :new_attachment => :get } do |items|
       items.resources :doc_versions
       items.resources :images
       items.resources :forums

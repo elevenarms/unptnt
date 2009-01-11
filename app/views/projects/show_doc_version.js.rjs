@@ -1,4 +1,4 @@
 page.replace_html "document", :partial => 'projects/show_doc_version', 
-  :locals => { :doc_version => @doc_version, :project => @project }
+  :locals => { :doc_version => @doc_version, :project => @project, :current_user_is_editor => @current_user_is_editor }
 page.visual_effect :highlight, 'document', :duration => 1    
 

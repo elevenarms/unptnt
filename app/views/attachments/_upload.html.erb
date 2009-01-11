@@ -1,0 +1,14 @@
+
+<% form_for([bom, item], :url => formatted_create_attachment_bom_item_path(:format => 'js'),
+  :html => { :multipart => true, :target => 'upload_frame' } ) do |f| %>
+  <% fields_for :file_attachment do |a| %>
+    <p>
+      <label for="file_attachment">Upload a file:</label><br />
+      <%= a.file_field :uploaded_data %>
+    </p>
+  <% end %>
+  <%= f.submit "Upload file" %>
+<% end %>
+or
+<%= link_to_remote "cancel", :url => show_choice_bom_item_path(bom, item), :method => :get %>
+<iframe id='upload_frame' name="upload_frame" style="width:1px;height:1px;border:0px" src="about:blank"></iframe>

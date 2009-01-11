@@ -4,21 +4,8 @@ class ItemsController < ApplicationController
   include DocVersioning
   before_filter :login_required, :only => [ :new, :edit, :create, :update, :destroy ]
   tab :materials
- ITEM_TYPES = ["Hardware", "Software", "Tools"] 
+  ITEM_TYPES = ["Hardware", "Software", "Tools"]
  
-  # GET /items
-  # GET /items.xml
-  #def index
-    #@bom = Bom.find(params[:bom_id])
-    #redirect_to :action => 'new' and return if @bom.items.nil? 
-    #@items = @bom.items
-
-   # respond_to do |wants|
-      #wants.html # index.html.erb
-      #wants.xml  { render :xml => @items }
-    #end
-  #end
-
   # GET /bom/1/items/1
   # bom_item_path (@bom, @item)
   def show
@@ -27,16 +14,27 @@ class ItemsController < ApplicationController
     @project = current_project(@bom.project_id)
     @item = Item.find(params[:id])
     @file_attachments = @item.file_attachments
+    @count = FileAttachment.count :conditions => "item_id = '#{ @item.id }'"
     @doc_version = doc_version_to_display(1, @item.id)
     @sum = params[:sum]
     @old_type = @item.item_type
     @forum = @item.forum
     @forum = "0" if @forum.nil?
-    @logged_in = logged_in?
-    @current_user_is_editor = current_user.is_editor?(@project) if @logged_in
+    @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
     respond_to do |what|
       what.html # show.html.erb
       what.js   # show.js.rjs        
+    end
+  end
+
+  def show_choice
+    @bom = Bom.find(params[:bom_id])
+    @item = Item.find(params[:id])
+    @file_attachments = @item.file_attachments
+    project = current_project(@bom.project)
+    @current_user_is_editor = logged_in? ? current_user.is_editor?(project) : false
+    respond_to do |wants|
+      wants.js #show_choice.js.rjs
     end
   end
 
@@ -47,13 +45,16 @@ class ItemsController < ApplicationController
     @project = current_project(@bom.project_id)
     @item = Item.new
     @item_types = ITEM_TYPES
-    @doc_version = DocVersion.new
-    @file_attachments = Hash.new
-    respond_to do |wants|
-      wants.html # new.html.erb
-      wants.js   # new.js.rjs
-      wants.xml  { render :xml => @item }
-    end
+    wants.html # new.html.erb
+    wants.js   # new.js.rjs
+    wants.xml  { render :xml => @item }
+  end
+
+  def new_attachment
+    @bom = Bom.find(params[:bom_id])
+    @project = current_project(@bom.project_id)
+    @item = Item.find(params[:id])
+    @file_attachment = FileAttachment.new
   end
 
   # GET  /bom/1/items/1/edit
@@ -61,14 +62,12 @@ class ItemsController < ApplicationController
   def edit
     @bom = Bom.find(params[:bom_id])
     @project = current_project(@bom.project_id)
-    unless current_user.is_editor?(@project) then 
+    unless current_user.is_editor?(@project) then
       redirect_to @bom and return
-    end    
+    end
     @item = Item.find(params[:id])
     @old_type = @item.item_type
     @item_types = ITEM_TYPES
-    @file_attachments = @item.file_attachments
-    @doc_version = doc_version_to_display(1, @item.id)
     respond_to do |what|
       what.html # edit.html.erb
       what.js   # edit.js.rjs
@@ -76,76 +75,108 @@ class ItemsController < ApplicationController
   end
 
   # POST /items
-  def create 
-    @bom = Bom.find(params[:bom_id])        
+  def create
+    @bom = Bom.find(params[:bom_id])
     project = @bom.project
-    unless current_user.is_editor?(project) then 
+    unless current_user.is_editor?(project) then
       redirect_to @bom and return
-    end    
+    end
     @item = Item.create(params[:item])
     @bom.items << @item
     @items_grouped = @bom.items_grouped
-    @doc_version = DocVersion.new
-    @file_attachments = Hash.new
-    #create forum
-    @forum = Forum.create(:name => @item.name, :subject_id => @item.id, :subject_type => 'item')
-
-    if @item.save && @bom.save        
+    if @item.save && @bom.save
       add_message('Item was successfully created.')
       #create event
       project.create_event(Action::CREATE_ITEM, @item, current_user)
       respond_to do |wants|
         wants.html { redirect_to @bom  and return }
         wants.js   { render :template => 'items/create' }
-      end 
+      end
     else
       respond_to do |wants|
-          wants.html { redirect_to @bom  and return }
-          wants.js   # create.js.rjs
+        wants.html { redirect_to @bom  and return }
+        wants.js   # create.js.rjs
       end
     end
+  end
+
+  def create_attachment
+    @bom = Bom.find(params[:bom_id])
+    project = current_project(@bom.project_id)
+    unless current_user.is_editor?(project) then
+      redirect_to @bom and return
+    end
+    @item = Item.find(params[:id])
+    @current_user_is_editor = true
+    unless params[:file_attachment][:uploaded_data] == "" then
+      @file_attachment = FileAttachment.create(params[:file_attachment])
+      @file_attachment.save
+      @item.file_attachments << @file_attachment
+      @file_attachments = @item.file_attachments
+    respond_to do |wants|
+      wants.js  do
+        responds_to_parent do
+          render :update do |page|
+            page.insert_html(:bottom, "attachment-list", :partial => 'attachments/show',
+                  :locals => { :item => @item, :bom => @bom, :file_attachment => @file_attachment,
+                  :current_user_is_editor => @current_user_is_editor }   )
+            page.replace_html("add-attachment", :partial => 'attachments/upload',
+                  :locals => { :item => @item, :bom => @bom }   )
+            page.visual_effect :highlight, "item-attachments", :duration => 1
+          end
+        end
+      end
+    end
+
+
+    else
+      redirect_to [@bom, @item]
+    end
+
   end
 
   # PUT /items/1
   def update
     @bom = Bom.find(params[:bom_id])
-    project = session[:project]
-    unless current_user.is_editor?(project) then 
+    project = current_project(@bom.project.id)
+    unless current_user.is_editor?(project) then
       redirect_to @bom and return
-    end    
+    end
     @item = Item.find(params[:id])
     @old_type = @item.item_type
     @sum = params[:sum]
+
+    @current_user_is_editor = true
     if @item.update_attributes(params[:item])
       add_message('Item was successfully updated.')
-        #create event
-        project.create_event(Action::UPDATE_ITEM, @item, current_user)
+      #create event
+      project.create_event(Action::UPDATE_ITEM, @item, current_user)
       respond_to do |wants|
         wants.html { redirect_to @bom  and return }
         wants.js   { render :template => 'items/show'       }
-      end      
+      end
     else
       respond_to do |wants|
         wants.html { render :action => "edit" and return }
         wants.js   { @sum = true
-          render :template => 'items/show' 
-        }  
-      end        
+          render :template => 'items/show'
+        }
+      end
     end
   end
 
   # DELETE /items/1
   def destroy
-    @item = Item.find(params[:id])    
+    @item = Item.find(params[:id])
     @bom = @item.bom
-    if logged_in? && current_user.is_editor?(session[:project]) then 
+    if logged_in? && current_user.is_editor?(current_project(@bom.project_id)) then
       #create event
-      #Event.create(:user_id => current_user.id, 
-        #:action => "delete item",
-        #:project_id => @bom.project.id, 
-        #:data => "Item [" + @item.name + "] for Project: " + @bom.project.name,
-        #:body => @item.info_url,
-        #:target_id => @item.id, :target_type => 'item')       
+      #Event.create(:user_id => current_user.id,
+      #:action => "delete item",
+      #:project_id => @bom.project.id,
+      #:data => "Item [" + @item.name + "] for Project: " + @bom.project.name,
+      #:body => @item.info_url,
+      #:target_id => @item.id, :target_type => 'item')
       @item.destroy
       respond_to do |wants|
         wants.html { redirect_to project_bom_path(session[:project], @bom)  and return }
@@ -156,14 +187,30 @@ class ItemsController < ApplicationController
         wants.html { redirect_to project_bom_path(session[:project], @bom)  and return }
         wants.js   {  }
       end
-    end    
-  end  
+    end
+  end
+
+  def delete_attachment
+    @file_attachment_id = params[:attachment_id]
+    file_attachment = FileAttachment.find(@file_attachment_id)
+    @item = Item.find(file_attachment.item_id)
+    @bom = Bom.find(@item.bom_id)
+    project = current_project(@bom.project_id)
+    #@current_user_is_editor = logged_in? ? current_user.is_editor?(project) : false
+    @current_user_is_editor = true
+    @count = FileAttachment.count :conditions => "item_id = '#{ file_attachment.item_id }'"
+    @count -= 1
+    file_attachment.destroy unless file_attachment.nil?
+    respond_to do |wants|
+      wants.js # delete_attachment.js.rjs
+    end
+  end
 
   def new_item_link
     #puts the new item link on the Bom page
-    respond_to do |wants|      
+    respond_to do |wants|
     end
-  end  
+  end
   
   def show_doc_version
     @doc_version = DocVersion.find(:first, :conditions => "item_id = '#{ params[:id] }' AND home_page = true")
@@ -171,19 +218,26 @@ class ItemsController < ApplicationController
     @bom = @item.bom
     @project = @bom.project
     @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
-      respond_to do |wants|
-        wants.js # show_doc_version.js.rjs
-      end          
+    respond_to do |wants|
+      wants.js # show_doc_version.js.rjs
+    end
   end
 
   def show_image
     @item = Item.find(params[:id])
     @bom = @item.bom
-    @logged_in = logged_in?
     @project = current_project(@bom.project_id)
-    @current_user_is_editor = current_user.is_editor?(@project) if @logged_in
+    @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
     respond_to do |wants|
       wants.js  # show_image.js.rjs
+    end
+  end
+
+  def cancel_edit_image
+    @item = Item.find(params[:id])
+    @bom = @item.bom
+    respond_to do |wants|
+      wants.js  #cancel_edit_image.js.rjs
     end
   end
 
@@ -206,12 +260,15 @@ class ItemsController < ApplicationController
       wants.js  do
         responds_to_parent do
           render :update do |page|
-            page.replace_html "imagediv", :partial => "items/show_image",
-                :locals => { :bom => @bom, :item => @item  }
+            page.replace_html "image-image", :partial => "items/show_image_image",
+              :locals => { :bom => @bom, :item => @item  }
+            page.replace_html "image-edit", :partial => "items/show_image_edit",
+              :locals => { :bom => @bom, :item => @item  }
             page.visual_effect :highlight, "imagediv"
           end
         end
       end
     end
-  end  
+  end
+  
 end

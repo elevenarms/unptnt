@@ -1,3 +1,3 @@
-page.replace_html("item_fields", :partial => 'show_fields',
-        :locals => { :item => @item, :bom => @bom, :current_user_is_editor => @current_user_is_editor, :logged_in => @logged_in }  )
-page.visual_effect :highlight, "item_fields", :duration => 1
+page.replace_html("item-fields", :partial => 'show_fields',
+        :locals => { :item => @item, :bom => @bom, :current_user_is_editor => @current_user_is_editor }  )
+page.visual_effect :highlight, "item-fields", :duration => 1
