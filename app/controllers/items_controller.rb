@@ -45,9 +45,11 @@ class ItemsController < ApplicationController
     @project = current_project(@bom.project_id)
     @item = Item.new
     @item_types = ITEM_TYPES
-    wants.html # new.html.erb
-    wants.js   # new.js.rjs
-    wants.xml  { render :xml => @item }
+    respond_to do |wants|
+      wants.html # new.html.erb
+      wants.js   # new.js.rjs
+      wants.xml  { render :xml => @item }
+    end
   end
 
   def new_attachment
@@ -68,9 +70,9 @@ class ItemsController < ApplicationController
     @item = Item.find(params[:id])
     @old_type = @item.item_type
     @item_types = ITEM_TYPES
-    respond_to do |what|
-      what.html # edit.html.erb
-      what.js   # edit.js.rjs
+    respond_to do |wants|
+      wants.html # edit.html.erb
+      wants.js   # edit.js.rjs
     end
   end
 
