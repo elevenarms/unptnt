@@ -1,14 +1,14 @@
 development:
-  bucket_name: appname_development
-  access_key_id: 
-  secret_access_key: 
+  bucket_name: unptnt_files_development
+  access_key_id: 0DXPRC2BT0X5NVVQ4P02
+  secret_access_key: lyr8eUPJONj7CM1eHkIuC7gLPBSd50HOhGwxiAXE
 
 test:
-  bucket_name: appname_test
-  access_key_id: 
-  secret_access_key: 
+  bucket_name: unptnt_files_development
+  access_key_id: 0DXPRC2BT0X5NVVQ4P02
+  secret_access_key: lyr8eUPJONj7CM1eHkIuC7gLPBSd50HOhGwxiAXE
 
 production:
-  bucket_name: appname
-  access_key_id: 
-  secret_access_key: 
+  bucket_name: unptnt_files_production
+  access_key_id: 0DXPRC2BT0X5NVVQ4P02
+  secret_access_key: lyr8eUPJONj7CM1eHkIuC7gLPBSd50HOhGwxiAXE
