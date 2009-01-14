@@ -1,0 +1,5 @@
+<% unless uploaded_image.nil?  then %>
+	  <p><%= image_tag uploaded_image.public_filename,:width=>'150' %></p>
+<% else%>
+	  <p><img src="/images/itemnoimglarge.png"></p>
+<% end %>

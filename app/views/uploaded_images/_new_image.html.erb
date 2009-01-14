@@ -1,0 +1,30 @@
+
+<% form_for(uploaded_image, :url => { :controller => 'uploaded_images', :action => 'create',
+   :method => 'post', :format => 'js' },
+  :html => { :multipart => true, :target => 'upload_frame' } ) do |f| %>
+    
+      <label for="Image file:">Upload a file:</label><br />
+      <%= f.file_field :uploaded_data %>
+
+
+    <%= f.hidden_field :project_id, :value => project_id %>
+    <%= f.hidden_field :item_id, :value => item_id %>
+    <%= f.hidden_field :user_id, :value => user_id %>
+    <%= f.hidden_field :image_type, :value => image_type %>
+    <%= f.hidden_field :purpose, :value => purpose %>
+
+  <%= f.submit "Upload image" %>
+<% end %>
+or
+
+  <% form_tag show_choice_uploaded_images_path, :method => :get, :id => "show_choice_form" do %>
+    <%= hidden_field_tag :item_id, item_id %>
+    <%= hidden_field_tag :project_id, project_id %>
+    <%= hidden_field_tag :user_id, user_id %>
+    <%= hidden_field_tag :image_type, image_type %>
+    <%= hidden_field_tag :purpose, purpose %>
+    <%= link_to_remote "Cancel", :url => show_choice_uploaded_images_path, :submit => "show_choice_form" %>
+  <% end %>
+
+
+<iframe id='upload_frame' name="upload_frame" style="width:1px;height:1px;border:0px" src="about:blank"></iframe>

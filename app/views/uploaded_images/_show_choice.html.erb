@@ -1,0 +1,14 @@
+<% unless current_user_is_editor then %>
+  <br/>
+<% else %>
+  <% form_tag new_uploaded_image_path, :method => :get, :id => "upload-image-form" do %>
+    <%= hidden_field_tag :item_id, item_id %>
+    <%= hidden_field_tag :project_id, project_id %>
+    <%= hidden_field_tag :user_id, user_id %>
+    <%= hidden_field_tag :image_type, image_type %>
+    <%= hidden_field_tag :purpose, purpose %>
+    
+    <%= link_to_remote "Upload an image for this #{ image_type }", :url => new_uploaded_image_path, :submit => "upload-image-form" %>
+
+  <% end %>
+<% end %>

@@ -1,0 +1,6 @@
+page.replace_html("image-image", :partial => 'uploaded_images/show', :locals => { :uploaded_image => @uploaded_image } )
+page.replace_html("replace-image", :partial => 'uploaded_images/show_choice',
+        :locals => { :project_id => @parameters[:project_id], :user_id => @parameters[:user_id],
+        :item_id => @parameters[:item_id], :image_type => @parameters[:image_type], 
+        :purpose => @parameters[:purpose], :current_user_is_editor => @current_user_is_editor} )
+page.visual_effect :highlight, "imagediv", :duration => 1

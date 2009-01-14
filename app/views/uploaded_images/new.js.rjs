@@ -1,0 +1,5 @@
+page.replace_html("replace-image", :partial => 'uploaded_images/new_image',
+        :locals => { :project_id => @parameters[:project_id], :user_id => @parameters[:user_id],
+        :item_id => @parameters[:item_id], :image_type => @parameters[:image_type], :purpose => @parameters[:purpose],
+        :uploaded_image => @image} )
+page.visual_effect :highlight, "replace-image", :duration => 1
