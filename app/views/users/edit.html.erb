@@ -6,12 +6,12 @@
 	</div>
 
 </div>
-<div id="user-image" class="column span-2">	
-	<% unless @user.user_image_file_name.nil?  then %>
-	  <p><%= image_tag @user.user_image.url,:width=>'50' %></p>
-	<% else%>
-	  <p><img></p>
-	<% end %>
+<div id="imagediv" class="span-9">
+  <div id="image-image" class="span-4 prepend-1 append-1 last">
+    <%= render :partial => 'uploaded_images/show',
+       :locals => { :uploaded_image => @uploaded_image, :default_images => @default_images, :image_type => "user" } %>
+  </div>
+
 </div>
 <% @user.password = @user.password_confirmation = nil %>
 

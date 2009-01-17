@@ -45,6 +45,8 @@ ActionController::Routing::Routes.draw do |map|
       items.resources :forums
     end    
   end
+
+  map.resources :uploaded_images, :collection => { :show_choice => :get }
   
   map.resources :proj_tags
   

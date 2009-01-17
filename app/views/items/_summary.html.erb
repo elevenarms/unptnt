@@ -1,4 +1,5 @@
-<td><%= render :partial => 'items/thumb_image', :locals => { :item => item } %> </td>
+<td><%= render :partial => 'uploaded_images/show', 
+    :locals => { :uploaded_image => uploaded_image, :image_type => "item" } %></td>
 <td><%=h item.quantity %></td>
 <td><%=h item.name %></td>
 <td><%= auto_link(item.info_url) %></td>

@@ -23,7 +23,8 @@ Bom#show - shows a list of all the items, in summary form.
     <% @items[item_type].each do |item|  %>
       <% count += 1 %>
       <%= "<tr id=\"item_" + "#{ item.id }" + "\">"  %>  <!-- gets the id of the div to be the item_type -->        
-        <%= render :partial => "items/summary", :locals => { :item => item} %>        
+        <%= render :partial => "items/summary",
+          :locals => { :item => item, :uploaded_image => item.home_page_image } %>
       </tr>
       <%  case item_type 
             when :Hardware 

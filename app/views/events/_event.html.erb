@@ -9,8 +9,8 @@
  
 <div class="event_meta">
     <div class="event_user">
-	<% unless event.user.user_image_file_name.nil?  then %>
-	  <%= image_tag event.user.user_image.url,:height=>'45',:width=>'45' %>
+	<% unless event.user.home_page_image.nil?  then %>
+	  <%= image_tag event.user.home_page_image.public_filename,:height=>'45',:width=>'45' %>
 	<% else%>
 	  <%= image_tag ('avatar.gif'),:height=>'45',:width=>'45' %>
 	<% end %>

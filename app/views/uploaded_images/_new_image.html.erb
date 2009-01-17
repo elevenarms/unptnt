@@ -2,7 +2,8 @@
 <% form_for(uploaded_image, :url => { :controller => 'uploaded_images', :action => 'create',
    :method => 'post', :format => 'js' },
   :html => { :multipart => true, :target => 'upload_frame' } ) do |f| %>
-    
+      <label for="image_name>">Image name:</label><br />
+      <%= f.text_field :name %><br/>
       <label for="Image file:">Upload a file:</label><br />
       <%= f.file_field :uploaded_data %>
 

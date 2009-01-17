@@ -2,7 +2,6 @@ class DocVersionsController < ApplicationController
   include ProjectModule
   include DocVersioning
   layout 'project'
-  uses_tiny_mce(:only => [:new, :edit], :options => AppConfig.default_mce_options)
   
   def index
     #returns a set of doc_versions depending on how it was called:

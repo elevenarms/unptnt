@@ -9,9 +9,7 @@ class Project < ActiveRecord::Base
   has_many :statuses, :order => "created_at DESC", :dependent => :delete_all
   has_many :clone_trees, :dependent => :delete_all
   acts_as_taggable_on :keywords
-  has_attached_file :project_image, 
-                    :styles => { :medium => "300x300>",
-                                 :thumb => "100x100>" }
+  has_many :uploaded_images, :dependent => :delete_all
   is_indexed :fields => ['name', 'description', 'status'], :delta => true
   has_many :doc_versions, :dependent => :delete_all
   has_one  :forum, :as => :subject, :include => [ {:topics => :posts} ]
@@ -31,9 +29,9 @@ class Project < ActiveRecord::Base
 
     project_people.each do |pp|
       case pp.relationship
-      when "owner" :  related_users[:owner] = pp.user 
-      when "follower" : related_users[:followers] << pp.user
-      when "collaborator" : related_users[:collaborators] << pp.user
+      when "owner" then  related_users[:owner] = pp.user
+      when "follower" then related_users[:followers] << pp.user
+      when "collaborator" then related_users[:collaborators] << pp.user
       end
     end   
     return related_users
@@ -124,6 +122,26 @@ def create_root
     user_id = ProjectPerson.find(:first,
       :conditions => "relationship = 'owner' AND project_id = '#{ self.id }' ").user_id
     return User.find(user_id)
+  end
+
+  def home_page_image
+    image = UploadedImage.fetch_single_image_for("project", self.id, "home_page")
+  end
+
+  def all_images
+    images = UploadedImage.fetch_all_images_for("project", self.id)
+  end
+
+  def image_filename(thumb=nil)
+    image = UploadedImage.fetch_single_image_for("project", self.id, "home_page")
+    return nil if image.nil?
+    image.public_filename(thumb) 
+  end
+
+  def image_name
+    image = UploadedImage.fetch_single_image_for("project", self.id, "home_page")
+    name = nil
+    name = image.display_name unless image.nil?
   end
 
 end

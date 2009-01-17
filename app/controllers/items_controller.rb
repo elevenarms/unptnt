@@ -21,6 +21,8 @@ class ItemsController < ApplicationController
     @forum = @item.forum
     @forum = "0" if @forum.nil?
     @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
+    @current_user_id = logged_in? ? current_user.id : "0"
+    @uploaded_image = UploadedImage.fetch_single_image_for("item", @item.id, "home_page")
     respond_to do |what|
       what.html # show.html.erb
       what.js   # show.js.rjs        
@@ -33,6 +35,7 @@ class ItemsController < ApplicationController
     @file_attachments = @item.file_attachments
     project = current_project(@bom.project)
     @current_user_is_editor = logged_in? ? current_user.is_editor?(project) : false
+    @count = FileAttachment.count :conditions => "item_id = '#{ @item.id }'"
     respond_to do |wants|
       wants.js #show_choice.js.rjs
     end
@@ -104,7 +107,7 @@ class ItemsController < ApplicationController
 
   def create_attachment
     @bom = Bom.find(params[:bom_id])
-    project = current_project(@bom.project_id)
+    @project = current_project(@bom.project_id)
     unless current_user.is_editor?(project) then
       redirect_to @bom and return
     end
@@ -272,5 +275,4 @@ class ItemsController < ApplicationController
       end
     end
   end
-  
 end

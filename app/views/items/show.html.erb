@@ -10,11 +10,13 @@
 <div id="item-details" class="container">
   <div id="imagediv" class="span-9">
     <div id="image-image" class="span-4 prepend-1 append-1 last">
-      <%= render :partial => 'items/show_image_image', :locals => { :item => @item } %>
+      <%= render :partial => 'uploaded_images/show', :locals => { :uploaded_image => @uploaded_image, :image_type => "item" } %>
     </div>
-    <div id="image-edit" class="span-9 last">
-      <%= render :partial => 'items/show_image_edit', :locals => { :bom => @bom, :item => @item,
-        :current_user_is_editor => @current_user_is_editor }  %><br/>
+    <div id="replace-image" class="span-9 last">
+      <%= render :partial => 'uploaded_images/show_choice',
+                 :locals => { :item_id => @item.id, :project_id => @project.id, :user_id => @current_user_id,
+                 :image_type => "item", :purpose => "home_page", 
+                 :current_user_is_editor => @current_user_is_editor }  %><br/>
     </div>
   </div>
   <div id="item-fields" class="span-15 last">

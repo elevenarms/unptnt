@@ -2,7 +2,6 @@ class ProjectsController < ApplicationController
   include ProjectModule
   include DocVersioning
   layout "project"
-  uses_tiny_mce(:only => [:new, :edit], :options => AppConfig.default_mce_options)
   require 'will_paginate'
   before_filter :login_required, :only => [ :new, :edit, :create, :update, :destroy, :follow ]
   after_filter  :load_project, :only => [ :show, :create, :update ]
@@ -43,6 +42,8 @@ class ProjectsController < ApplicationController
     @forum = @project.forum
     @forum = "0" if @forum.nil?
     @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
+    @current_user_id = logged_in? ? current_user.id : "0"
+    @uploaded_image = UploadedImage.fetch_single_image_for("project", @project.id, "home_page")
     respond_to do |format|
       format.html # show.html.erb
       format.js   # show.js.rjs
@@ -274,12 +275,11 @@ class ProjectsController < ApplicationController
   end
   
   def update_image
+    return if params[:uploaded_image][:uploaded_data].nil? || params[:uploaded_image][:uploaded_data] == ""
     @project = current_project(params[:id])
-    unless @project.project_image_file_name.nil? then
-      # how do you delete a paperclip image??????
-    end
-    @project.update_attributes(:project_image => params[:project][:project_image])
-    session[:project] = @project
+    @project.single_image.destroy unless @project.single_image_.nil?
+    image = UploadedImage.create(params[:uploaded_image][:uploaded_data])
+    @project
     @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
     respond_to do |wants|
       wants.js  do
@@ -315,5 +315,4 @@ class ProjectsController < ApplicationController
   def load_project
     session[:project] = @project
   end
-  
 end

@@ -1,70 +1,66 @@
 <div id="header-middle-dashboard" class="container">
-	<div id="profile-bar" class="column span-9 prepend-3">
-		<h2> <%= @user.name %>	</h2>
-</div>
+  <div id="profile-bar" class="column span-9 prepend-3">
+    <h2> <%= @user.name %>	</h2>
+  </div>
 </div>
 
 <h3>Profile for:   </h3>
 
 <%= error_messages_for :user %>
-<div id="user-image" class="column span-5">	
-	<% unless @user.user_image_file_name.nil?  then %>
-	  <p><%= image_tag @user.user_image.url,:width=>'50' %></p>
-	<% else%>
-	  <p><img></p>
-	<% end %>
+<div id="imagediv" class="span-9">
+  <div id="image-image" class="span-4 prepend-1 append-1 last">
+    <%= render :partial => 'uploaded_images/show', 
+       :locals => { :uploaded_image => @uploaded_image,  :image_type => "user" } %>
+  </div>
 </div>
+
 <div class="column span-5">
+  <p><%= label_tag 'login' %><br/>
+  <%= @user.login %></p>
 
-<p><%= label_tag 'login' %><br/>
-<%= @user.login %></p>
-
-<p><%= label_tag 'full_name' %><br/>
-<%= @user.name %></p>
-
-
+  <p><%= label_tag 'full_name' %><br/>
+  <%= @user.name %></p>
 </div>
-
 
 <div class="column span-7">
-<div>
-  <strong>Projects this person owns:</strong><br />
-  <% @related_projects[:owns].each do |p| %>
-    <% unless p.project_image_file_name.nil?  then %>
-        <%= link_to(image_tag(p.project_image.url(:thumb), :height => "40"), p) %>
-    <% else %>
-      <img src="/images/noimgprojectsmall.png">
-    <% end %>
-    <%= link_to p.name, p %><br />
-  <% end %>
-</div>
-
-<div>
-  <% unless @related_projects[:collaborating].empty? then %>
-    <strong>Projects on which this person is collaborating:</strong>
-    <% @related_projects[:collaborating].each do |p| %>
-      <% unless p.project_image_file_name == nil  then %>
-          <%= link_to(image_tag(p.project_image.url(:thumb), :height => "40"), p) %>
-      <% else %>
-        <img src="/images/noimgprojectsmall.png">
+  <div>
+    <% unless @related_projects[:owns].empty? then %>
+      <strong>Projects this person owns:</strong><br />
+      <% @related_projects[:owns].each do |p| %>
+        <%  uploaded_image = p.home_page_image %>
+        <% unless uploaded_image.nil?  then %>
+          <%= render :partial => 'uploaded_images/show', :locals => { :uploaded_image => uploaded_image } %>
+          <%= link_to p.name, p %><br />
+        <% end %>
       <% end %>
-      <%= link_to p.name, p %><br />
     <% end %>
-  <% end %>
-</div>
+  </div>
 
-<div>
-  <% unless @related_projects[:following].empty? then %>
-    <strong>Projects this person is following:</strong><br />
-    <% @related_projects[:following].each do |p| %>
-      <% unless p.project_image_file_name == nil  then %>
-          <%= link_to(image_tag(p.project_image.url(:thumb), :height => "40"), p) %>
-      <% else %>
-        <img src="/images/noimgprojectsmall.png">
+  <div>
+    <% unless @related_projects[:collaborating].empty? then %>
+      <strong>Projects on which this person is collaborating:</strong>
+      <% @related_projects[:collaborating].each do |p| %>
+        <%  uploaded_image = p.home_page_image %>
+        <% unless uploaded_image.nil?  then %>
+          <%= render :partial => 'uploaded_images/show', :locals => { :uploaded_image => uploaded_image } %>
+          <%= link_to p.name, p %><br />
+        <% end %>
       <% end %>
-      <%= link_to p.name, p %>)<br />
     <% end %>
-  <% end %>
-</div>
+  </div>
+
+  <div>
+    <% unless @related_projects[:following].empty? then %>
+      <strong>Projects this person is following:</strong>
+      <% @related_projects[:collaborating].each do |p| %>
+        <%  uploaded_image = p.home_page_image %>
+        <% unless uploaded_image.nil?  then %>
+          <%= render :partial => 'uploaded_images/show', :locals => { :uploaded_image => uploaded_image } %>
+          <%= link_to p.name, p %><br />
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+
 </div>
 

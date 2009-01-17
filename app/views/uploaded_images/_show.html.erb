@@ -1,5 +1,11 @@
-<% unless uploaded_image.nil?  then %>
-	  <p><%= image_tag uploaded_image.public_filename,:width=>'150' %></p>
+<% unless uploaded_image.nil?  then %>    
+	<%= image_tag uploaded_image.public_filename,:width=>'150' %><br/>
+    <%= uploaded_image.display_name %><br/>
 <% else%>
-	  <p><img src="/images/itemnoimglarge.png"></p>
+  <% default_image = case image_type
+     when "item" then "itemnoimglarge.png"
+     when "project" then "itemnoimglarge.png"
+     when "user" then "nouserimg.png"
+     end %>
+	<p> <%= "<img src='/images/#{ default_image }'>" %></p>
 <% end %>

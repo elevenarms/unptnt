@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081215231214) do
+ActiveRecord::Schema.define(:version => 20090112220517) do
 
   create_table "boms", :force => true do |t|
     t.string   "project_id"
@@ -163,8 +163,8 @@ ActiveRecord::Schema.define(:version => 20081215231214) do
     t.string   "name"
     t.integer  "license_id"
     t.string   "description"
-    t.string   "unptntnumber"
-    t.string   "status",                  :limit => 140
+    t.string   "unptnt_developmentnumber"
+    t.string   "status",                   :limit => 140
     t.string   "project_image_file_name"
     t.string   "owner"
     t.string   "project_type"
@@ -232,6 +232,24 @@ ActiveRecord::Schema.define(:version => 20081215231214) do
   add_index "topics", ["forum_id"], :name => "index_topics_on_forum_id"
   add_index "topics", ["forum_id", "sticky", "replied_at"], :name => "index_topics_on_sticky_and_replied_at"
   add_index "topics", ["forum_id", "replied_at"], :name => "index_topics_on_forum_id_and_replied_at"
+
+  create_table "uploaded_images", :force => true do |t|
+    t.string   "name"
+    t.integer  "size"
+    t.string   "content_type"
+    t.string   "filename"
+    t.integer  "height"
+    t.integer  "width"
+    t.integer  "parent_id"
+    t.string   "thumbnail"
+    t.string   "image_type"
+    t.string   "purpose"
+    t.integer  "user_id",      :default => 0
+    t.integer  "project_id",   :default => 0
+    t.integer  "item_id",      :default => 0
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "users", :force => true do |t|
     t.string   "login",                     :limit => 40

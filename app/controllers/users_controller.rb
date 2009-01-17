@@ -4,7 +4,6 @@ class UsersController < ApplicationController
   layout 'application'
   before_filter :login_required, :except => [:index, :new, :create]
 
-
   def index
     @users = User.find(:all)
   end
@@ -16,6 +15,9 @@ class UsersController < ApplicationController
     end
     @related_projects = @user.related_projects
     @doc_versions = @user.doc_versions
+    @uploaded_image = UploadedImage.fetch_single_image_for("user", @user.id, "home_page")
+    @current_user_is_editor = logged_in? ? current_user.id == @user.id : false
+    @current_user_id = logged_in? ? current_user.id : "0"
   end
 
   # render new.rhtml 
@@ -53,19 +55,6 @@ end
     end
   end
   
-  def index
-    @users = User.find(:all)
-  end
-  
-  def show
-    @user = User.find(params[:id])
-    if @user.nil? then 
-      redirect_to projects_path and return
-    end  
-    @related_projects = @user.related_projects
-    @doc_versions = @user.doc_versions
-  end
-  
   def edit
     @user = User.find(params[:id])
     if @user.nil? then 
@@ -73,6 +62,9 @@ end
     end    
     redirect_to projects_path unless logged_in?
     redirect_to projects_path unless @user.id == current_user.id
+    @uploaded_image = UploadedImage.fetch_single_image_for("user", @user.id, "home_page")
+    @current_user_is_editor = logged_in? ? current_user.id == @user.id : false
+    @current_user_id = logged_in? ? current_user.id : "0"
   end
   
   def update
@@ -89,5 +81,5 @@ end
     else
       redirect_to edit_user_path(@user)
     end   
-  end  
+  end
 end

@@ -1,4 +1,4 @@
 page.replace_html("add-attachment", :partial => 'attachments/show_choice',
-      :locals => { :item => @item, :bom => @bom, :file_attachments => @file_attachments,
+      :locals => { :item => @item, :bom => @bom, :file_attachments => @file_attachments, :count => @count,
         :current_user_is_editor => @current_user_is_editor }   )
 page.visual_effect :highlight, "add-attachment", :duration => 1

@@ -1,7 +1,7 @@
 <% unless current_user_is_editor then %>
-  xx<br/>
+  <br/>
 <% else %>
-  <% unless @count == 0 then %>
+  <% unless count == 0 then %>
     <%= link_to_remote "upload another file", :url => new_attachment_bom_item_path(bom, item), :method => :get %>
   <% else %>
     No files yet: <%= link_to_remote ' upload the first one', :url => new_attachment_bom_item_path(bom, item), :method => :get %>

@@ -28,16 +28,14 @@ class User < ActiveRecord::Base
   has_many :events
   has_many :doc_versions, :foreign_key => "editor_id"
   
-  has_attached_file :user_image, 
-                    :styles => { :medium => "300x300>",
-                                 :thumb => "40x40>" }
+  has_many :uploaded_images, :dependent => :delete_all
 
   before_create :set_invitation_limit
   
   # HACK HACK HACK -- how to do attr_accessible from here?
   # prevents a user from submitting a crafted form that bypasses activation
   # anything else you want your user to change should be added here.
-  attr_accessible :login, :email, :name, :password, :password_confirmation, :user_image
+  attr_accessible :login, :email, :name, :password, :password_confirmation
   
    #Activates the user in the database.
   def activate!
@@ -157,6 +155,26 @@ class User < ActiveRecord::Base
 		query && ['LOWER(display_name) LIKE :q OR LOWER(login) LIKE :q', {:q => "%#{query}%"}]
 		query
 	end
+
+  def home_page_image
+    image = UploadedImage.fetch_single_image_for("user", self.id, "home_page")
+  end
+
+  def all_images
+    UploadedImage.fetch_all_images_for("user", self.id)
+  end
+
+  def image_file_name
+    image = UploadedImage.fetch_single_image_for("user", self.id, "home_page")
+    filename = nil
+    filename = image.filename unless image.nil?
+  end
+
+  def image_name
+    image = UploadedImage.fetch_single_image_for("user", self.id, "home_page")
+    name = nil
+    name = image.display_name unless image.nil?
+  end
 
   private
   def set_invitation_limit
