@@ -1,0 +1,37 @@
+How Uploaded Images and Files are Handled in UnPtnt  1/18/2009  Chalstrom
+
+- we are using Paperclip only for the small number of license images that are uploaded
+
+- all other uploaded images and files use attachment_fu
+
+- there are two models for uploads: file_attachments for the Item file attachments, and uploaded_images for the user, project, and item images.
+
+- the two different types of uploaded are handled very differently in the code.  There is no separate controller for file_attachments.  Rather the controller methods for this are in the Items Controller, since this is the only model that can have file attachments.  The views for attachments are in the attachments views directory.
+
+- uploaded_images have their own controller and most methods that operate on them are in this controller.  There are also methods in the UploadedImage model and in each of the User, Project, and Item models as described below.
+
+- the FileAttachment model has a name field which can be entered and is displayed.  The other fields are those required by attachment_fu.
+
+- the UploadedImage model has all the attachment_fu-required fields, plus five more fields:
+	- project_id, user_id, item_id
+	- image type: user, project, item
+	- purpose: only current value is "home_page"
+	- all images have a user_id because all images are uploaded by a logged_in user
+	- project images have a project_id, but item_id = "0"
+	- item images have all three ids.
+	- a purpose of "home_page" means this is the single image for that object to be displayed on that object's home page.
+	- when a new home_page image for an object is uploaded, the previous home_page image, if any, is deleted.
+
+- these five parameters are initially setup by the object's show method (e.g. Item#show).  From then on they are passed back and forth among controllers and partials so that one set of partials (in the uploaded_images views) can service all images.  The three partials are:
+	- _show: renders the image
+	- _new_image: creates the form for uploading another image
+	- _show_choice: renders the user action link (e.g. upload an image) if the user has that action
+
+- if you choose not to use these partials, there are model methods for short cuts.  The same methods exist for item, project, and user, so the explanation below uses item as the example.
+	- item.home_page_image => the home_page uploaded_image object, or nil
+	- item.all_images => an array of all images for this item
+	- item.home_page_image.public_filename(:thumb) is the URL to the image for image_tags.  
+	- If you parameter is specified, you get the original, as resized.  Otherwise you get the thumbnail specified.
+	
+	
+	

@@ -1,9 +1,0 @@
-<% form_for([bom, item], :url => formatted_update_image_bom_item_path(:format => 'js'),
-  :html => { :multipart => true, :target => 'upload_frame' } ) do |f| %>
-  <br/>
-  <%= f.label :item_image %><br />
-  <%= f.file_field :item_image %>
-  <%= f.submit "Upload new image" %>
-<% end %>
-or <%= link_to_remote 'cancel', :url => cancel_edit_image_bom_item_path(bom, item), :method => :get %>
-<iframe id='upload_frame' name="upload_frame" style="width:1px;height:1px;border:0px" src="about:blank"></iframe>

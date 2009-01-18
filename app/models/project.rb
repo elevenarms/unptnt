@@ -132,17 +132,5 @@ def create_root
     images = UploadedImage.fetch_all_images_for("project", self.id)
   end
 
-  def image_filename(thumb=nil)
-    image = UploadedImage.fetch_single_image_for("project", self.id, "home_page")
-    return nil if image.nil?
-    image.public_filename(thumb) 
-  end
-
-  def image_name
-    image = UploadedImage.fetch_single_image_for("project", self.id, "home_page")
-    name = nil
-    name = image.display_name unless image.nil?
-  end
-
 end
 

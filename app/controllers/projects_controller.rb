@@ -259,43 +259,6 @@ class ProjectsController < ApplicationController
     end
   end
   
-  def cancel_edit_image
-    @project = current_project(params[:id])
-    @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
-    respond_to do |wants|
-      wants.js  #cancel_edit_image.js.rjs
-    end
-  end
-  
-  def edit_image
-    @project = current_project(params[:id])
-    respond_to do |wants|
-      wants.js # edit_image.js.rjs
-    end
-  end
-  
-  def update_image
-    return if params[:uploaded_image][:uploaded_data].nil? || params[:uploaded_image][:uploaded_data] == ""
-    @project = current_project(params[:id])
-    @project.single_image.destroy unless @project.single_image_.nil?
-    image = UploadedImage.create(params[:uploaded_image][:uploaded_data])
-    @project
-    @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
-    respond_to do |wants|
-      wants.js  do
-        responds_to_parent do
-          render :update do |page|
-            page.replace_html "image-image", :partial => "projects/show_image_image",
-                :locals => { :project => @project  }
-            page.replace_html "image-edit", :partial => "projects/show_image_edit",
-                :locals => { :project => @project, :current_user_is_editor => @current_user_is_editor  }
-            page.visual_effect :highlight, "imagediv"
-          end
-        end
-      end
-    end
-  end
-  
   protected  #can only be called from here
   
   def connect(project, user, relationship)

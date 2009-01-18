@@ -11,7 +11,12 @@
     <%= render :partial => 'uploaded_images/show',
        :locals => { :uploaded_image => @uploaded_image, :default_images => @default_images, :image_type => "user" } %>
   </div>
-
+  <div id="replace-image" class="span-9 last">
+  <%= render :partial => 'uploaded_images/show_choice',
+             :locals => { :item_id => "0", :project_id => "0", :user_id => @current_user_id,
+             :image_type => "user", :purpose => "home_page",
+             :current_user_is_editor => @current_user_is_editor }  %><br/>
+</div>
 </div>
 <% @user.password = @user.password_confirmation = nil %>
 
@@ -31,12 +36,6 @@
 
 <p><%= label_tag 'password_confirmation', 'Confirm Password' %><br/>
 <%= f.password_field :password_confirmation %></p>
-
-<p>
-   <%= f.label :user_image %><br />
-   <%= f.file_field :user_image %><br />
-   <em>Note: new image replaces old - can only have one.</em>
-</p> 
 
 <p><%= submit_tag 'Save changes' %></p>
 <% end -%>

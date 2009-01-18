@@ -23,18 +23,15 @@
   <div id="user-projects-container" class="column span-24">
     <div id="user-projects" class="prepend-2">
       <div id="user-projects-own-collab" class="prepend-1 column span-9">
-        <div id="user-projects-own-collab-header">
-          <h4>collaborating:</h4>
-        </div>
         <div class="column span-7">
           <div>
             <% unless @related_projects[:owns].empty? then %>
+              <strong>Projects this person owns:</strong>
               <% @related_projects[:owns].each do |p| %>
                 <%  uploaded_image = p.home_page_image %>
-                <% unless uploaded_image.nil?  then %>
-                  <%= render :partial => 'uploaded_images/show', :locals => { :uploaded_image => uploaded_image } %>
-                  <%= link_to p.name, p %><br />
-                <% end %>
+                <%= render :partial => 'uploaded_images/show',
+                  :locals => { :uploaded_image => uploaded_image, :image_type => "project" } %>
+                <%= link_to p.name, p %><br />
               <% end %>
             <% end %>
           </div>
@@ -44,10 +41,9 @@
               <strong>Projects on which this person is collaborating:</strong>
               <% @related_projects[:collaborating].each do |p| %>
                 <%  uploaded_image = p.home_page_image %>
-                <% unless uploaded_image.nil?  then %>
-                  <%= render :partial => 'uploaded_images/show', :locals => { :uploaded_image => uploaded_image } %>
-                  <%= link_to p.name, p %><br />
-                <% end %>
+                <%= render :partial => 'uploaded_images/show',
+                  :locals => { :uploaded_image => uploaded_image, :image_type => "project"  } %>
+                <%= link_to p.name, p %><br />
               <% end %>
             <% end %>
           </div>
@@ -55,36 +51,29 @@
 
         <div>
           <% unless @related_projects[:following].empty? then %>
-            <div id="user-projects-follow" class="column span-8">
-              <div id="user-projects-follow-header">
-                <h4>following:</h4>
-              </div>
-              <strong>Projects this person is following:</strong>
-              <% @related_projects[:collaborating].each do |p| %>
-                <%  uploaded_image = p.home_page_image %>
-                <% unless uploaded_image.nil?  then %>
-                  <%= render :partial => 'uploaded_images/show', :locals => { :uploaded_image => uploaded_image } %>
-                  <%= link_to p.name, p %><br />
-                <% end %>
-              <% end %>
+            <strong>Projects this person is following:</strong>
+            <% @related_projects[:collaborating].each do |p| %>
+              <%= render :partial => 'uploaded_images/show',
+                :locals => { :uploaded_image => uploaded_image, :image_type => "project"  } %>
+              <%= link_to p.name, p %><br />
             <% end %>
-          </div>
-
+          <% end %>
         </div>
+
       </div>
     </div>
   </div>
-
-  <div id="dashboard-feed-c" class="prepend-1 column span-18">
-    <div id="dashboard-feed">
-      <div id="project-bar-details" class="column span-13 prepend-1">
-        <h3><strong>what's happening?</strong></h3>
-      </div>
-    </div>
-    <div id="events-container" class="column span-21">
-      <%= render :partial => '/events/events' -%>
-    </div>
-  </div>
-
-  <%= will_paginate @events , :class=>"apple_pagination span-24" %>
 </div>
+
+<div id="dashboard-feed-c" class="prepend-1 column span-18">
+  <div id="dashboard-feed">
+    <div id="project-bar-details" class="column span-13 prepend-1">
+      <h3><strong>what's happening?</strong></h3>
+    </div>
+  </div>
+  <div id="events-container" class="column span-21">
+    <%= render :partial => '/events/events' -%>
+  </div>
+</div>
+
+<%= will_paginate @events , :class=>"apple_pagination span-24" %>

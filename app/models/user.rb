@@ -164,18 +164,6 @@ class User < ActiveRecord::Base
     UploadedImage.fetch_all_images_for("user", self.id)
   end
 
-  def image_file_name
-    image = UploadedImage.fetch_single_image_for("user", self.id, "home_page")
-    filename = nil
-    filename = image.filename unless image.nil?
-  end
-
-  def image_name
-    image = UploadedImage.fetch_single_image_for("user", self.id, "home_page")
-    name = nil
-    name = image.display_name unless image.nil?
-  end
-
   private
   def set_invitation_limit
     self.invitation_limit = 1000

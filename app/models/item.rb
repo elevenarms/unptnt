@@ -20,16 +20,4 @@ class Item < ActiveRecord::Base
     UploadedImage.fetch_all_images_for("item", self.id)
   end
 
-  def image_file_name
-    image = self.home_page_image
-    filename = nil
-    filename = image.filename unless image.nil?
-  end
-
-  def image_name
-    image = self.home_page_image
-    name = nil
-    name = image.display_name unless image.nil?
-  end
-
 end

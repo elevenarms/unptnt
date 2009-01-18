@@ -1,11 +1,14 @@
 class UploadedImage < ActiveRecord::Base
 
+  #
+  # see the document in the /docs directory entitled: Uploaded Files and Images.txt
+  #
+
   has_attachment  :content_type => :image,
                   :max_size => 5.megabytes,
                   :resize_to => '600>',
                   :thumbnails => {:thumb => "45>", :medium => "290x320>", :large => "664>"},
-                  :storage => :file_system,
-                  :path_prefix => 'public/uploaded_images',
+                  :storage => :s3,
                   :processor => :image_science
 
   validates_as_attachment

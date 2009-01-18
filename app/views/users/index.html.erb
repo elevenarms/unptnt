@@ -1,6 +1,6 @@
 <% for user in @users do %>
-	<% unless user.user_image_file_name.nil?  then %>
-	  <%= image_tag user.user_image.url,:height=>'45',:width=>'45' %>
+	<% unless user.home_page_image.nil?  then %>
+	  <%= image_tag user.home_page_image.public_filename,:height=>'45',:width=>'45' %>
 	<% else%>
 	  <%= image_tag 'avatar.gif',:height=>'45',:width=>'45' %>
 	<% end %>&nbsp;&nbsp;&nbsp;

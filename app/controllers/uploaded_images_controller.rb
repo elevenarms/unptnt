@@ -1,5 +1,10 @@
 class UploadedImagesController < ApplicationController
 
+  #
+  # see the document in the /docs directory entitled: Uploaded Files and Images.txt
+  #
+
+
     # show all images for a given image_type and id
   def index
 
@@ -75,10 +80,6 @@ class UploadedImagesController < ApplicationController
     #delete the previous image of this purpose if there was one
     result = UploadedImage.destroy(previous_image.id)  unless  previous_image.nil?
     if @parameters[:image_type] == "user" then
-      a = current_user.id
-      b = current_user[:id]
-      c = @parameters[:user_id]
-      d = logged_in?
       @current_user_is_editor = logged_in? ? (current_user.id.to_s == @parameters[:user_id]) : false
     else
       @current_user_is_editor = logged_in? ? current_user.is_editor?(project) : false

@@ -108,7 +108,7 @@ class ItemsController < ApplicationController
   def create_attachment
     @bom = Bom.find(params[:bom_id])
     @project = current_project(@bom.project_id)
-    unless current_user.is_editor?(project) then
+    unless current_user.is_editor?(@project) then
       redirect_to @bom and return
     end
     @item = Item.find(params[:id])
@@ -125,6 +125,7 @@ class ItemsController < ApplicationController
             page.insert_html(:bottom, "attachment-list", :partial => 'attachments/show',
                   :locals => { :item => @item, :bom => @bom, :file_attachment => @file_attachment,
                   :current_user_is_editor => @current_user_is_editor }   )
+            @file_attachment = FileAttachment.new
             page.replace_html("add-attachment", :partial => 'attachments/upload',
                   :locals => { :item => @item, :bom => @bom }   )
             page.visual_effect :highlight, "item-attachments", :duration => 1
@@ -225,54 +226,6 @@ class ItemsController < ApplicationController
     @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
     respond_to do |wants|
       wants.js # show_doc_version.js.rjs
-    end
-  end
-
-  def show_image
-    @item = Item.find(params[:id])
-    @bom = @item.bom
-    @project = current_project(@bom.project_id)
-    @current_user_is_editor = logged_in? ? current_user.is_editor?(@project) : false
-    respond_to do |wants|
-      wants.js  # show_image.js.rjs
-    end
-  end
-
-  def cancel_edit_image
-    @item = Item.find(params[:id])
-    @bom = @item.bom
-    respond_to do |wants|
-      wants.js  #cancel_edit_image.js.rjs
-    end
-  end
-
-  def edit_image
-    @item = Item.find(params[:id])
-    @bom = @item.bom
-    respond_to do |wants|
-      wants.js # edit_image.js.rjs
-    end
-  end
-
-  def update_image
-    @item = Item.find(params[:id])
-    @bom = @item.bom
-    unless @item.item_image_file_name.nil? then
-      # how do you delete a paperclip image??????
-    end
-    @item.update_attributes(:item_image => params[:item][:item_image])
-    respond_to do |wants|
-      wants.js  do
-        responds_to_parent do
-          render :update do |page|
-            page.replace_html "image-image", :partial => "items/show_image_image",
-              :locals => { :bom => @bom, :item => @item  }
-            page.replace_html "image-edit", :partial => "items/show_image_edit",
-              :locals => { :bom => @bom, :item => @item  }
-            page.visual_effect :highlight, "imagediv"
-          end
-        end
-      end
     end
   end
 end

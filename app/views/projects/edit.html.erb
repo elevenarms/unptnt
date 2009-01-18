@@ -31,7 +31,7 @@
   
   <p>
      <%= f.label :project_image %><br />
-     <%= f.file_field :project_image %><br />
+     <%= f.file_field :uploaded_data %><br />
      <em>Note: new image replaces old - can only have one.</em>
   </p> 
 
@@ -65,7 +65,7 @@
 
 <% unless @project.project_image_file_name.nil?  %>
   <h3>Image:</h3>
-  <p><%= image_tag @project.project_image.url %></p>
+  <p><%= image_tag @project.home_page_image.public_filename %></p>
 <% end %>
 
 <% if @project.bom.nil? then %>

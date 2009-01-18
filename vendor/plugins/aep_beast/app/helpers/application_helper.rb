@@ -16,8 +16,8 @@ module ApplicationHelper
   end
 
   def avatar_for(user, size=45)
-    unless user.user_image_file_name.nil?  then
-	    image_tag user.user_image.url,:height=>size,:width=>size
+    unless user.home_page_image.nil?  then
+	    image_tag user.home_page_image.public_filename,:height=>size,:width=>size
 	  else
 	    image_tag 'avatar.gif',:height=>size,:width=>size
   	end

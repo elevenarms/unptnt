@@ -19,8 +19,8 @@
 
 <li><strong>Owner</strong></li>
 
-<% unless @related_users[:owner].user_image_file_name.nil?  then %>
-  <li><%= link_to(image_tag(@related_users[:owner].user_image.url(:thumb), :size => "40x40"), @related_users[:owner]) %>
+<% unless @related_users[:owner].home_page_image.nil?  then %>
+  <li><%= link_to(image_tag(@related_users[:owner].home_page_image.public_filename(:thumb), :size => "40x40"), @related_users[:owner]) %>
 <% else %>
   <%= link_to(image_tag("/images/nouserimg.png", :size => "40x40"), @related_users[:owner]) %>
 <% end %>
@@ -32,8 +32,8 @@
 
   <% @related_users[:collaborators].each do |c| %>
     <li>
-      <% unless c.user_image_file_name.nil?  then %>
-        <%= link_to(image_tag(c.user_image.url(:thumb), :size => "40x40"), c) %>
+      <% unless c.home_page_image.nil?  then %>
+        <%= link_to(image_tag(c.home_page_image.public_filename(:thumb), :size => "40x40"), c) %>
       <% else %>
         <%= link_to(image_tag("/images/nouserimg.png", :size => "40x40"), c) %>
       <% end %>
@@ -49,8 +49,8 @@
 
   <% @related_users[:followers].each do |f| %>
     <li>
-      <% unless f.user_image_file_name.nil?  then %>
-        <%= link_to(image_tag(f.user_image.url(:thumb), :size => "40x40"), f) %>
+      <% unless f.home_page_image.nil?  then %>
+        <%= link_to(image_tag(f.home_page_image.public_filename(:thumb), :size => "40x40"), f) %>
       <% else %>
         <%= link_to(image_tag("/images/nouserimg.png", :size => "40x40"), f) %>
       <% end %>

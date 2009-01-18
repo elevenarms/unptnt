@@ -1,4 +1,0 @@
-
-page.replace_html 'image-edit', :partial => 'items/edit_image',
-      :locals => { :bom => @bom, :item => @item  }
-page.visual_effect :highlight, "image-edit", :duration => 1
