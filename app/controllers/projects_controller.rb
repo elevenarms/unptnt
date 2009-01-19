@@ -5,7 +5,8 @@ class ProjectsController < ApplicationController
   require 'will_paginate'
   before_filter :login_required, :only => [ :new, :edit, :create, :update, :destroy, :follow ]
   after_filter  :load_project, :only => [ :show, :create, :update ]
-  #auto_complete_for :user, :login
+  auto_complete_for :user, :login
+  skip_before_filter :verify_authenticity_token, :only => [:auto_complete_for_user_login]
 
 
   PROJECT_TYPES = ["Electronic",  "Embeded", "Wearable", "Mechanical", "System"]
@@ -228,7 +229,11 @@ class ProjectsController < ApplicationController
     unless current_user.is_owner?(@project) then 
       redirect_to @project
     end
-    user = User.find(params[:userid])
+    user = User.find_by_login(params[:user][:login])
+    if user.nil? || user.is_owner?(@project) then
+      add_message("Cannot make project owner a collaborator")
+      redirect_to @project and return
+    end
     connect(@project, user,  "collaborator")
     redirect_to :action => 'related_users', :id => @project.id  and return
   end

@@ -12,19 +12,21 @@ ActionController::Routing::Routes.draw do |map|
     users.resources :doc_versions
   end
   
-  map.resources :projects, :member => { :follow => :get,
-              :prepare_delete => :get,
-              :stop_following => :get, 
-              :add_collaborator => :get,
-              :create_collaborator => :post,
-              :related_users => :get,
-              :status_history => :get,
-              :show_family_trees => :get,
-              :new_clone => :get,
-              :show_doc_version => :get,
-              :cancel_edit_image => :get,
-              :edit_image => :get,
-              :update_image => :put }  do |projects|
+  map.resources :projects,
+              :member => { :follow => :get,
+                  :prepare_delete => :get,
+                  :stop_following => :get,
+                  :add_collaborator => :get,
+                  :create_collaborator => :post,
+                  :related_users => :get,
+                  :status_history => :get,
+                  :show_family_trees => :get,
+                  :new_clone => :get,
+                  :show_doc_version => :get,
+                  :cancel_edit_image => :get,
+                  :edit_image => :get,
+                  :update_image => :put },
+              :collection => { :auto_complete_for_user_login => :post } do |projects|
       projects.resources :doc_versions  
       projects.resources :boms
       projects.resources :forums
