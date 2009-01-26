@@ -32,8 +32,8 @@
       <% end %>
       </abbr>
     </div>
-
-    <%= avatar_for @users[post.user_id] %>
+    <div id="forum_user_image" >
+    <%= avatar_for @users[post.user_id] %></div>
     <span class="fn"><%= link_to truncate(h(@users[post.user_id].display_name), 15), user_path(post.user_id) %></span>
     <span class="posts"><%= '{count} posts'[(count=@users[post.user_id].posts.size)==1 ? :post_count : :posts_count, number_with_delimiter(count)] %></span>
   </td>

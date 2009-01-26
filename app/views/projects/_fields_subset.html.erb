@@ -1,0 +1,4 @@
+<h3><%= link_to( project.name.slice(0,30) , project)%></h3>
+<%=h strip_tags(project.description) unless project.description.nil? %> <br/>
+<%= project.owner.name %>&nbsp;--
+<%= project.project_type %>

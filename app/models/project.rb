@@ -10,7 +10,7 @@ class Project < ActiveRecord::Base
   has_many :clone_trees, :dependent => :delete_all
   acts_as_taggable_on :keywords
   has_many :uploaded_images, :dependent => :delete_all
-  is_indexed :fields => ['name', 'description', 'status'], :delta => true
+  is_indexed :fields => ['name', 'description'], :delta => true
   has_many :doc_versions, :dependent => :delete_all
   has_one  :forum, :as => :subject, :include => [ {:topics => :posts} ]
 

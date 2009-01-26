@@ -7,29 +7,19 @@
   <%end%>
 </div>
 
-<div id="projects-show" class="column span-16 prepend-3">
+<div id="projects-show" class="container">
   <p>
-  <table>
-    <% for project in @projects %>
-      <tr>
-        <td>
-          <% unless project.home_page_image.nil?  then %>
-
-            <p><%= link_to(image_tag(project.home_page_image.public_filename, :width => "75"), project) %></p>
-
-          <% else%>
-            <p><%= link_to(image_tag("/images/noimgprojectlarge.png", :width => "45"), project) %></p>
-          <% end %>
-          <h3><%= link_to( project.name.slice(0,30) , project)%></h3>
-          <%=h strip_tags(project.description).slice(0,50) unless project.description.nil? %> <br/>
-          <%= project.owner.name %>&nbsp;--
-          <%= project.project_type %>
-        </td>
-
-
-      </tr>
-    <% end %>
-  </table>
+  <% for project in @projects %>
+    <div>
+      <div id="image-image" class="span-4">
+        <%= render :partial => 'uploaded_images/show',
+          :locals => { :uploaded_image => project.home_page_image, :image_type => "project", :uploaded_image_size => :medium  } %>
+      </div>
+      <div id="project_fields_subset" class="span-12 last">
+        <%= render :partial => 'projects/fields_subset',  :locals => { :project => project } %>
+      </div>
+    </div>
+  <% end %>
 </div>
 <%= will_paginate @projects , :class=>"apple_pagination span-24" %>
 

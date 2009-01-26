@@ -1,5 +1,6 @@
 # Filters added to this controller apply to all controllers in the application.
 # Likewise, all the methods added will be available for all controllers.
+ IMAGE_SIZE = {:large => '150x150', :medium => '75x75', :small => '45x45' }
 
 class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
@@ -9,6 +10,7 @@ class ApplicationController < ActionController::Base
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   protect_from_forgery # :secret => 'bd844a0e54e15f3ff6867d9170c994ec'
+ 
   
   # See ActionController::Base for details 
   # Uncomment this to filter the contents of submitted sensitive data parameters

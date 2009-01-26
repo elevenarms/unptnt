@@ -10,7 +10,7 @@
 <div id="imagediv" class="span-9">
   <div id="image-image" class="span-4 prepend-1 append-1 last">
     <%= render :partial => 'uploaded_images/show', 
-       :locals => { :uploaded_image => @uploaded_image,  :image_type => "user" } %>
+       :locals => { :uploaded_image => @uploaded_image,  :image_type => "user", :uploaded_image_size => :small } %>
   </div>
 </div>
 
@@ -29,7 +29,8 @@
       <% @related_projects[:owns].each do |p| %>
         <%  uploaded_image = p.home_page_image %>
         <% unless uploaded_image.nil?  then %>
-          <%= render :partial => 'uploaded_images/show', :locals => { :uploaded_image => uploaded_image } %>
+          <%= render :partial => 'uploaded_images/show', 
+            :locals => { :uploaded_image => uploaded_image, :image_type => 'project', :uploaded_image_size => :small  } %>
           <%= link_to p.name, p %><br />
         <% end %>
       <% end %>
@@ -42,7 +43,8 @@
       <% @related_projects[:collaborating].each do |p| %>
         <%  uploaded_image = p.home_page_image %>
         <% unless uploaded_image.nil?  then %>
-          <%= render :partial => 'uploaded_images/show', :locals => { :uploaded_image => uploaded_image } %>
+          <%= render :partial => 'uploaded_images/show', 
+            :locals => { :uploaded_image => uploaded_image, :image_type => 'project', :uploaded_image_size => :small } %>
           <%= link_to p.name, p %><br />
         <% end %>
       <% end %>
@@ -55,7 +57,8 @@
       <% @related_projects[:collaborating].each do |p| %>
         <%  uploaded_image = p.home_page_image %>
         <% unless uploaded_image.nil?  then %>
-          <%= render :partial => 'uploaded_images/show', :locals => { :uploaded_image => uploaded_image } %>
+          <%= render :partial => 'uploaded_images/show', 
+            :locals => { :uploaded_image => uploaded_image, :image_type => 'project', :uploaded_image_size => :small } %>
           <%= link_to p.name, p %><br />
         <% end %>
       <% end %>

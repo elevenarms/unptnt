@@ -17,7 +17,8 @@ module ApplicationHelper
 
   def avatar_for(user, size=45)
     unless user.home_page_image.nil?  then
-	    image_tag user.home_page_image.public_filename,:height=>size,:width=>size
+          render :partial => 'uploaded_images/show',
+           :locals => {:uploaded_image => user.home_page_image, :uploaded_image_size => :small } 
 	  else
 	    image_tag 'avatar.gif',:height=>size,:width=>size
   	end

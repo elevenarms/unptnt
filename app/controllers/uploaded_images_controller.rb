@@ -5,9 +5,21 @@ class UploadedImagesController < ApplicationController
   #
 
 
-    # show all images for a given image_type and id
+  # show all images for a given image_type, parent_id
   def index
+    @uploaded_images = UploadedImage.fetch_all_images_for(params[:image_type], params[:parent_id])
 
+    @name = case params[:image_type]
+      when "user" then
+        user = User.find_by_id(params[:parent_id])
+        user.name
+      when  "project" then
+        project = Project.find_by_id(params[:parent_id])
+        project.name
+      when "item" then
+        item = Item.find_by_id(params[:id])
+        item.name
+      end
   end
 
   #show a single, home_page image for user, project, or item
@@ -20,12 +32,12 @@ class UploadedImagesController < ApplicationController
       return
     end
     which_key = p[:project_type] + "_id"
-    @image = UploadedImage.fetch_single_image_for(p[:project_type], p[which_key], p[:purpose])
+    @uploaded_image = UploadedImage.fetch_single_image_for(p[:project_type], p[which_key], p[:purpose])
     respond_to do |wants|
       wants.js do
         respond_to :update do
           page.replace_html("image-image", :partial => 'uploaded_images/show_image',
-                  :locals => { :image => @image }   )
+                  :locals => { :image => @uploaded_image, :uploaded_image_size => :large }   )
           page.visual_effect :highlight, "image-image", :duration => 1
         end
       end
@@ -39,7 +51,7 @@ class UploadedImagesController < ApplicationController
       add_error("Cannot find image with given attributes")
       #return
     end
-    @image = UploadedImage.new
+    @uploaded_image = UploadedImage.new
     @parameters = params
     respond_to do |wants|
       wants.js # new.js.rjs
@@ -90,7 +102,7 @@ class UploadedImagesController < ApplicationController
         responds_to_parent do
           render :update do |page|
             page.replace_html "image-image", :partial => 'uploaded_images/show',
-              :locals => { :uploaded_image => @uploaded_image }
+              :locals => { :uploaded_image => @uploaded_image, :uploaded_image_size => :large }
             page.replace_html("replace-image", :partial => 'uploaded_images/show_choice',
                 :locals => { :project_id => @parameters[:project_id], :user_id => @parameters[:user_id],
                 :item_id => @parameters[:item_id], :image_type => @parameters[:image_type],

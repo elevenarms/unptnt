@@ -1,24 +1,22 @@
+<br/><br/><br/><br/>
+
 <h3>Search Results</h3>
-<p>Number of results: <%= @search.response[:total] %></p>
+<% if @search.response[:total] == 0 then %>
+  No matches for search string:
+<% else %>
+  <p>Number of matching projects: <%= @search.response[:total] %></p>
+  <% @search.results.each do |r|  %>
+    <%= "<div id=\"project_" + "#{ r.id }" + "\" class=\"container\">" %>
+    <span id="image-image" class="span-4 prepend-1 append-1">
+      <%= render :partial => 'uploaded_images/show',
+        :locals => { :uploaded_image => @uploaded_images[r.id.to_s], :image_type => "project", :uploaded_image_size => :medium  } %>
+    </span>  <!-- project image -->
+    <span id="proj-fields" class="span-20 last">
+      <%= render :partial => 'projects/fields_subset',
+        :locals => { :project => r,
+        :related_users => { :owner => @owners[r.id.to_s], :followers => [], :collaborators => [] } } %>
+    </span>  <!-- project fields -->
+    </div>  <!-- project_#id -->
 
-<% @search.results.each do |r|  %>
-  <% if r.class.to_s == 'Project' then %>
-    Project: <%= r.name %>
-    <em><%= link_to 'show', :controller => 'projects', :action =>'show', :id => r.id %></em>
-    <br />
-
-  <% elsif r.class.to_s == 'Item' then %>
-    Item: <%= r.name %>
-    <em><%= link_to 'show', :controller => 'items', :action =>'show', :id => r.id, :bom_id => r.bom_id %></em>
-    <br />
-    
-    <% elsif r.class.to_s == 'DocVersion' then %>
-    Document(Version): <%= r.name %> (<%= r.version %>)
-    <em><%= link_to 'show', project_doc_version_path([r.project_id, r.id]) %></em>
-    <br />
-    
-  <% else %> 
-      <%= r.class %>:   <%= r.name %><br />
   <% end %>
-
 <% end %>

@@ -4,7 +4,6 @@ class DocVersion < ActiveRecord::Base
   belongs_to :project
   belongs_to :item
   has_many   :events, :as => :target, :dependent => :destroy
-   is_indexed :fields => ['content'], :delta => true
   
   validates_presence_of  [ :project_id, :editor_id, :item_id, :doc_id, :content], :on =>  :create
 

@@ -1,10 +1,10 @@
-<% unless uploaded_image.nil?  then %>    
-	<%= image_tag uploaded_image.public_filename,:width=>'150' %><br/>
+<% unless uploaded_image.nil?  then %>
+  <%= image_tag uploaded_image.public_filename(uploaded_image_size)  %><br/>
 <% else%>
   <% default_image = case image_type
      when "item" then "itemnoimglarge.png"
      when "project" then "itemnoimglarge.png"
      when "user" then "avatar.gif"
      end %>
-	<p> <%= "<img src='/images/#{ default_image }'>" %></p>
+	<p> <%= image_tag default_image, :size =>  IMAGE_SIZE[uploaded_image_size]  %>
 <% end %>
