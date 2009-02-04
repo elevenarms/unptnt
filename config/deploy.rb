@@ -3,7 +3,9 @@ default_run_options[:pty] = true
 
 
 set :application, "unptnt"
-set :repository,  "http://unptnt.svn.beanstalkapp.com/dev/trunk"
+set :repository,  "git@github.com:eleven/unptnt.git"
+set :scm, "git"
+set :branch, "master"
 
 set :deploy_to, "/home/deploy/#{application}"
 set :use_sudo, false
