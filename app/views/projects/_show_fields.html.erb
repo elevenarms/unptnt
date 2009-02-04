@@ -1,4 +1,4 @@
-<div class="span-15 last">
+<div>
   <h1><%=project.name%></h1>
   <h5><%=h project.description -%></h5>
   <h4><strong>Type: </strong><%=project.project_type%></h4>
@@ -8,14 +8,13 @@
   <b>License:</b> <% if project.license.nil? then %>
      No license selected yet.
   <% else %>
-     <%=h project.license.name -%> 
+     <%=h project.license.name -%>
 
     <% unless project.license.license_image_file_name.nil?  then %>
       <%= link_to image_tag(project.license.license_image.url), license_path(project.license) %>
     <% end %>
  <% end %><br/>
- </div>
- <div class="span-6">
+
  <b>Owner: </b>
     <% if logged_in? && current_user == related_users[:owner] then %>
       <%= link_to related_users[:owner][:name], dashboard_path %>
@@ -23,7 +22,7 @@
       <%= link_to related_users[:owner][:name], related_users[:owner]  %>
     <% end %><br /><br/>
 </div>
-<div class="span-3 prepend-1">
+<div>
   <% if logged_in? && current_user.is_editor?(@project) then %>
     <%= link_to_remote image_tag("/images/edit.png"), :url => edit_project_path(project), :method => :get %>
   <% end %>

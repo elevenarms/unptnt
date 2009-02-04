@@ -6,7 +6,7 @@ class UploadedImage < ActiveRecord::Base
 
   has_attachment  :content_type => :image,
                   :max_size => 5.megabytes,
-                  :thumbnails => {:small => "45x45>", :medium => "75x75>", :large => "150x150>"},
+                  :thumbnails => {:small => "45x45>", :medium => "75x75>", :large => "250x250>"},
                   :storage => :s3,
                   :processor => :image_science
 

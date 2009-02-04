@@ -1,5 +1,27 @@
 # Methods added to this helper will be available to all templates in the application.
 module ApplicationHelper
+    def render_context_menu(action)
+  menu = ""
+  case action
+  #when action.nil?
+    #menu="#{link_to "<span>< projects</span>", projects_path}"
+  when action ="project_show"
+    menu="#{link_to "<span>< Projects</span>", projects_path}"
+    unless logged_in? || ( logged_in? && current_user.relationship(@project) == "none" ) then
+      menu << link_to(  "<span>Follow *</span>",follow_project_path(@project))
+    end
+    if logged_in? && current_user.relationship(@project) == "follower" then
+      menu << link_to("<span>Stop Following</span>", stop_following_project_path(@project))
+    elsif logged_in? && current_user.relationship(@project) == "collaborator" then
+      menu << link_to("<span>Add Colaborator +</span>", add_collaborator_project_path(@project))
+    end
+    menu << link_to( "<span>New Topic</span>")
+    menu << link_to("<span>New Item</span>", new_bom_item_path(@bom) )
+    menu << link_to("<span>Discuss</span>", project_forum_path(@project, @forum))
+    end
+
+  [menu]
+end
   def action_and_body_for_event(event)
     target = event.target
     action = ""
