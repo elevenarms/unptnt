@@ -18,8 +18,19 @@ module ApplicationHelper
     menu << link_to( "<span>New Topic</span>")
     menu << link_to("<span>New Item</span>", new_bom_item_path(@bom) )
     menu << link_to("<span>Discuss</span>", project_forum_path(@project, @forum))
+    
+  when action = "project_people"
+    if logged_in? && current_user.relationship(@project) == "none"
+      menu << link_to ("<span>Follow</span>" , follow_project_path(@project) )
     end
-
+    if logged_in? && current_user.relationship(@project) == "follower" then
+      menu <<  link_to ("<span>UnFollow</span>", stop_following_project_path(@project))
+    elsif logged_in? && current_user.relationship(@project) == "collaborator" 
+      menu << link_to ("<span>End Collaboration</span>", stop_following_project_path(@project))
+    elsif logged_in? and current_user.relationship(@project) == "owner"
+      menu << link_to ("<span>Add Collaborator</span>", add_collaborator_project_path(@project))
+    end
+  end
   [menu]
 end
   def action_and_body_for_event(event)

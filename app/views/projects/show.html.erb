@@ -5,23 +5,7 @@
 -->
 
 
-<div id="proj-details" class="container">
-  <div id="imagediv" class="prepend-2 span-7">
-    <div id="image-image">
-      <%= render :partial => 'uploaded_images/show',
-        :locals => { :uploaded_image => @uploaded_image, :image_type => "project", :uploaded_image_size => :large  } %>
-    </div>
-    <div id="replace-image" >
-      <%= render :partial => 'uploaded_images/show_choice',
-                 :locals => { :item_id => "0", :project_id => @project.id, :user_id => @current_user_id,
-                 :image_type => "project", :purpose => "home_page",
-                 :current_user_is_editor => @current_user_is_editor }  %><br/>
-    </div>
-  </div>
-  <div id="proj-fields" class="span-15 last">
-    <%= render :partial => 'projects/show_fields', :locals => { :project => @project, :related_users => @related_users } %>
-  </div>
-</div><br/>
+
 
 
 <div id="proj-events" class="column span-24">

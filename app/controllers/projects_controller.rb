@@ -252,6 +252,7 @@ class ProjectsController < ApplicationController
 
   def related_users
     tab :people
+    @context_menu = "project_people"
     @project = current_project(params[:id])
     #TO DO convert to @project.related_users
     @related_users = @project.related_users
