@@ -1,20 +1,12 @@
-<div id="header-middle-dashboard" class="container">
-  <div id="profile-bar" class="column span-6 prepend-3">
-    <% uploaded_image = current_user.home_page_image %>
-    <% unless uploaded_image.nil?  then %>
-      <p><%= image_tag uploaded_image.public_filename,:height=>'50' %></p>
-    <% else%>
-      <p><img src="/images/nouserimg.png" height="50"></p>
-    <% end %>
-    <h3><strong><%= current_user.name%> </strong></h3>(<%= link_to 'edit profile', edit_user_path(current_user) %>)
-  </div>
+
 
   <div id="dashboard-projects-c" class="prepend-1 column span-18">
-    <div id="dashboard-projects">
-      <div id="project-bar-details" class="column span-14 prepend-1">
-        <h3><strong>my projects</strong></h3>
-      </div>
-      <div id="new-project-button" class="prepend-8">
+    <div id="events-header" class="column span-24">
+		<div class="column span-4">
+		<h2><b>My Projects</b></h2>
+		</div>
+		<div class="column span-14"><hr class="bar"> </hr></div>
+      <div id="new-project-button" class="column span-3 last">
         <%= link_to image_tag('newprojectbutton.png'), new_project_path %>
       </div>
     </div>
@@ -22,7 +14,7 @@
 
   <div id="user-projects-container" class="column span-24">
     <div id="user-projects" class="prepend-2">
-      <div id="user-projects-own-collab" class="prepend-1 column span-9">
+      <div id="user-projects-own-collab" class="column span-9">
         <div class="column span-7">
           <div>
             <% unless @related_projects[:owns].empty? then %>
@@ -66,11 +58,11 @@
 </div>
 
 <div id="dashboard-feed-c" class="prepend-1 column span-18">
-  <div id="dashboard-feed">
-    <div id="project-bar-details" class="column span-13 prepend-1">
-      <h3><strong>what's happening?</strong></h3>
-    </div>
-  </div>
+   	<div id="events-header" class="column span-24">
+		<div class="column span-3">
+		<h2><b>Events</b></h2>
+		</div>
+		<div class="column span-20 last "><hr class="bar"> </hr></div>
   <div id="events-container" class="column span-21">
     <%= render :partial => '/events/events' -%>
   </div>

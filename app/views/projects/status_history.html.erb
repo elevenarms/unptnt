@@ -1,9 +1,9 @@
-<h1>All status messages for project:  <%= @project.name %> </h1>
+<h1>Status History: </h1>
 <% if @project.statuses.nil? then %>
   <p>No status messages yet.</p>
 <% else %>
   <% @project.statuses.each do |ps| %>
-    <div><%= ps.status_text %> (at <%= ps.created_at %> )
+    <div><h4><b><%= ps.status_text %></b> @<%= ps.created_at %></h4>
     </div>
   <% end %>
 <% end %><br />

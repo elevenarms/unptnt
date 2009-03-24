@@ -1,6 +1,19 @@
 <% if doc_version.nil? then %>
-  <%= link_to_remote "add a document", :url => new_project_doc_version_path(project), :method => :get %>
+  
+	<div id="doc-info-block">
+		
+		<div id="info-box" class="emptybox">
+			 Everything needed to create your project should be listed on this page.  You can add items in three categories: Hardware, Software, and Tools.    
 
+			There are two ways to add parts to the Bill of Materials.
+
+			<h3>1. Click the link bellow to "Add the first item to this project"</h3>
+
+			<h3>2. Drag this link to your bookmarks bar --></h3>
+			<h2><%= link_to_remote "add a document", :url => new_project_doc_version_path(project), :method => :get %></h2>
+
+		</div>
+	</div>
 <% else %>
     <%= render :partial => 'doc_versions/show',
       :locals => { :doc_version => doc_version, :current_user_is_editor => current_user_is_editor } %>

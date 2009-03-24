@@ -4,9 +4,9 @@ module TabFu
       mod.module_eval do
         def tabs(id = '__default', &proc)
           html_id = id.nil? || id == '__default' ? '' : " id=\"#{id}\""
-          concat("<div class=\"tablist\"#{html_id}>", proc.binding)
+          concat("<ul class=\"tablist\"#{html_id}>", proc.binding)
           yield(Tab.new(self, id))
-          concat('</div>', proc.binding)
+          concat('</ul>', proc.binding)
         end
 
         def tab(*args)

@@ -3,8 +3,8 @@
 <% else%>
   <% default_image = case image_type
      when "item" then "itemnoimglarge.png"
-     when "project" then "itemnoimglarge.png"
+     when "project" then "noimgprojectlarge.png"
      when "user" then "avatar.gif"
      end %>
-	<p> <%= image_tag default_image, :size =>  IMAGE_SIZE[uploaded_image_size]  %>
+	<%= image_tag default_image, :size =>  IMAGE_SIZE[uploaded_image_size]  %>
 <% end %>

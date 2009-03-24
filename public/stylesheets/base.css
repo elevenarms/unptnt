@@ -10,12 +10,70 @@ input {
     font-size: 1em;
     background-color: #F8F8F8;
 }
+/*   home     */
+#giant-text{
+	font-size:32px;
+	
+	
+}
+#home-header{
+	background: #000000;
+	font-size:1.1em;
+	text-align:center;
+	color:white;
+	padding-top:25px;
+	padding-bottom:25px;
+}
+#home-header a { 
+	color:#53DAFF;
+	text-decoration:none;
+}
+#home-header h3 { 
+	padding-top:10px;
+	padding-bottom:0px;
+	
+	color:white;
+}
+.project-box-home{
+	width:160px;
+	height:160px;
+	background: #000000;
+	
+}
+.project-box-footer{
+	height:35px;
+	width:100%;
+	background: #636363;
+	position:relative;
+	bottom:40px;
+	color:white;
+}
+.project-box-footer h4{
+	padding-left:4px;
+	color:white;
+}
+.project-box-image{
+padding:0px;
+}
 #footer{
 	text-decoration:none;
 	height:60px;
+	text-align:center;
+	
 }
 #footer a{
-	padding:20px;
+margin-right:15px;
+text-decoration:none;
+}
+#bottom-links{
+	position:relative;
+	top:8px;
+	float:left;
+	left:10px;
+}
+#bottom-bug{
+	position:relative;
+	top:-12px;
 }
 #project_name{
     font-size: 2em;
@@ -30,6 +88,17 @@ input {
     font-size:1.5em;
 }
 a { color: #24b; }
+
+
+.emptybox{
+	margin:10px 10px 28px;
+	
+	width:920px;
+	font-size:14px;
+	text-align:center;
+	padding:5px;
+	background-color: #eeb;
+}
 
 #content
 {
@@ -108,8 +177,8 @@ a { color: #24b; }
     color:black;
     font-size:12px;
     font-weight:bold;
-    padding-top:10px;
-    padding-right:12px;
+    padding:10px;
+    
     text-align:center;
 }
 #header-top a{
@@ -122,7 +191,8 @@ a { color: #24b; }
 }
 
 #login-links{
-
+	font-weight:bold;
+	margin-top:12px;
 }
 #profile-block{
 
@@ -133,15 +203,22 @@ color:black;
 }
 #profile-block img{
 	float:right;
+	background-color:black;
+	float:right;
+	height:100%;
+	width:50px;
 }
 
 #logout-link{
 	position:absolute;
 	top:12px;
+	right:80px;
 }
 #profile-link{
 	position:absolute;
 	top:-8px;
+	right:80px;
+	
 }
 #header-middle{
 
@@ -181,31 +258,34 @@ color:black;
     height:39px;
     clear:both;}
 #topbar a{
-    color:#53DAFF;
+    color:#ffffff;
     text-decoration:none;
     margin:0 10px;
     height:23px;
     line-height:23px;
     float:left;
     display:block;}
+.tab{
+	list-style-type:none;
+}
 .tab_active{
-    height:23px;
+	color:#53DAFF;
+    float:left;
     line-height:23px;
-    background:url(/images/tb_a.png) right top no-repeat;
-    padding-right:10px;
-
-}
+    
+	list-style-type:none;
+	display:block;
+	}
 .tab_active span{
-    background:url(/images/tb_span.png) left top no-repeat;
-    height:23px;
-    display:block;
-    padding-left:10px;}
-a.active{
-    height:23px;
-    line-height:23px;
-    background:url(/images/tb_a.png) right top no-repeat;
-    padding-right:10px;
+	padding:10px;
+	background:#636363 none repeat scroll 0 0;
+    }
+.bar{
+	background-color:#000000;
+	height:6px;
+	margin-top:15px;
 }
+
 a.active span{ background:url(/images/tb_span.png) left top no-repeat; height:23px; display:block; padding-left:10px;}
 #dashboard-projects-c{
     padding-top:20px;
@@ -228,9 +308,18 @@ a.active span{ background:url(/images/tb_span.png) left top no-repeat; height:23
     padding-top:8px;
 }
 
-
+#tablist li{
+    
+    
+    margin-right:15px;
+    float:left;
+    list-style-type:none;
+}
 #tablist li a:hover {
     text-decoration: none;
+}
+.active li{
+	
 }
 /* bill of materials */
 .bomtypebar{
@@ -301,6 +390,7 @@ a.active span{ background:url(/images/tb_span.png) left top no-repeat; height:23
     padding-top:12px;
     color:white;
 }
+
 #context-menu{
     font-size:11px;
     color:#3b5d14;
@@ -326,7 +416,7 @@ a.active span{ background:url(/images/tb_span.png) left top no-repeat; height:23
     padding-left:10px;
 }
 #context-menu a{
-    color:#ffffff;
+    color:#53DAFF;
     text-decoration:none;
     margin:0 7px;
     padding-right:10px;
@@ -336,22 +426,14 @@ a.active span{ background:url(/images/tb_span.png) left top no-repeat; height:23
     float:left;
 
 }
-#context-menu a span:hover{
-    background:url(/images/mb_span.png) left top no-repeat;
-    height:23px;
-    display:block;
-    padding-left:10px;
+#context-menu span:hover{
+    
+    color:#ffffff;
+    
+	
 }
 #context-menu a:hover{
-    color:#3b5d14;
-    text-decoration:none;
-    margin:0 7px;
-    padding-right:10px;
-    height:23px;
-    line-height:23px;
-    display:block;
-    float:left;
-    background:url(/images/mb_a.png) right top no-repeat;
+    color:#53DAFF;
 }
 #feed-bar{
     background:transparent url('/images/feedbar.png') ;
@@ -362,7 +444,14 @@ a.active span{ background:url(/images/tb_span.png) left top no-repeat; height:23
     color:white;
     padding-left:15px;
 }
-
+/* Bill of Materials*/
+#item_quantity{
+	width:100px;
+	font-size:50px;
+}
+#item_item_type{
+	font-size:30px;
+}
 #items {
     position:relative;
     left:50px;
@@ -371,7 +460,24 @@ a.active span{ background:url(/images/tb_span.png) left top no-repeat; height:23
 #materials-list tr:hover {
     background-color: #eeb;
 }
+/* login page */
+#loginbox{
+	padding-left:24%;
+	padding-top:10%;
+	padding-bottom:10%;
+}
+#loginbox input{
+	font-size:34px;
+}
 /* project page */
+#proj-fields{
+}
+#proj-fields img{
+	padding-left:10px;
+}
+#license-image{
+	float:right;
+}
 #proj-details{
     padding-top:30px;
 
@@ -391,12 +497,16 @@ a.active span{ background:url(/images/tb_span.png) left top no-repeat; height:23
 #image-edit a{
 
 }
+#info-box{
+	width:760px;
+}
 #doc-title{
     font-size:1.5em;
 }
 #doc-content{
 
 }
+
 #people-owner{
     padding-top:4px;
     margin-right:0px;

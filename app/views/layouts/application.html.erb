@@ -13,37 +13,61 @@
   <body>
     <div id="header" class="container">
       <div id="header-top" class="span-24">
-        <div id="logo" class="prepend-1">
-          <img src="/images/unptntbug.png">
-        </div>
-        <div class="column prepend-3 span-3">
-          <h2>UnPtnt</h2>
-        </div>
-        <div class="column span-2">
-          <h4><%= link_to 'projects', projects_path %></h4>
-        </div>
-        <div class="column span-2">
-          <% if logged_in? then %>
-            <h4><%= link_to 'dashboard', dashboard_path %></h4>
-          <% end %>
-        </div>
-        <div class=" column span-2">
-          <h4><%= link_to 'blog', 'http://blog.unptnt.com' %></h4>
-        </div>
-        <% if logged_in? then %>
-          <div class="column prepend-7 span-1">
-            <h4><%= link_to ' logout', logout_path %></h4>
-          </div>
-        <% else %>
-          <div class="column prepend-7 span-1">
-            <h4><%= link_to ' login', login_path %></h4>
-          </div>
-          <div class="column span-2">
-            <h4><%= link_to ' signup', login_path %></h4>
-          </div>
-        <% end %>
 
+        <div class="column span-3">
+          	<%= link_to '<h1>UnPtnt</h1>', '/'%>
+        </div>
+        <div id="global-actions"class="column span-6 prepend-2">
+          <%= link_to '<span>Projects</span>', projects_path %>
+          <% if logged_in? then %>
+            <%= link_to '<span>Dashboard</span>', dashboard_path %>
+          <% end %>
+          <%= link_to '<span>Blog</span>', 'http://blog.unptnt.com' %>
+        </div>
+
+ 		<% if logged_in? then %>
+
+            <% uploaded_image = current_user.home_page_image %>
+            <div id="profile-block">
+			  <% unless uploaded_image.nil?  then %>
+			                <%= image_tag uploaded_image.public_filename,:width=>'45' %>
+			              <% else%>
+			                <img src="/images/nouserimg.png" width="45">
+			              <% end %>
+						<%= link_to '<span id="profile-link">'+ current_user.name+ '</span>', current_user %>
+					  	<%= link_to '<span id="logout-link">(logout)</span>', logout_path %>
+
+			   </div>
+			<% else %>
+
+
+
+
+
+	     <div id="login-links" class="column span-3 prepend-9">
+
+				<%= link_to '<span>login</span>', login_path %>
+	            <%= link_to '<span>signup</span>', login_path %>
+
+	        </div>
+	 <% end %>
+        <div id="flashbar" class="column span-24">
+          <%= render_flash_messages %>
+
+        </div>
       </div>
+		 <div id="topbar" class="span-24">
+		         
+		        </div>
+		        <div id="header-bottom" class="span-24">
+		          <div id="context-menu">
+		          </div>
+		        </div>
+
+
+
+
+    </div>
       
  
 

@@ -15,7 +15,7 @@
         <%= render :partial => 'uploaded_images/show',
           :locals => { :uploaded_image => project.home_page_image, :image_type => "project", :uploaded_image_size => :medium  } %>
       </div>
-      <div id="project_fields_subset" class="span-12 last">
+      <div id="project_fields_subset" class="column span-24">
         <%= render :partial => 'projects/fields_subset',  :locals => { :project => project } %>
       </div>
     </div>

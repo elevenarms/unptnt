@@ -1,38 +1,23 @@
 <div id="content">
-<div id="logo" class="column prepend-2 span-10">
-<img src="/images/mainlogo.png">
-</div>
-
-<div id="topmenu" class="prepend-2 column span-8">
-	<ul>
-		<li><strong><%= link_to 'projects', projects_path %></strong></li>
-			<li><a href="http://blog.unptnt.com"><strong>blog</strong></a></li>
-		<li><strong><%= link_to 'login', login_path %></strong></li>
-		<li><strong><%= link_to 'signup', login_path %></strong></li>
-		
-	</ul>
-</div>
-<div id="searchcontainer" class="prepend-2 column span-20">
-
-</div>
-<div id="bottom" class="container">
-	<div class="prepend-2 span-5">
-		<h3>
-		UnPtnt is a home for <a href="http://en.wikipedia.org/wiki/Open_hardware">open hardware</a>. It's more than just a place to post your projects, it's a tool that allows you to see <%= link_to 'who', '/events' %> is working on <%= link_to 'what', projects_path %>.</h3>
-	</div>
-	<div class="prepend-1 span-5">
-	</div>
-	<div class="prepend-1 span-5">
-		<div id="or" class="prepend-4 column span-12">
-
-			<%= link_to 'browse projects', projects_path %>
-			or
-			<%= link_to 'start you own!', login_path %>
-
-		</div>
+<div id="home-header" class="column span-24">
+	<span id="giant-text">
+		<b> Open Source Hardware Collaboration</b> 	
+	</span>
+	<div><strong>UnPtnt is a home for <a href="http://en.wikipedia.org/wiki/Open_hardware">open hardware</a>. It's more than just a place to post your projects, it's a tool that allows you to see <%= link_to 'who', '/events' %> is working on <%= link_to 'what', projects_path %>.</strong>	<h3><strong><%= link_to 'browse projects', projects_path %>
+		or
+		<%= link_to 'start you own!', login_path %>
+		</strong></h3>
 	</div>	
 </div>
-
-<div id="footer" class="contianer">
-  <div id="test" class="column span-24"></div>
+<div id="recent-projects" class="column span-8">
+	<h3> Projects</h3>
+	<div class="project-box-home">
+		<div class="project-box-image">
+			<img height="160" width="160" src="/images/test.jpg">
+		</div>
+		<div class="project-box-footer">
+		<h4>3-Axis Hektor Clone</h4>
+		</div>
+	</div>
 </div>
+

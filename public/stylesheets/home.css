@@ -1,10 +1,13 @@
 body{
-background: #6091d7;
+background: #ffffff;
 }
 a{
 	color:white;
 	text-decoration: none;
 	
+}
+h3{
+	color:#53DAFF;
 }
 /* LOGIN */
 #loginbox{
@@ -95,9 +98,7 @@ text-decoration: none;
 border-bottom: 1px dashed white;
 text-decoration: none;
 }
-#test{
-    
-}
+
 #footermenu{
 	background: #4d4d4d;
 	margin-top:2em;

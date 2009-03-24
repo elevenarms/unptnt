@@ -1,12 +1,13 @@
-<div id="header-bottom" class="span-24">
-  <ul id="context-menu">
-<li><%= link_to image_tag("/images/backtoprojectsbutton.png"), project_path(@project)  %></li>
-
-    <li><%= link_to image_tag("/images/additembutton.png"), follow_project_path(@project)  %></li>
-
-  </ul>
+<div class="emptybox">
+	 Everything needed to create your project should be listed on this page.  You can add items in three categories: Hardware, Software, and Tools.    
+	
+	There are two ways to add parts to the Bill of Materials.
+	
+	<h3>1. Click the link bellow to "Add the first item to this project"</h3>
+	
+	<h3>2. Drag this link to your bookmarks bar --></h3>
+	<h2><%= link_to  'Add the first item to this project', new_bom_item_path(@bom) %></h2>
+	
 </div>
 
-
-<h2><%= link_to  'add the first item to your project', new_bom_item_path(@bom) %></h2><br/>
 

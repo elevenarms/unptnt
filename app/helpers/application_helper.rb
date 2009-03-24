@@ -30,6 +30,7 @@ module ApplicationHelper
     elsif logged_in? and current_user.relationship(@project) == "owner"
       menu << link_to ("<span>Add Collaborator</span>", add_collaborator_project_path(@project))
     end
+  when action="project_materials"
   end
   [menu]
 end

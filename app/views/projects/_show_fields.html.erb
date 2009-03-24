@@ -1,29 +1,34 @@
 <div>
   <h1><%=project.name%></h1>
   <h5><%=h project.description -%></h5>
-  <h4><strong>Type: </strong><%=project.project_type%></h4>
+  <h4><b>Type:</b> </strong><%=project.project_type%></h4>
   <h4><b>Status:</b>
     <%=project.status%> <%= link_to image_tag("/images/status_history.gif"), status_history_project_path(project)%>
   </h4>
-  <b>License:</b> <% if project.license.nil? then %>
-     No license selected yet.
-  <% else %>
-     <%=h project.license.name -%>
 
-    <% unless project.license.license_image_file_name.nil?  then %>
-      <%= link_to image_tag(project.license.license_image.url), license_path(project.license) %>
-    <% end %>
- <% end %><br/>
-
- <b>Owner: </b>
+ <h4><b>Owner: </b>
     <% if logged_in? && current_user == related_users[:owner] then %>
       <%= link_to related_users[:owner][:name], dashboard_path %>
     <% else %>
       <%= link_to related_users[:owner][:name], related_users[:owner]  %>
-    <% end %><br /><br/>
+    <% end %>
+</h4>
+ <h4><b>License:</b> <% if project.license.nil? then %>
+    No license selected yet.</h4>
+ <% else %>
+    <%=h project.license.name -%></h4>
+
+   <% unless project.license.license_image_file_name.nil?  then %>
+    <div id="license-image"> 
+	<%= link_to image_tag(project.license.license_image.url), license_path(project.license) %>
+   </div>
+	<% end %>
+<% end %>
+
 </div>
-<div>
+
+<div class="">
   <% if logged_in? && current_user.is_editor?(@project) then %>
-    <%= link_to_remote image_tag("/images/edit.png"), :url => edit_project_path(project), :method => :get %>
+    <%=link_to_remote  "edit" , :url => edit_project_path(project), :method => :get %>
   <% end %>
 </div>
